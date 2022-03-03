@@ -5,7 +5,7 @@ The [V] Specification Language
 
 Getting Started
 ===============
-[V] consists of a series of sections that are organized into a structure called a specification. Most sections are made up of `[V] Statements<>`_ that specify a test or property. The following sections can be used in a specification:
+[V] consists of a series of sections that are organized into a structure called a specification. Most sections are made up of :doc:`[V] Statements<statements>` that specify a test or property. The following sections can be used in a specification:
  * `Variables <>`_
  * `Initializer <>`_ 
  * `Test <>`_ 
