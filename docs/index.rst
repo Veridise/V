@@ -8,18 +8,18 @@ Getting Started
 ===============
 
 [V] consists of a series of sections that are organized into a structure called a specification. Most sections are made up of :doc:`[V] Statements<statements>` that specify a test or property. The following sections can be used in a specification:
- * :doc:`Variables <statements>`
- * :doc:`Initializer <statements>` 
- * :doc:`Test <statements>`
- * :doc:`invariants <statements>` 
- * :doc:`Temporal Properties <statements>` 
+ * :doc:`Variables <vars>`
+ * :doc:`Initializer <init>` 
+ * :doc:`Test <test>`
+ * :doc:`invariants <invariant>` 
+ * :doc:`Temporal Properties <index>` 
 
 Specifications
 ==============
 
 [V] supports several different types of specifications that can be used to perform different tasks. Currently we support the following types of specifications:
  * :doc:`Behavioral Specifications <statements>` 
- * :doc:`Pre/Post Conditions<statements>`
+ * :doc:`Invariant Specifications<statements>`
  * :doc:`Temporal Specifications<statements>`
 
 Tools
@@ -38,3 +38,7 @@ Installation
    :caption: Contents:
 
    statements
+   vars
+   init
+   test
+   invariant
