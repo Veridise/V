@@ -73,14 +73,14 @@ Property
 ========
 A property is a boolean expression over blockchain variables, contract variables, pure/view functions, specification variables, argument aliases and [V] utility variables/functions. The [V] utility variables and functions are defined below:
 
-================== =============================================================
+================== ========================================================================================
 Utility            Description
-================== =============================================================
+================== ========================================================================================
 msg.selector       The selector for this transaction
 old(expr)          Evaluates expr just before the transaction executes
-fsum(target, expr) Accumulates the sum of expr across all transactions to target
+fsum(target, expr) Accumulates the sum of expr across all transactions to target that successfully execute
 sum(collection)    Accumulates the sum of all the values contained in collection
-================== =============================================================
+================== ========================================================================================
 
 Examples
 ========
