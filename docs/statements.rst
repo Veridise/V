@@ -82,6 +82,25 @@ fsum(target, expr) Accumulates the sum of expr across all transactions to target
 sum(collection)    Accumulates the sum of all the values contained in collection
 ================== ========================================================================================
 
+In addition, [V] allows the users to combine expressions as follows:
+
+* `e1 + e2` (addition)
+* `e1 - e2` (subtraction)
+* `- e1` (unary minus)
+* `e1 * e2` (multiplication)
+* `e1 / e2` (division)
+* `e1 % e2` (modulus)
+* `e1 = e2` (equality)
+* `e1 != e2` (not equal)
+* `e1 < e2` (less than)
+* `e1 <= e2` (less than or equal to)
+* `e1 > e2` (greater than)
+* `e1 >= e2` (greater than or equal to)
+* `e1 && e2` (logical and)
+* `e1 || e2` (logical or)
+* `!e1` (logical not)
+ 
+
 Examples
 ========
 
