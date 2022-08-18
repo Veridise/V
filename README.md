@@ -1,3 +1,3 @@
 # V
 
-This repository contains the grammar for the V specification language and the parser that convert a given V specification intp an intermediate representation called VAST.
+This repository contains the grammar for the V specification language (in V.g4) and a parser that converts a given V specification into an intermediate representation called VAST.
