@@ -1,124 +1,173 @@
 grammar V;
 
 /*
- * Parser Rules
- */
-
-/*
  * Spec Rules
  */
 
-behavioralSpec : invariant behavioralSpec
-               | varsSection initSection? testSection behavioralSpec
+spec : behavioralSpec EOF 
+     | testSpec EOF 
+     | tempSpec EOF 
+     | invariantSpec EOF 
+     | synthSpec EOF
+     ;
+
+
+behavioralSpec : imports varsSection? precondSection? postcondSection
                ;
 
-invariantSpec  : invariant invariantSpec
+testSpec       : imports varsSection? initSection? specSection
                ;
 
-temporalSpec : varsSection? ltlFairnessSection? ltlPropertySection temporalSpec
-             ;
+tempSpec       : imports varsSection? ltlFairnessSection? ltlPropertySection
+               ;
 
+invariantSpec  : imports varsSection? invariantSection
+               ;
+
+synthSpec      : imports varsSection? initSection? synthSection
+               ;
+
+imports : IMPORT PATH imports
+        | /*epsilon*/
+        ;
 
 /*
  * Section Rules
  */
-varsSection : ('Vars:' | 'vars:') declList
+varsSection : VARS_LABEL declList
             ;
 
-initSection : ('Init:' | 'init:') stmtList
+precondSection : PRECOND_LABEL atom
+               ;  
+
+postcondSection : POSTCOND_LABEL atom
+                ;
+
+initSection : INIT_LABEL seqAtom
             ;
 
-testSection : ('Test:' | 'test:') stmtList
+specSection : SPEC_LABEL seqAtom
             ;
 
-invariantSection : ('Invariant:' | 'invariant:') atom
+synthSection : SYNTH_LABEL atom
+             ;
+
+ltlFairnessSection : LTLFAIR_LABEL smartltlAtom
+                   ;
+
+ltlPropertySection : LTLPROP_LABEL smartltlAtom
+                   ;
+
+invariantSection : INV_LABEL invAtom
                  ;
 
-ltlFairnessSection : 'LTLFairness:' smartltl
-                   ;
+/*
+ * Sequence of atoms
+ */
 
-ltlPropertySection : 'LTLProperty:' smartltl
-                   ;
-
-
-
+seqAtom : atom
+        | atom SEQ seqAtom
+        ;
 
 /*
  * Variable Section Rules
  */
-declList    : type ident 
-            | type ident ',' declList
+
+declList    : typ ident
+            | typ ident COMMA declList
             ;
 
-type        : IDENTIFIER
-            ;
-
-
-/*
- * Statement List
- */
-
-stmtList    : atom
-            | atom CON_BIN stmtList
-            ;
+typ        : IDENTIFIER
+           | IDENTIFIER LBRACK RBRACK
+           ;
 
 
 /*
  * SmartLTL Rules
  */
-smartltl    : atom 
-            | '(' smartltl ')'
-            | L_UN smartltl
-            | T_UN smartltl 
-            | smartltl  T_BIN  smartltl  
-            | smartltl L_BIN smartltl 
+
+smartltlAtom : atom
+             | LPAREN smartltlAtom RPAREN
+             | T_UN smartltlAtom
+             | L_UN smartltlAtom
+             | LBRACK RBRACK smartltlAtom
+             | smartltlAtom T_BIN smartltlAtom
+             | smartltlAtom IMP smartltlAtom
+             | smartltlAtom SEQ smartltlAtom
+             | smartltlAtom L_BIN smartltlAtom
+             ;
+
+invAtom     : atom
+            | CONTRACT_INV LPAREN varAccess COMMA constraint RPAREN
+            | CONTRACT_INV LPAREN varAccess COMMA constraint PRE_SEP constraint RPAREN
             ;
-               
-atom        : ATOM_LOC '(' atomFn ',' constraint ')'
-            | ATOM_LOC '(' atomFn ')' 
-            | 'sent' '(' constraint ')'
+
+atom        : ATOM_PRE_LOC LPAREN atomFn COMMA constraint RPAREN
+            | ATOM_PRE_LOC LPAREN atomFn RPAREN
+            | ATOM_POST_LOC LPAREN atomFn COMMA constraint PRE_SEP constraint RPAREN
+            | ATOM_POST_LOC LPAREN atomFn COMMA constraint RPAREN
+            | ATOM_POST_LOC LPAREN atomFn RPAREN
+            | LET LPAREN ident ASSN LBRACK params RBRACK RPAREN
+            | FOREACH LPAREN ident IN ident COMMA atom RPAREN
+            | SENT LPAREN constraint RPAREN
+            | LPAREN atom RPAREN
+            | L_UN atom
+            | atom L_BIN atom
             ;
                
 atomFn      : atomFnName
-            | '*'
-            | atomFnName '(' params ')' 
+            | atomFnName LPAREN params RPAREN 
             ;
             
-atomFnName  : ident '.' ident
-            | ident
+atomFnName  : varAccess DOT ident
+            | varAccess DOT WILDCARD
             ;
                
 params      : ident
-            | ident ',' params
+            | ident COMMA params
+            | NUM
+            | NUM COMMA params
             | /*epsilon*/
             ; 
 
-constraint  : varOrNum
-            | '(' constraint ')'
-            | A_UN constraint
-            | L_UN constraint
-            | constraint A1_BIN constraint
-            | constraint A2_BIN constraint
-            | constraint C_BIN constraint
+constraint  : boolExpr
+            | LPAREN constraint RPAREN
             | constraint L_BIN constraint
-            | fnCall
+            | constraint IMP constraint
             ;
 
-fnCall      : 'fsum' '(' atomFn ',' varAccess ',' constraint ')'
-            | fnName '(' argList ')'
+boolExpr    : varOrNum
+            | L_UN boolExpr
+            | LPAREN boolExpr RPAREN
+            | arithExpr C_BIN arithExpr
+            ;
+
+arithExpr   : varOrNum
+            | LPAREN arithExpr RPAREN
+            | arithExpr A1_BIN arithExpr
+            | arithExpr A2_BIN arithExpr
+            ;
+
+fnCall      : FSUM LPAREN atomFn COMMA varOrNum COMMA constraint RPAREN
+            | fnName LPAREN argList RPAREN
             ;
             
-fnName      : ident '.' ident
+fnName      : fnName LPAREN argList RPAREN DOT ident
+            | fnName LBRACK arithExpr RBRACK DOT ident
+            | fnName DOT ident
             | ident
             ;
             
 argList     : constraint
-            | constraint ',' argList
+            | arithExpr
+            | arithExpr COMMA argList
+            | constraint COMMA argList
             | /*epsilon*/
             ;
 
 ident       : IDENTIFIER
-            | ATOM_LOC
+            | ATOM_PRE_LOC
+            | ATOM_POST_LOC
             ;
             
 varOrNum    : varAccess
@@ -129,41 +178,64 @@ num         : NUM
             ;
             
 varAccess   : ident
-            | varAccess '[' constraint ']'
-            | varAccess '.' ident
+            | fnCall
+            | varAccess LBRACK arithExpr RBRACK
+            | varAccess DOT ident
             ;
-            
-
 
 /*
  * Lexer Rules
  */
 
-ATOM_LOC   : ('executed' | 'finished' | 'started' | 'reverted' | 'willSucceed') ;
+LPAREN : '(' ;
+RPAREN : ')' ;
+LBRACK : '[' ;
+RBRACK : ']' ;
+COMMA :   ',' ;
+SENT :    'sent' ;
+FSUM :    'fsum' ;
+WILDCARD : '*' ;
+DOT      : '.' ;
+SEQ      : ';' ;
+ASSN     : ':=' ;
+LET      : 'let' ;
+FOREACH  : 'foreach' ;
+IN       : ':' ;
+IMPORT   : 'import:' ;
 
-CON_BIN    : (';' | '&&' | '||') ;
+VARS_LABEL : ('Vars:' | 'vars:' | 'Variables:' | 'variables:') ;       
+PRECOND_LABEL : ('Pre:' | 'pre:'| 'Preconditions:' | 'preconditions:') ;       
+POSTCOND_LABEL : ('Post:' | 'post:' | 'Postconditions:' | 'postconditions:') ;       
+INIT_LABEL : ('Init:' | 'init:' | 'Assume:' | 'assume:') ;       
+SPEC_LABEL : ('Spec:' | 'Specification:' | 'spec:' | 'specification:' | 'Assert:' | 'assert:') ;       
+SYNTH_LABEL: ('Synth:' | 'Synthesize:' | 'synth:' | 'synthesize:') ;
+LTLFAIR_LABEL : 'LTLFairness:' ;
+LTLPROP_LABEL : 'LTLProperty:' ;
+INV_LABEL : ('Inv:' | 'inv:' | 'Invariant:' | 'invariant:') ;
 
-T_BIN      : (';' | 'U' | 'R' | '==>') ;
+ATOM_PRE_LOC     : ('started' | 'reverted' | 'willSucceed') ;
+ATOM_POST_LOC    : ('executed' | 'finished') ;
+CONTRACT_INV : 'Cinv' ;
 
-T_UN       : ('[]' | '<>' | 'X') ;
+PRE_SEP    : '|=>' ;
+IMP        : '==>' ;
+T_BIN      : ('U' | 'R') ; // also includes ';' and '==>' but already specified above
+T_UN       : ('<>' | 'X') ; // also includes '[]' but necessary in types also so specified above
 
+PATH       : '"'[@./][a-zA-Z0-9/._\-]+'"' ;
 IDENTIFIER : [a-zA-Z_][a-zA-Z_0-9]* ;
 
 A1_BIN     : ('*' | '/') ;
-
 A2_BIN     : ('+' | '-') ;
-
 A_UN       : '-';
-
-C_BIN      : ('==' | '!=' | '<' | '>' | '<=' | '>=') ;
-
+C_BIN      : ('=' | '!=' | '<' | '>' | '<=' | '>=') ;
 L_BIN      : ('&&' | '||') ;
-
 L_UN       : '!' ;
 
-NUM        : [0-9]+ ;
+NUM        : ([0-9]+ | [0-9]+ 'e' [0-9]+) ;
 
-NEWLINE    : ('\r'? '\n' | '\r')+ ;
+NEWLINE    : ('\r'? '\n' | '\r')+ -> skip ;
 
 WHITESPACE : ' ' -> skip ;
+LINE_COMMENT : '#' ~[\r\n]* -> skip ;
 
