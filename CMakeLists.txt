@@ -1,6 +1,6 @@
 # minimum required CMAKE version
 CMAKE_MINIMUM_REQUIRED(VERSION 3.7 FATAL_ERROR)
-project(VInstrument)
+project(V)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
@@ -57,13 +57,13 @@ find_package(Boost REQUIRED COMPONENTS filesystem)
 # include boost
 include_directories(${BOOST_ROOT})
 
-# add generated grammar to instrument binary target
-add_executable(instrument main.cpp
+# add generated grammar to parse the input specification
+add_executable(parse main.cpp
                test/ParseTester/ParseTester.cpp
                ast/VAST.cpp
                visitor/VASTVisitor.cpp
                ${ANTLR_VGrammarParser_CXX_OUTPUTS})
-target_link_libraries(instrument antlr4_static)
-target_include_directories(instrument PUBLIC ${Boost_INCLUDE_DIRS}) 
-target_link_libraries(instrument ${Boost_LIBRARIES})
-target_link_libraries(instrument Boost::filesystem)
+target_link_libraries(parse antlr4_static)
+target_include_directories(parse PUBLIC ${Boost_INCLUDE_DIRS}) 
+target_link_libraries(parse ${Boost_LIBRARIES})
+target_link_libraries(parse Boost::filesystem)
