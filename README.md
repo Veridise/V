@@ -47,4 +47,20 @@ docker build -t veridise/v:1.0 .
 Run using:
 
 ```bash
-docker run -d --name v_run veridise/v:1.0
+docker run -d -it --name v_run veridise/v:1.0
+```
+
+Access the bash using:
+
+```bash
+docker exec -it v_run bash
+```
+
+Stop snd remove using:
+
+```bash
+docker stop v_run
+docker rm v_run
+```
+
+Alternatively, the VSCode remote extension for Docker can also be used to develop directly within the container.
