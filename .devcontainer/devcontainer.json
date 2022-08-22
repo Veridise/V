@@ -1,5 +1,5 @@
 {
-    "name": "VInstrumenter",
+    "name": "V",
     "build": {
         "dockerfile": "Dockerfile",
 		    "context": ".."
@@ -10,5 +10,5 @@
 				        "path": "/bin/bash"
 			      }
 		    }
-	  },
+	  }
 }
