@@ -1,6 +1,6 @@
 FROM ubuntu:22.04
 
-WORKDIR /vinstrumenter
+WORKDIR /v
 
 RUN apt -y update
 RUN apt -y install gcc-10 gcc-10-base gcc-10-doc g++-10 libstdc++-10-dev libstdc++-10-doc emacs wget
@@ -17,4 +17,4 @@ RUN curl -O https://www.antlr.org/download/antlr-4.10.1-complete.jar
 ARG CLASSPATH=".:/usr/local/lib/antlr-4.10.1-complete.jar:$CLASSPATH"
 ENV CLASSPATH=".:/usr/local/lib/antlr-4.10.1-complete.jar:$CLASSPATH"
 
-WORKDIR /vinstrumenter
+WORKDIR /v
