@@ -108,7 +108,7 @@ public:
         rbrack = ctx->RBRACK()->toString();
     else
         rbrack = "";
-        
+
     return id+lbrack+rbrack;
   }
 
@@ -161,7 +161,14 @@ public:
   }
 
   virtual std::any visitIdent(VParser::IdentContext *ctx) override {
-    return visitChildren(ctx);
+    std::string id;
+    if(ctx->IDENTIFIER())
+        id = ctx->IDENTIFIER()->toString();
+    if(ctx->ATOM_PRE_LOC())
+        id = ctx->ATOM_PRE_LOC()->toString();
+    if(ctx->ATOM_POST_LOC())
+        id = ctx->ATOM_POST_LOC()->toString();
+    return id;
   }
 
   virtual std::any visitVarOrNum(VParser::VarOrNumContext *ctx) override {
