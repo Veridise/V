@@ -17,7 +17,7 @@ public:
 
   virtual std::any visitSpec(VParser::SpecContext *ctx) override {
     std::cout << "Visited Spec \n"; 
-    return visitChildren(ctx);;
+    return visitInvariantSpec(ctx->invariantSpec());
   }
 
   virtual std::any visitBehavioralSpec(VParser::BehavioralSpecContext *ctx) override {
@@ -37,7 +37,7 @@ public:
 
   virtual std::any visitInvariantSpec(VParser::InvariantSpecContext *ctx) override {
     std::cout << "Visited Invariant Spec \n";
-    return visitChildren(ctx);
+    return visitVarsSection(ctx->varsSection());
   }
 
   virtual std::any visitSynthSpec(VParser::SynthSpecContext *ctx) override {
@@ -85,7 +85,7 @@ public:
 
   virtual std::any visitInvariantSection(VParser::InvariantSectionContext *ctx) override {
     std::cout << "Visited InvSection \n";
-    return visitChildren(ctx);
+    return "";
   }
 
   virtual std::any visitSeqAtom(VParser::SeqAtomContext *ctx) override {
@@ -93,7 +93,20 @@ public:
   }
 
   virtual std::any visitDeclList(VParser::DeclListContext *ctx) override {
-    return visitChildren(ctx);
+    std::cout << "Visited DeclList \n";
+    std::string type =  std::any_cast<std::string>(visitTyp(ctx->typ()));
+    std::string ident = std::any_cast<std::string>(visitIdent(ctx->ident()));
+    std::string comma;
+    if(ctx->COMMA())
+        comma = ctx->COMMA()->toString();
+    else
+        comma = "";
+    std::string dList;
+    if(ctx->declList())
+        dList = std::any_cast<const char*>(visitDeclList(ctx->declList()));
+    else
+        dList = "";
+    return type+" "+ident+comma+" "+dList;
   }
 
   virtual std::any visitTyp(VParser::TypContext *ctx) override {
@@ -108,8 +121,8 @@ public:
         rbrack = ctx->RBRACK()->toString();
     else
         rbrack = "";
-
-    return id+lbrack+rbrack;
+    std::string typ = id+lbrack+rbrack;
+    return typ;
   }
 
   virtual std::any visitSmartltlAtom(VParser::SmartltlAtomContext *ctx) override {

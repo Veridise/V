@@ -33,7 +33,7 @@ int main(int argc, const char **argv) {
 
     ToStringVisitor tsvisitor;
     std::any specString = tsvisitor.visitSpec(tree);
-    std::cout << std::any_cast<const char*>(specString) << '\n'; 
+    std::cout << std::any_cast<std::string>(specString) << '\n'; 
 
     // VASTVisitor visitor;
     // VAST* ast = visitor.visitSpec(tree);
