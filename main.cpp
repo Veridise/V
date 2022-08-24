@@ -30,12 +30,16 @@ int main(int argc, const char **argv) {
     VParser parser(&tokens);
     VParser::SpecContext* tree = parser.spec();
 
-    VASTVisitor visitor;
-    VAST* ast = visitor.visitSpec(tree);
+    ToStringVisitor tsvisitor;
+    std::any specString = tsvisitor.visitSpec(tree);
+    std::cout << std::any_cast<const char*>(specString) << '\n'; 
 
-    json ast_json = ast->toJson();
+    // VASTVisitor visitor;
+    // VAST* ast = visitor.visitSpec(tree);
 
-    std::cout << ast_json << "\n";
+    // json ast_json = ast->toJson();
+
+    // std::cout << ast_json << "\n";
   }
 
   return 0;
