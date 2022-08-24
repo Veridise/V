@@ -1,6 +1,7 @@
-
-// Generated from V.g4 by ANTLR 4.10.1
-
+/**
+ * Author: Stanly Samuel
+ * 
+ */
 #pragma once
 
 #include "antlr4-runtime.h"
@@ -8,17 +9,15 @@
 
 
 /**
- * This class provides an empty implementation of VVisitor, which can be
- * extended to create a visitor which only needs to handle a subset of the available methods.
+ * This class provides an implementation of the ToString visitor that converts
+ * a V specification into a readable format.
  */
 class  ToStringVisitor : public VVisitor {
 public:
 
   virtual std::any visitSpec(VParser::SpecContext *ctx) override {
     std::cout << "Visited Spec \n"; 
-    // visitBehavioralSpec(ctx->behavioralSpec());
-    visitChildren(ctx);
-    return "Dummy";
+    return visitChildren(ctx);;
   }
 
   virtual std::any visitBehavioralSpec(VParser::BehavioralSpecContext *ctx) override {
@@ -47,10 +46,12 @@ public:
   }
 
   virtual std::any visitImports(VParser::ImportsContext *ctx) override {
+    std::cout << "Visited Import \n";
     return visitChildren(ctx);
   }
 
   virtual std::any visitVarsSection(VParser::VarsSectionContext *ctx) override {
+    std::cout << "Visited VarsSection \n";
     return visitChildren(ctx);
   }
 
@@ -83,6 +84,7 @@ public:
   }
 
   virtual std::any visitInvariantSection(VParser::InvariantSectionContext *ctx) override {
+    std::cout << "Visited InvSection \n";
     return visitChildren(ctx);
   }
 
@@ -95,7 +97,19 @@ public:
   }
 
   virtual std::any visitTyp(VParser::TypContext *ctx) override {
-    return visitChildren(ctx);
+    std::string id = ctx->IDENTIFIER()->toString();
+    std::string lbrack, rbrack;
+    if(ctx->LBRACK())
+        lbrack = ctx->LBRACK()->toString();
+    else
+        lbrack = "";
+    
+    if(ctx->RBRACK())
+        rbrack = ctx->RBRACK()->toString();
+    else
+        rbrack = "";
+        
+    return id+lbrack+rbrack;
   }
 
   virtual std::any visitSmartltlAtom(VParser::SmartltlAtomContext *ctx) override {

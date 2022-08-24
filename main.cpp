@@ -1,5 +1,6 @@
 #include <string.h>
 #include "test/ParseTester/ParseTester.h"
+#include "visitor/ToStringVisitor.h"
 
 using namespace ParseTest;
 
