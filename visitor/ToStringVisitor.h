@@ -55,7 +55,7 @@ public:
     else
         varsSpecString = "";
     std::string invSecString = std::any_cast<std::string>(visitInvariantSection(ctx->invariantSection()));
-    std::string invSpecString = importsString + varsSpecString + invSecString;
+    std::string invSpecString = importsString + varsSpecString + "\n" +invSecString;
     return invSpecString;
   }
 
@@ -86,7 +86,7 @@ public:
 
   virtual std::any visitVarsSection(VParser::VarsSectionContext *ctx) override {
     // std::cout << "Visited VarsSection \n";
-    std::string varsSectionString = "vars: " + std::any_cast<std::string>(visitDeclList(ctx->declList()));
+    std::string varsSectionString = ctx->VARS_LABEL()->getText()+ " " + std::any_cast<std::string>(visitDeclList(ctx->declList()));
     return varsSectionString;
   }
 
@@ -119,9 +119,8 @@ public:
   }
 
   virtual std::any visitInvariantSection(VParser::InvariantSectionContext *ctx) override {
-    // std::cout << "Visited InvSection \n";
-    std::string dummy = "";
-    return dummy;
+    std::string invSecString = ctx->INV_LABEL()->getText()+ " " + ctx->invAtom()->getText();
+    return invSecString;
   }
 
   virtual std::any visitSeqAtom(VParser::SeqAtomContext *ctx) override {
