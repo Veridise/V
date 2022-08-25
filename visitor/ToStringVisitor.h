@@ -16,8 +16,18 @@ class  ToStringVisitor : public VVisitor {
 public:
 
   virtual std::any visitSpec(VParser::SpecContext *ctx) override {
-    std::cout << "Visited Spec \n"; 
-    return visitInvariantSpec(ctx->invariantSpec());
+    
+    if (ctx->behavioralSpec()) {
+      return visitBehavioralSpec(ctx->behavioralSpec());
+    } else if (ctx->testSpec()) {
+      return visitTestSpec(ctx->testSpec());
+    } else if (ctx->tempSpec()) {
+      return visitTempSpec(ctx->tempSpec());
+    } else if (ctx->invariantSpec()) {
+      return visitInvariantSpec(ctx->invariantSpec());
+    }
+
+    return nullptr;
   }
 
   virtual std::any visitBehavioralSpec(VParser::BehavioralSpecContext *ctx) override {
@@ -52,7 +62,8 @@ public:
 
   virtual std::any visitVarsSection(VParser::VarsSectionContext *ctx) override {
     std::cout << "Visited VarsSection \n";
-    return visitChildren(ctx);
+    std::string varsSectionString = "vars: " + std::any_cast<std::string>(visitDeclList(ctx->declList()));
+    return varsSectionString;
   }
 
   virtual std::any visitPrecondSection(VParser::PrecondSectionContext *ctx) override {
@@ -103,7 +114,7 @@ public:
         comma = "";
     std::string dList;
     if(ctx->declList())
-        dList = std::any_cast<const char*>(visitDeclList(ctx->declList()));
+        dList = std::any_cast<std::string>(visitDeclList(ctx->declList()));
     else
         dList = "";
     return type+" "+ident+comma+" "+dList;

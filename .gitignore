@@ -4,3 +4,4 @@ libs/*.interp
 libs/*.cpp
 libs/*.h
 libs/*.tokens
+.vscode/
