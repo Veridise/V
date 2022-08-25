@@ -31,37 +31,61 @@ public:
   }
 
   virtual std::any visitBehavioralSpec(VParser::BehavioralSpecContext *ctx) override {
-    std::cout << "Visited Behavioral Spec \n";
+    // std::cout << "Visited Behavioral Spec \n";
     return visitChildren(ctx);
   }
 
   virtual std::any visitTestSpec(VParser::TestSpecContext *ctx) override {
-    std::cout << "Visited Test Spec \n";
+    // std::cout << "Visited Test Spec \n";
     return visitChildren(ctx);
   }
 
   virtual std::any visitTempSpec(VParser::TempSpecContext *ctx) override {
-    std::cout << "Visited Temp Spec \n";
+    // std::cout << "Visited Temp Spec \n";
     return visitChildren(ctx);
   }
 
   virtual std::any visitInvariantSpec(VParser::InvariantSpecContext *ctx) override {
-    std::cout << "Visited Invariant Spec \n";
-    return visitVarsSection(ctx->varsSection());
+    // std::cout << "Visited Invariant Spec \n";
+
+    std::string importsString = std::any_cast<std::string>(visitImports(ctx->imports()));
+    std::string varsSpecString;
+    if(ctx->varsSection())
+        varsSpecString = std::any_cast<std::string>(visitVarsSection(ctx->varsSection()));
+    else
+        varsSpecString = "";
+    std::string invSecString = std::any_cast<std::string>(visitInvariantSection(ctx->invariantSection()));
+    std::string invSpecString = importsString + varsSpecString + invSecString;
+    return invSpecString;
   }
 
   virtual std::any visitSynthSpec(VParser::SynthSpecContext *ctx) override {
-    std::cout << "Visited Synth Spec \n";
+    // std::cout << "Visited Synth Spec \n";
     return visitChildren(ctx);
   }
 
   virtual std::any visitImports(VParser::ImportsContext *ctx) override {
-    std::cout << "Visited Import \n";
-    return visitChildren(ctx);
+    std::string importsString;
+    // Naive way: 
+    // Later figure out how to explicitly check for epsilon using the API.
+    if(ctx->IMPORT())
+    {
+        //Assume production 1
+        std::string importString = ctx->IMPORT()->toString();
+        std::string pathString = ctx->PATH()->toString();
+        std::string recImportsString = std::any_cast<std::string>(visitImports(ctx->imports()));
+
+        importsString = importString+" " + pathString + "\n" + recImportsString;
+    }
+    else
+      importsString = "";
+
+
+    return importsString;
   }
 
   virtual std::any visitVarsSection(VParser::VarsSectionContext *ctx) override {
-    std::cout << "Visited VarsSection \n";
+    // std::cout << "Visited VarsSection \n";
     std::string varsSectionString = "vars: " + std::any_cast<std::string>(visitDeclList(ctx->declList()));
     return varsSectionString;
   }
@@ -95,8 +119,9 @@ public:
   }
 
   virtual std::any visitInvariantSection(VParser::InvariantSectionContext *ctx) override {
-    std::cout << "Visited InvSection \n";
-    return "";
+    // std::cout << "Visited InvSection \n";
+    std::string dummy = "";
+    return dummy;
   }
 
   virtual std::any visitSeqAtom(VParser::SeqAtomContext *ctx) override {
@@ -104,7 +129,7 @@ public:
   }
 
   virtual std::any visitDeclList(VParser::DeclListContext *ctx) override {
-    std::cout << "Visited DeclList \n";
+    // std::cout << "Visited DeclList \n";
     std::string type =  std::any_cast<std::string>(visitTyp(ctx->typ()));
     std::string ident = std::any_cast<std::string>(visitIdent(ctx->ident()));
     std::string comma;
