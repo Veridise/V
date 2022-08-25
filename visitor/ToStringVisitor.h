@@ -31,8 +31,22 @@ public:
   }
 
   virtual std::any visitBehavioralSpec(VParser::BehavioralSpecContext *ctx) override {
-    // std::cout << "Visited Behavioral Spec \n";
-    return visitChildren(ctx);
+    std::string importsString = std::any_cast<std::string>(visitImports(ctx->imports()));
+    std::string varsSpecString;
+    if(ctx->varsSection())
+        varsSpecString = std::any_cast<std::string>(visitVarsSection(ctx->varsSection()));
+    else
+        varsSpecString = "";
+    
+    std::string preSectionString;
+    if(ctx->precondSection())
+      preSectionString = std::any_cast<std::string>(visitPrecondSection(ctx->precondSection()));
+    else
+      preSectionString = "";
+
+    std::string postSectionString = std::any_cast<std::string>(visitPostcondSection(ctx->postcondSection()));
+    std::string behSpecString = importsString + varsSpecString + "\n" + preSectionString + postSectionString;
+    return behSpecString;
   }
 
   virtual std::any visitTestSpec(VParser::TestSpecContext *ctx) override {
@@ -46,8 +60,6 @@ public:
   }
 
   virtual std::any visitInvariantSpec(VParser::InvariantSpecContext *ctx) override {
-    // std::cout << "Visited Invariant Spec \n";
-
     std::string importsString = std::any_cast<std::string>(visitImports(ctx->imports()));
     std::string varsSpecString;
     if(ctx->varsSection())
@@ -85,17 +97,18 @@ public:
   }
 
   virtual std::any visitVarsSection(VParser::VarsSectionContext *ctx) override {
-    // std::cout << "Visited VarsSection \n";
     std::string varsSectionString = ctx->VARS_LABEL()->getText()+ " " + std::any_cast<std::string>(visitDeclList(ctx->declList()));
     return varsSectionString;
   }
 
   virtual std::any visitPrecondSection(VParser::PrecondSectionContext *ctx) override {
-    return visitChildren(ctx);
+    std::string preSectionString = ctx->PRECOND_LABEL()->getText()+ " " + ctx->atom()->getText()+ "\n";
+    return preSectionString;
   }
 
   virtual std::any visitPostcondSection(VParser::PostcondSectionContext *ctx) override {
-    return visitChildren(ctx);
+    std::string postSectionString = ctx->POSTCOND_LABEL()->getText()+ " " + ctx->atom()->getText();
+    return postSectionString;
   }
 
   virtual std::any visitInitSection(VParser::InitSectionContext *ctx) override {
