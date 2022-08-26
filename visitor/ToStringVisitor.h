@@ -50,8 +50,22 @@ public:
   }
 
   virtual std::any visitTestSpec(VParser::TestSpecContext *ctx) override {
-    // std::cout << "Visited Test Spec \n";
-    return visitChildren(ctx);
+    std::string importsString = std::any_cast<std::string>(visitImports(ctx->imports()));
+    std::string varsSpecString;
+    if(ctx->varsSection())
+        varsSpecString = std::any_cast<std::string>(visitVarsSection(ctx->varsSection()));
+    else
+        varsSpecString = "";
+    
+    std::string initSectionString;
+    if(ctx->initSection())
+      initSectionString = std::any_cast<std::string>(visitInitSection(ctx->initSection()));
+    else
+      initSectionString = "";
+
+    std::string specSectionString = std::any_cast<std::string>(visitSpecSection(ctx->specSection()));
+    std::string testSpecString = importsString + varsSpecString + "\n" + initSectionString + specSectionString;
+    return testSpecString;
   }
 
   virtual std::any visitTempSpec(VParser::TempSpecContext *ctx) override {
@@ -112,11 +126,13 @@ public:
   }
 
   virtual std::any visitInitSection(VParser::InitSectionContext *ctx) override {
-    return visitChildren(ctx);
+    std::string initSectionString = ctx->INIT_LABEL()->getText() + " " + std::any_cast<std::string>(visitSeqAtom(ctx->seqAtom()));
+    return initSectionString;
   }
 
   virtual std::any visitSpecSection(VParser::SpecSectionContext *ctx) override {
-    return visitChildren(ctx);
+    std::string specSectionString = ctx->SPEC_LABEL()->toString() + " " + std::any_cast<std::string>(visitSeqAtom(ctx->seqAtom()));
+    return specSectionString;
   }
 
   virtual std::any visitSynthSection(VParser::SynthSectionContext *ctx) override {
@@ -137,7 +153,15 @@ public:
   }
 
   virtual std::any visitSeqAtom(VParser::SeqAtomContext *ctx) override {
-    return visitChildren(ctx);
+    std::string atomString = ctx->atom()->getText();
+    std::string seqAtomString;
+    if(ctx->SEQ())
+    {
+      seqAtomString = atomString + ctx->SEQ()->getText() +"\n" + std::any_cast<std::string>(visitSeqAtom(ctx->seqAtom()));
+    }
+    else
+    seqAtomString = atomString + "\n";
+    return seqAtomString;
   }
 
   virtual std::any visitDeclList(VParser::DeclListContext *ctx) override {
