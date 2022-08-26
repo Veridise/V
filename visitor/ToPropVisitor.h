@@ -15,6 +15,17 @@
 class  ToPropVisitor : public VVisitor {
 public:
 
+  int currentVarIdx = 0;
+  std::string generateFreshVariable() {
+    std::string variableNameBase = "x";
+    std::string freshVariable = variableNameBase + std::to_string(currentVarIdx);
+    currentVarIdx = currentVarIdx + 1;
+
+    return freshVariable;
+  };
+
+  std::map<std::string, std::string> freshVarsToAtoms;
+
   virtual std::any visitSpec(VParser::SpecContext *ctx) override {
     
     if (ctx->behavioralSpec()) {
