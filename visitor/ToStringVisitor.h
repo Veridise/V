@@ -25,6 +25,8 @@ public:
       return visitTempSpec(ctx->tempSpec());
     } else if (ctx->invariantSpec()) {
       return visitInvariantSpec(ctx->invariantSpec());
+    } else if (ctx->synthSpec()) {
+      return visitSynthSpec(ctx->synthSpec());
     }
 
     return nullptr;
@@ -100,8 +102,23 @@ public:
   }
 
   virtual std::any visitSynthSpec(VParser::SynthSpecContext *ctx) override {
-    // std::cout << "Visited Synth Spec \n";
-    return visitChildren(ctx);
+    std::cout<<"SS";
+    std::string importsString = std::any_cast<std::string>(visitImports(ctx->imports()));
+    std::string varsSpecString;
+    if(ctx->varsSection())
+        varsSpecString = std::any_cast<std::string>(visitVarsSection(ctx->varsSection()));
+    else
+        varsSpecString = "";
+    
+    std::string initSectionString;
+    if(ctx->initSection())
+      initSectionString = std::any_cast<std::string>(visitInitSection(ctx->initSection()));
+    else
+      initSectionString = "";
+
+    std::string synthSectionString = std::any_cast<std::string>(visitSynthSection(ctx->synthSection()));
+    std::string synthSpecString = importsString + varsSpecString + "\n" + initSectionString + synthSectionString;
+    return synthSpecString;
   }
 
   virtual std::any visitImports(VParser::ImportsContext *ctx) override {
@@ -150,7 +167,8 @@ public:
   }
 
   virtual std::any visitSynthSection(VParser::SynthSectionContext *ctx) override {
-    return visitChildren(ctx);
+    std::string synthSectionString = ctx->SYNTH_LABEL()->getText()+" "+ctx->atom()->getText();
+    return synthSectionString;
   }
 
   virtual std::any visitLtlFairnessSection(VParser::LtlFairnessSectionContext *ctx) override {
