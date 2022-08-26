@@ -102,7 +102,6 @@ public:
   }
 
   virtual std::any visitSynthSpec(VParser::SynthSpecContext *ctx) override {
-    std::cout<<"SS";
     std::string importsString = std::any_cast<std::string>(visitImports(ctx->imports()));
     std::string varsSpecString;
     if(ctx->varsSection())
@@ -136,7 +135,6 @@ public:
     }
     else
       importsString = "";
-
 
     return importsString;
   }
@@ -199,36 +197,19 @@ public:
   }
 
   virtual std::any visitDeclList(VParser::DeclListContext *ctx) override {
-    // std::cout << "Visited DeclList \n";
-    std::string type =  std::any_cast<std::string>(visitTyp(ctx->typ()));
-    std::string ident = std::any_cast<std::string>(visitIdent(ctx->ident()));
-    std::string comma;
+    std::string declString =  ctx->typ()->getText() + " " + ctx->ident()->getText();
+    std::string decListString;
     if(ctx->COMMA())
-        comma = ctx->COMMA()->toString();
+    {
+      decListString = declString + ctx->COMMA()->toString() + " " + std::any_cast<std::string>(visitDeclList(ctx->declList()));
+    }
     else
-        comma = "";
-    std::string dList;
-    if(ctx->declList())
-        dList = std::any_cast<std::string>(visitDeclList(ctx->declList()));
-    else
-        dList = "";
-    return type+" "+ident+comma+" "+dList;
+      decListString = declString;
+    return decListString;
   }
 
   virtual std::any visitTyp(VParser::TypContext *ctx) override {
-    std::string id = ctx->IDENTIFIER()->toString();
-    std::string lbrack, rbrack;
-    if(ctx->LBRACK())
-        lbrack = ctx->LBRACK()->toString();
-    else
-        lbrack = "";
-    
-    if(ctx->RBRACK())
-        rbrack = ctx->RBRACK()->toString();
-    else
-        rbrack = "";
-    std::string typ = id+lbrack+rbrack;
-    return typ;
+    return visitChildren(ctx);
   }
 
   virtual std::any visitSmartltlAtom(VParser::SmartltlAtomContext *ctx) override {
@@ -280,14 +261,7 @@ public:
   }
 
   virtual std::any visitIdent(VParser::IdentContext *ctx) override {
-    std::string id;
-    if(ctx->IDENTIFIER())
-        id = ctx->IDENTIFIER()->toString();
-    if(ctx->ATOM_PRE_LOC())
-        id = ctx->ATOM_PRE_LOC()->toString();
-    if(ctx->ATOM_POST_LOC())
-        id = ctx->ATOM_POST_LOC()->toString();
-    return id;
+    return visitChildren(ctx);
   }
 
   virtual std::any visitVarOrNum(VParser::VarOrNumContext *ctx) override {
