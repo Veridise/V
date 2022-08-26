@@ -69,8 +69,22 @@ public:
   }
 
   virtual std::any visitTempSpec(VParser::TempSpecContext *ctx) override {
-    // std::cout << "Visited Temp Spec \n";
-    return visitChildren(ctx);
+    std::string importsString = std::any_cast<std::string>(visitImports(ctx->imports()));
+    std::string varsSpecString;
+    if(ctx->varsSection())
+        varsSpecString = std::any_cast<std::string>(visitVarsSection(ctx->varsSection()));
+    else
+        varsSpecString = "";
+    
+    std::string ltlFairnessSectionString;
+    if(ctx->ltlFairnessSection())
+      ltlFairnessSectionString = std::any_cast<std::string>(visitLtlFairnessSection(ctx->ltlFairnessSection()));
+    else
+      ltlFairnessSectionString = "";
+
+    std::string ltlPropertySectionString = std::any_cast<std::string>(visitLtlPropertySection(ctx->ltlPropertySection()));
+    std::string tempSpecString = importsString + varsSpecString + "\n" + ltlFairnessSectionString + ltlPropertySectionString;
+    return tempSpecString;
   }
 
   virtual std::any visitInvariantSpec(VParser::InvariantSpecContext *ctx) override {
@@ -140,11 +154,13 @@ public:
   }
 
   virtual std::any visitLtlFairnessSection(VParser::LtlFairnessSectionContext *ctx) override {
-    return visitChildren(ctx);
+    std::string ltlFairnessSectionString = ctx->LTLFAIR_LABEL()->getText() +" "+ ctx->smartltlAtom()->getText() + "\n";
+    return ltlFairnessSectionString;
   }
 
   virtual std::any visitLtlPropertySection(VParser::LtlPropertySectionContext *ctx) override {
-    return visitChildren(ctx);
+    std::string ltlPropertySectionString = ctx->LTLPROP_LABEL()->getText()+ " " + ctx->smartltlAtom()->getText();
+    return ltlPropertySectionString;
   }
 
   virtual std::any visitInvariantSection(VParser::InvariantSectionContext *ctx) override {
