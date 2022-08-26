@@ -1,6 +1,7 @@
 #include <string.h>
 #include "test/ParseTester/ParseTester.h"
 #include "visitor/ToStringVisitor.h"
+#include "visitor/ToPropVisitor.h"
 
 using namespace ParseTest;
 
@@ -31,10 +32,18 @@ int main(int argc, const char **argv) {
     VParser parser(&tokens);
     VParser::SpecContext* tree = parser.spec();
 
-    ToStringVisitor tsvisitor;
-    std::any specString = tsvisitor.visitSpec(tree);
+    std::any specString;
+    // // Code to output String format
+    // ToStringVisitor tsvisitor;
+    // specString = tsvisitor.visitSpec(tree);
+    // std::cout << std::any_cast<std::string>(specString) << '\n'; 
+
+    // Code to output Propositional format
+    ToPropVisitor tpvisitor;
+    specString = tpvisitor.visitSpec(tree);
     std::cout << std::any_cast<std::string>(specString) << '\n'; 
 
+    // // Code to output JSON format
     // VASTVisitor visitor;
     // VAST* ast = visitor.visitSpec(tree);
 
