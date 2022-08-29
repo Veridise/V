@@ -61,8 +61,9 @@ include_directories(${BOOST_ROOT})
 add_executable(parse main.cpp
                test/ParseTester/ParseTester.cpp
                ast/VAST.cpp
-               visitor/VASTVisitor.cpp
+               visitor/VASTGenVisitor.cpp
                visitor/ToStringVisitor.cpp
+               visitor/ToPropVisitor.cpp
                ${ANTLR_VGrammarParser_CXX_OUTPUTS})
 target_link_libraries(parse antlr4_static)
 target_include_directories(parse PUBLIC ${Boost_INCLUDE_DIRS}) 

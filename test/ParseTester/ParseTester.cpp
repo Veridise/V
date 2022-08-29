@@ -3,7 +3,7 @@
 using json = nlohmann::json;
 using namespace boost::filesystem;
 using namespace antlr4;
-using namespace vastvisitor;
+using namespace vastgenvisitor;
 using namespace vast;
 
 namespace ParseTest {
@@ -41,7 +41,7 @@ namespace ParseTest {
     VParser parser(&tokens);
     VParser::SpecContext* tree = parser.spec();
 
-    VASTVisitor visitor;
+    VASTGenVisitor visitor;
     VAST* ast = visitor.visitSpec(tree);
 
     json ast_json = ast->toJson();

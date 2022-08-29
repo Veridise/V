@@ -8,7 +8,7 @@ using namespace ParseTest;
 using json = nlohmann::json;
 using namespace boost::filesystem;
 using namespace antlr4;
-using namespace vastvisitor;
+using namespace vastgenvisitor;
 using namespace vast;
 
 int main(int argc, const char **argv) {
@@ -33,18 +33,20 @@ int main(int argc, const char **argv) {
     VParser::SpecContext* tree = parser.spec();
 
     std::any specString;
-    // // Code to output String format
-    // ToStringVisitor tsvisitor;
-    // specString = tsvisitor.visitSpec(tree);
-    // std::cout << std::any_cast<std::string>(specString) << '\n'; 
+    // Code to output String format
+    ToStringVisitor tsvisitor;
+    specString = tsvisitor.visitSpec(tree);
+    std::cout << std::any_cast<std::string>(specString) << '\n'; 
 
     // Code to output Propositional format
     ToPropVisitor tpvisitor;
     specString = tpvisitor.visitSpec(tree);
     std::cout << std::any_cast<std::string>(specString) << '\n'; 
+    std::cout << "Generated map:" <<"\n";
+    tpvisitor.printMap();
 
     // // Code to output JSON format
-    // VASTVisitor visitor;
+    // VASTGenVisitor visitor;
     // VAST* ast = visitor.visitSpec(tree);
 
     // json ast_json = ast->toJson();
