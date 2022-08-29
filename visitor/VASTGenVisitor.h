@@ -1,5 +1,5 @@
-#ifndef VINSTRUMENTER_VASTGENVISITOR_H
-#define VINSTRUMENTER_VASTGENVISITOR_H
+#ifndef V_VASTGENVISITOR_H
+#define V_VASTGENVISITOR_H
 
 #include <string>
 #include "antlr4-runtime.h"

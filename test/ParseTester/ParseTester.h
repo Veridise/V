@@ -1,5 +1,5 @@
-#ifndef VINSTRUMENTER_PARSETESTER_H
-#define VINSTRUMENTER_PARSETESTER_H
+#ifndef V_PARSETESTER_H
+#define V_PARSETESTER_H
 
 #include <iostream>
 #include <fstream>

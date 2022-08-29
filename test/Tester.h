@@ -1,5 +1,5 @@
-#ifndef VINSTRUMENTER_TEST_H
-#define VINSTRUMENTER_TEST_H
+#ifndef V_TEST_H
+#define V_TEST_H
 
 #include <iostream>
 

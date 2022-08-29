@@ -13,7 +13,7 @@ namespace ParseTest {
 
   bool ParseTester::runTests() {
     directory_iterator end_itr;
-    for (directory_iterator itr ("/workspaces/VInstrumenter/example_specs"); itr != end_itr; ++itr) {
+    for (directory_iterator itr ("/workspaces/V/example_specs"); itr != end_itr; ++itr) {
       if (!is_directory(itr->status())) {
         std::cout << "Testing " << itr->path() << "\n--------\n";
         std::ifstream specfile (itr->path().string());

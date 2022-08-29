@@ -1,5 +1,5 @@
-#ifndef VINSTRUMENTER_VAST_H
-#define VINSTRUMENTER_VAST_H
+#ifndef V_VAST_H
+#define V_VAST_H
 
 #include <string>
 #include <vector>
