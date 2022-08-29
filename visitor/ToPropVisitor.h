@@ -6,6 +6,7 @@
 
 #include "antlr4-runtime.h"
 #include "VVisitor.h"
+// #include "../build/antlr4_runtime/src/antlr4_runtime/runtime/Cpp/runtime/src/tree/ParseTree.h"
 
 
 /**
@@ -13,7 +14,7 @@
  * a V specification into a readable format and replaces every atom with a proposition.
  */
 class  ToPropVisitor : public VVisitor {
-public:
+private:
 
   int currentVarIdx = 0;
   std::string generateFreshVariable() {
@@ -25,6 +26,28 @@ public:
   };
 
   std::map<std::string, std::string> freshVarsToAtoms;
+
+    // virtual std::any visitChildrenString(ParseTree *node) {
+    //   std::any result = defaultResult();
+    //   size_t n = node->children.size();
+    //   for (size_t i = 0; i < n; i++) {
+    //     if (!shouldVisitNextChild(node, result)) {
+    //       break;
+    //     }
+
+    //     std::any childResult = node->children[i]->accept(this);
+    //     result = aggregateResult(std::move(result), std::move(childResult));
+    //   }
+
+    //   return result;
+    // }
+
+public:
+
+  void printMap(){
+    for(auto i: freshVarsToAtoms)
+      std::cout<<i.first << "-> " << i.second << "\n";
+  }
 
   virtual std::any visitSpec(VParser::SpecContext *ctx) override {
     
@@ -181,12 +204,12 @@ public:
   }
 
   virtual std::any visitLtlFairnessSection(VParser::LtlFairnessSectionContext *ctx) override {
-    std::string ltlFairnessSectionString = ctx->LTLFAIR_LABEL()->getText() +" "+ ctx->smartltlAtom()->getText() + "\n";
+    std::string ltlFairnessSectionString = ctx->LTLFAIR_LABEL()->getText() +" "+ std::any_cast<std::string>(visitSmartltlAtom(ctx->smartltlAtom())) + "\n";
     return ltlFairnessSectionString;
   }
 
   virtual std::any visitLtlPropertySection(VParser::LtlPropertySectionContext *ctx) override {
-    std::string ltlPropertySectionString = ctx->LTLPROP_LABEL()->getText()+ " " + ctx->smartltlAtom()->getText();
+    std::string ltlPropertySectionString = ctx->LTLPROP_LABEL()->getText()+ " " + std::any_cast<std::string>(visitSmartltlAtom(ctx->smartltlAtom()));
     return ltlPropertySectionString;
   }
 
@@ -224,7 +247,14 @@ public:
   }
 
   virtual std::any visitSmartltlAtom(VParser::SmartltlAtomContext *ctx) override {
-    return visitChildren(ctx);
+    if(ctx->atom())
+      return visitAtom(ctx->atom());
+    else if(ctx->LBRACK())
+      {
+        std::string output = "[]" ;
+        return output;
+      }
+      return visitChildren(ctx);
   }
 
   virtual std::any visitInvAtom(VParser::InvAtomContext *ctx) override {
@@ -232,7 +262,24 @@ public:
   }
 
   virtual std::any visitAtom(VParser::AtomContext *ctx) override {
-    return visitChildren(ctx);
+    std::cout<<"Visited Atom";
+    std::string visitAtomString;
+    if(ctx->ATOM_POST_LOC() || ctx->ATOM_PRE_LOC())
+    {
+      std::string freshVar = generateFreshVariable();
+      freshVarsToAtoms[freshVar] = ctx->getText();
+      visitAtomString = freshVar;
+    }
+    else
+      { //Hack to handle one test case
+        if(ctx->L_UN())
+          {
+            visitAtomString = ctx->L_UN()->getText() + "";
+          }
+      }
+      visitAtomString = "None Received";
+      return visitAtomString;
+      // return visitChildren(ctx);
   }
 
   virtual std::any visitAtomFn(VParser::AtomFnContext *ctx) override {
