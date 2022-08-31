@@ -1,7 +1,7 @@
 #include <string.h>
 #include "test/ParseTester/ParseTester.h"
-#include "visitor/ToStringVisitor.h"
-#include "visitor/ToPropVisitor.h"
+#include "visitors_parsetree/ToStringVisitor.h"
+#include "visitors_parsetree/ToPropVisitor.h"
 
 using namespace ParseTest;
 

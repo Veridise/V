@@ -5,9 +5,11 @@
 #include <vector>
 #include <iostream>
 #include "../libs/json.hpp"
+#include "visitors_ast/AbstractVASTVisitor.h"
 
 using json = nlohmann::json;
 using namespace std;
+using namespace vastvisitor;
 
 namespace vast {
 
@@ -26,6 +28,7 @@ namespace vast {
   public:
     virtual ~VAST() = default;
     virtual json toJson() = 0;
+    virtual std::any accept(AbstractVASTVisitor *visitor) = 0;
   };
 
   class VStatementExpr : public VAST {

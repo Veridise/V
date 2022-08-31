@@ -9,7 +9,7 @@
 #include "../../libs/VLexer.h"
 #include "../../libs/VParser.h"
 #include "../Tester.h"
-#include "../visitor/VASTGenVisitor.h"
+#include "../visitors_parsetree/VASTGenVisitor.h"
 #include "../ast/VAST.h"
 #include "boost/filesystem.hpp"
 #include "../libs/json.hpp"

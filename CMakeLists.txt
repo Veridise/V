@@ -43,7 +43,8 @@ antlr_target(VGrammarParser V.g4 VISITOR
 include_directories(${PROJECT_SOURCE_DIR}/test/
                     ${PROJECT_SOURCE_DIR}/test/ParseTester/
                     ${PROJECT_SOURCE_DIR}/ast/
-                    ${PROJECT_SOURCE_DIR}/visitor/
+                    ${PROJECT_SOURCE_DIR}/visitors_parsetree/
+                    ${PROJECT_SOURCE_DIR}/visitors_ast/
                     ${PROJECT_SOURCE_DIR}/libs/
    )
 
@@ -61,9 +62,10 @@ include_directories(${BOOST_ROOT})
 add_executable(parse main.cpp
                test/ParseTester/ParseTester.cpp
                ast/VAST.cpp
-               visitor/VASTGenVisitor.cpp
-               visitor/ToStringVisitor.cpp
-               visitor/ToPropVisitor.cpp
+               visitors_parsetree/VASTVisitor.cpp
+               visitors_parsetree/ToStringVisitor.cpp
+               visitors_parsetree/ToPropVisitor.cpp
+               visitors_ast/AbstractVASTVisitor.cpp
                ${ANTLR_VGrammarParser_CXX_OUTPUTS})
 target_link_libraries(parse antlr4_static)
 target_include_directories(parse PUBLIC ${Boost_INCLUDE_DIRS}) 
