@@ -1,7 +1,7 @@
 #include <string.h>
 #include "test/ParseTester/ParseTester.h"
-#include "visitors_parsetree/ToStringVisitor.h"
-#include "visitors_parsetree/ToPropVisitor.h"
+// #include "visitors_ast/ToPropVisitor.h"
+// #include "visitors_parsetree/ToStringVisitor.h"
 
 using namespace ParseTest;
 
@@ -32,27 +32,32 @@ int main(int argc, const char **argv) {
     VParser parser(&tokens);
     VParser::SpecContext* tree = parser.spec();
 
-    std::any specString;
-    // Code to output String format
-    ToStringVisitor tsvisitor;
-    specString = tsvisitor.visitSpec(tree);
-    std::cout << std::any_cast<std::string>(specString) << '\n'; 
+    // std::any specString;
+    // // Code to output String format
+    // ToStringVisitor tsvisitor;
+    // specString = tsvisitor.visitSpec(tree);
+    // std::cout << std::any_cast<std::string>(specString) << '\n'; 
 
-    // Code to output Propositional format
-    ToPropVisitor tpvisitor;
-    specString = tpvisitor.visitSpec(tree);
-    std::cout << std::any_cast<std::string>(specString) << '\n'; 
-    std::cout << "Generated map:" <<"\n";
-    tpvisitor.printMap();
+    // // Code to output Propositional format
+    // ToPropVisitor tpvisitor;
+    // specString = tpvisitor.visitSpec(tree);
+    // std::cout << std::any_cast<std::string>(specString) << '\n'; 
+    // std::cout << "Generated map:" <<"\n";
+    // tpvisitor.printMap();
 
-    // // Code to output JSON format
-    // VASTGenVisitor visitor;
-    // VAST* ast = visitor.visitSpec(tree);
+    // NO PROBLEM WITH parsetree visitors when used with VASTGenVisitors.
+    // However VASTGenVisitor interferes with my AbstractVASTVisitor.
+    // Understand namespaces and draw an includes diagram! ONLY way understand maybe
+    // Or reimplement the visitor that I made earlier to get an idea and add namespaces to it!
+    // Code to output JSON format
+    VASTGenVisitor visitor;
+    VAST* ast = visitor.visitSpec(tree);
 
-    // json ast_json = ast->toJson();
+    json ast_json = ast->toJson();
 
-    // std::cout << ast_json << "\n";
+    std::cout << ast_json << "\n";
   }
 
   return 0;
 }
+
