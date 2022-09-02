@@ -5,6 +5,7 @@
 #include <vector>
 #include <iostream>
 #include "../libs/json.hpp"
+// #include "../visitors_ast/ToStringVisitor.h"
 // #include "../visitors_ast/AbstractVASTVisitor.h"
 
 using json = nlohmann::json;
@@ -29,12 +30,14 @@ namespace vast {
     virtual ~VAST() = default;
     virtual json toJson() = 0;
     // virtual std::any accept(AbstractVASTVisitor *visitor) = 0;
+    // virtual std::string accept(ToStringVisitor *visitor) = 0;
   };
 
   class VStatementExpr : public VAST {
   public:
     VStatementExpr();
     json toJson() override;
+    // std::string accept(ToStringVisitor *visitor) override;
   };
 
   class VID : public VAST {
@@ -42,6 +45,7 @@ namespace vast {
     VID(string _name);
     string name;
     json toJson() override;
+    // std::string accept(ToStringVisitor *visitor) override;
   };
 
   class VType : public VAST {
@@ -50,12 +54,14 @@ namespace vast {
     string name;
     bool is_arr;
     json toJson() override;
+    // std::string accept(ToStringVisitor *visitor) override;
   };
 
   class VVarDecl : public VAST {
   public:
     VVarDecl(VType* _typ, VID* _var);
     json toJson() override;
+    // std::string accept(ToStringVisitor *visitor) override;
     VType* typ;
     VID* var;
   };
@@ -64,6 +70,7 @@ namespace vast {
   public:
     VImport(string _path);
     json toJson() override;
+    // std::string accept(ToStringVisitor *visitor) override;
     string path;
   };
 
@@ -71,6 +78,7 @@ namespace vast {
   public:
     VImportList(vector<VImport *> _imports);
     json toJson() override;
+    // std::string accept(ToStringVisitor *visitor) override;
     vector<VImport *> imports;
   };
 
@@ -78,6 +86,7 @@ namespace vast {
   public:
     VVarDeclList(vector<VVarDecl*> _var_decs);
     json toJson() override;
+    // std::string accept(ToStringVisitor *visitor) override;
     vector<VVarDecl*> var_decs;
   };
 
@@ -89,6 +98,7 @@ namespace vast {
     VStatementExpr *pre;
     VStatementExpr *post;
     json toJson() override;
+    // std::string accept(ToStringVisitor *visitor) override;
   };
 
   class VTestSpec : public VAST {
@@ -99,6 +109,7 @@ namespace vast {
     VStatementExpr *init;
     VStatementExpr *spec;
     json toJson() override;
+    // std::string accept(ToStringVisitor *visitor) override;
   };
 
   class VTempSpec : public VAST {
@@ -109,6 +120,7 @@ namespace vast {
     VStatementExpr *fairness;
     VStatementExpr *spec;
     json toJson() override;
+    // std::string accept(ToStringVisitor *visitor) override;
   };
 
   class VInvSpec : public VAST {
@@ -118,6 +130,7 @@ namespace vast {
     VVarDeclList *var_decs;
     VStatementExpr *inv;
     json toJson() override;
+    // std::string accept(ToStringVisitor *visitor) override;
   };
 
   class VSynthSpec: public VAST {
@@ -129,6 +142,7 @@ namespace vast {
     VStatementExpr *init;
     VStatementExpr *synth;
     json toJson() override;
+    // std::string accept(ToStringVisitor *visitor) override;
   };
 
   class VBinOp : public VAST {
@@ -136,6 +150,7 @@ namespace vast {
     VBinOp(string _op);
     string op;
     json toJson() override;
+    // std::string accept(ToStringVisitor *visitor) override;
   };
 
   class VBinStatementExpr : public VStatementExpr {
@@ -145,6 +160,7 @@ namespace vast {
     VStatementExpr *rhs;
     VBinOp *op;
     json toJson() override;
+    // std::string accept(ToStringVisitor *visitor) override;
   };
 
   class VUnOp : public VAST {
@@ -152,6 +168,7 @@ namespace vast {
     VUnOp(string _op);
     string op;
     json toJson() override;
+    // std::string accept(ToStringVisitor *visitor) override;
   };
 
   class VUnStatementExpr : public VStatementExpr {
@@ -160,6 +177,7 @@ namespace vast {
     VStatementExpr *con;
     VUnOp *op;
     json toJson() override;
+    // std::string accept(ToStringVisitor *visitor) override;
   };
 
   class VConstraintExpr : public VAST {
@@ -167,6 +185,7 @@ namespace vast {
     VConstraintExpr();
     virtual ExprType exprType() = 0;
     json toJson() override;
+    // std::string accept(ToStringVisitor *visitor) override;
   };
 
   class VArgList : public VAST {
@@ -174,6 +193,7 @@ namespace vast {
     VArgList(vector<VConstraintExpr*> _args);
     vector<VConstraintExpr*> args;
     json toJson() override;
+    // std::string accept(ToStringVisitor *visitor) override;
   };
 
   class VFunctionID : public VAST {
@@ -183,6 +203,7 @@ namespace vast {
     VID *fnName;
     VArgList *args;
     json toJson() override;
+    // std::string accept(ToStringVisitor *visitor) override;
   };
 
   class VExecutedStatement : public VStatementExpr {
@@ -192,6 +213,7 @@ namespace vast {
     VConstraintExpr *pre;
     VConstraintExpr *con;
     json toJson() override;
+    // std::string accept(ToStringVisitor *visitor) override;
   };
 
   class VFinishedStatement : public VStatementExpr {
@@ -201,6 +223,7 @@ namespace vast {
     VConstraintExpr *pre;
     VConstraintExpr *con;
     json toJson() override;
+    // std::string accept(ToStringVisitor *visitor) override;
   };
 
   class VStartedStatement : public VStatementExpr {
@@ -209,6 +232,7 @@ namespace vast {
     VFunctionID *fun;
     VConstraintExpr *con;
     json toJson() override;
+    // std::string accept(ToStringVisitor *visitor) override;
   };
 
   class VRevertedStatement : public VStatementExpr {
@@ -217,6 +241,7 @@ namespace vast {
     VFunctionID *fun;
     VConstraintExpr *con;
     json toJson() override;
+    // std::string accept(ToStringVisitor *visitor) override;
   };
 
   class VWillSucceedStatement : public VStatementExpr {
@@ -225,6 +250,7 @@ namespace vast {
     VFunctionID *fun;
     VConstraintExpr *con;
     json toJson() override;
+    // std::string accept(ToStringVisitor *visitor) override;
   };
 
   class VBinExpr : public VConstraintExpr {
@@ -235,6 +261,7 @@ namespace vast {
     VConstraintExpr *rhs;
     VBinOp *op;
     json toJson() override;
+    // std::string accept(ToStringVisitor *visitor) override;
   };
 
   class VUnExpr : public VConstraintExpr {
@@ -244,6 +271,7 @@ namespace vast {
     VConstraintExpr *expr;
     VUnOp *op;
     json toJson() override;
+    // std::string accept(ToStringVisitor *visitor) override;
   };
 
   class VVarExpr : public VConstraintExpr {
@@ -252,6 +280,7 @@ namespace vast {
     ExprType exprType() override { return ExprType::VAR; }
     VID *var;
     json toJson() override;
+    // std::string accept(ToStringVisitor *visitor) override;
   };
 
   class VConstExpr : public VConstraintExpr {
@@ -261,6 +290,7 @@ namespace vast {
     string val;
     string type;
     json toJson() override;
+    // std::string accept(ToStringVisitor *visitor) override;
   };
 
   class VFieldAccessExpr : public VConstraintExpr {
@@ -270,6 +300,7 @@ namespace vast {
     VConstraintExpr *expr;
     VID *field;
     json toJson() override;
+    // std::string accept(ToStringVisitor *visitor) override;
   };
 
   class VArrAccessExpr : public VConstraintExpr {
@@ -279,6 +310,7 @@ namespace vast {
     VConstraintExpr *arr;
     VConstraintExpr *idx;
     json toJson() override;
+    // std::string accept(ToStringVisitor *visitor) override;
   };
 
   class VFuncCallExpr : public VConstraintExpr {
@@ -289,6 +321,7 @@ namespace vast {
     VID *fnName;
     VArgList *args;
     json toJson() override;
+    // std::string accept(ToStringVisitor *visitor) override;
   };
 
   class VFSumExpr : public VConstraintExpr {
@@ -299,6 +332,7 @@ namespace vast {
     VConstraintExpr* arg;
     VConstraintExpr *con;
     json toJson() override;
+    // std::string accept(ToStringVisitor *visitor) override;
   };
 
 }

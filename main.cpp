@@ -1,7 +1,7 @@
 #include <string.h>
 #include "test/ParseTester/ParseTester.h"
 // #include "visitors_ast/ToPropVisitor.h"
-// #include "visitors_parsetree/ToStringVisitor.h"
+#include "visitors_ast/ToStringVisitor.h"
 
 using namespace ParseTest;
 
@@ -50,12 +50,16 @@ int main(int argc, const char **argv) {
     // Understand namespaces and draw an includes diagram! ONLY way understand maybe
     // Or reimplement the visitor that I made earlier to get an idea and add namespaces to it!
     // Code to output JSON format
+
     VASTGenVisitor visitor;
     VAST* ast = visitor.visitSpec(tree);
 
+    vastvisitor::ToStringVisitor tsvisitor;
+    std::cout<<std::any_cast<std::string>(tsvisitor.visit(ast));
+
     json ast_json = ast->toJson();
 
-    std::cout << ast_json << "\n";
+    // std::cout << ast_json << "\n";
   }
 
   return 0;
