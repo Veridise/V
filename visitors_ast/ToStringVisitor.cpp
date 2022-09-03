@@ -16,62 +16,113 @@ namespace vastvisitor{
     
     std::any ToStringVisitor::visit(VAST* node){
         if(VBehavioralSpec* specNode = dynamic_cast<VBehavioralSpec*>(node))
-            return visit(specNode);
+            return std::any_cast<std::string>(visit(specNode));
         else if(VTestSpec* specNode = dynamic_cast<VTestSpec*>(node))
-        {
-            //Gives segmentation fault: VASTGenVisitor does not generate TestSpec AST properly.
-        }
+            return std::any_cast<std::string>(visit(specNode));
         else if(VTempSpec* specNode = dynamic_cast<VTempSpec*>(node))
-            return visit(specNode);
+            return std::any_cast<std::string>(visit(specNode));
         else if(VInvSpec* specNode = dynamic_cast<VInvSpec*>(node))
-            return visit(specNode);
+            return std::any_cast<std::string>(visit(specNode));
         else if(VSynthSpec* specNode = dynamic_cast<VSynthSpec*>(node))
-            return visit(specNode);
-            
-        return "";
+            return std::any_cast<std::string>(visit(specNode));
+        else{
+            //Give exception
+        }
+        string empty = "";
+        return empty;
     }
 
     std::any ToStringVisitor::visit(VBehavioralSpec* node){
+        string total;
 
-        return "";
+        if (node->imports != nullptr) {
+        total += "import: " + std::any_cast<std::string>(visit(node->imports)) + "\n";
+        }
+        if (node->var_decs != nullptr) {
+        total += "vars: " + std::any_cast<std::string>(visit(node->var_decs)) + "\n";
+        }
+        if (node->pre != nullptr) {
+        total += "pre: " + std::any_cast<std::string>(visit(node->pre)) + "\n";
+        }
+        if (node->post != nullptr) {
+        total += "post: " + std::any_cast<std::string>(visit(node->post));
+        }
+
+        return total;
     }
 
     std::any ToStringVisitor::visit(VTestSpec* node){
-        visit(node->imports);
-        visit(node->init);
-        visit(node->spec);
-        visit(node->var_decs);
-        return "";
+        string total;
+
+        if (node->imports != nullptr) {
+        total += "import: " + std::any_cast<std::string>(visit(node->imports)) + "\n";
+        }
+        if (node->var_decs != nullptr) {
+        total += "vars: " + std::any_cast<std::string>(visit(node->var_decs)) + "\n";
+        }
+        if (node->init != nullptr) {
+        total += "init: " + std::any_cast<std::string>(visit(node->init))+ "\n";
+        }
+        if (node->spec != nullptr) {
+        total += "spec: " + std::any_cast<std::string>(visit(node->spec));
+        }
+
+        return total;
     }
 
     std::any ToStringVisitor::visit(VTempSpec* node){
 
         string total;
     
-        // if (node->imports != nullptr) {
-        // total += "import: " + std::any_cast<std::string>(visit(node->imports)) + "\n";
-        // }
-        // if (var_decs != nullptr) {
+        if (node->imports != nullptr) {
+        total += "import: " + std::any_cast<std::string>(visit(node->imports)) + "\n";
+        }
+        if (node->var_decs != nullptr) {
         total += "vars: " + std::any_cast<std::string>(visit(node->var_decs)) + "\n";
-        // }
-        // if (fairness != nullptr) {
-        // total += "LTLFairness: " + visit(node->fairness) + "\n";
-        // }
-        // if (spec != nullptr) {
+        }
+        if (node->fairness != nullptr) {
+        total += "LTLFairness: " + std::any_cast<std::string>(visit(node->fairness)) + "\n";
+        }
+        if (node->spec != nullptr) {
         total += "LTLProperty: " + std::any_cast<std::string>(visit(node->spec));
-        // }
+        }
 
     return total;
     }
 
     std::any ToStringVisitor::visit(VInvSpec* node){
+        string total;
+        
+        if (node->imports != nullptr) {
+        total += "import: " + std::any_cast<std::string>(visit(node->imports)) + "\n";
+        }
+        if (node->var_decs != nullptr) {
+        total += "vars: " + std::any_cast<std::string>(visit(node->var_decs)) + "\n";
+        }
+        if (node->inv != nullptr) {
+        total += "inv: " + std::any_cast<std::string>(visit(node->inv));
+        }
 
-        return "";
+        return total;
     }
 
     std::any ToStringVisitor::visit(VSynthSpec* node){
+        string total;
 
-        return "";
+        if (node->imports != nullptr) {
+        total += "import: " + std::any_cast<std::string>(visit(node->imports)) + "\n";
+        }
+        if (node->var_decls != nullptr) {
+        total += "vars: " + std::any_cast<std::string>(visit(node->var_decls)) + "\n";
+        }
+        if (node->init != nullptr) {
+        total += "init: " + std::any_cast<std::string>(visit(node->init))+ "\n";
+        }
+        if (node->synth != nullptr) {
+        total += "spec: " + std::any_cast<std::string>(visit(node->synth));
+        }
+
+        return total;
     }
 
     std::any ToStringVisitor::visit(VID* node){
@@ -113,7 +164,8 @@ namespace vastvisitor{
         else if (VWillSucceedStatement* exprNode = dynamic_cast<VWillSucceedStatement*>(node))
             return std::any_cast<std::string>(visit(exprNode));
         else
-            {//Throw exception. Confirm once with Ben for exhaution of cases.
+            {
+                std::cout<<"Exception";//Throw exception. Confirm once with Ben for exhaution of cases.
             }
         string empty = "";
         return empty;
@@ -123,19 +175,30 @@ namespace vastvisitor{
     std::any ToStringVisitor::visit(VUnStatementExpr* node){
         string op = std::any_cast<std::string>(visit(node->op));
         string con = std::any_cast<std::string>(visit(node->con));
-        return op+ con;
+        return op + con;
     }
 
     std::any ToStringVisitor::visit(VBinStatementExpr* node){
-        std::cout<<"Bin Stmt";
-        string empty = "";
-        return empty;
+        string lhs = std::any_cast<std::string>(visit(node->lhs));
+        string op = std::any_cast<std::string>(visit(node->op));
+        string rhs = std::any_cast<std::string>(visit(node->rhs));
+        return "(" + lhs + " " + op + " " + rhs + ")";
     }
 
     std::any ToStringVisitor::visit(VExecutedStatement* node){
-        std::cout<<"Executed Stmt";
-        string empty = "";
-        return empty;
+        string vExecutedStmtString = "executed(" + std::any_cast<std::string>(visit(node->fun));
+
+        if (node->pre != nullptr) {
+        vExecutedStmtString += ", " + std::any_cast<std::string>(visit(node->pre));
+        }
+
+        if (node->con != nullptr) {
+        vExecutedStmtString += ", " + std::any_cast<std::string>(visit(node->con));
+        }
+
+        vExecutedStmtString += ")";
+    
+        return vExecutedStmtString;
     }
     std::any ToStringVisitor::visit(VFinishedStatement* node){
         string VFinishedStmtString = "finished(" + std::any_cast<std::string>(visit(node->fun));
@@ -152,19 +215,50 @@ namespace vastvisitor{
         return VFinishedStmtString;
     }
     std::any ToStringVisitor::visit(VStartedStatement* node){
-        std::cout<<"Started Stmt";
-        string empty = "";
-        return empty;
+        string VStartedStmtString = "started(" + std::any_cast<std::string>(visit(node->fun));
+
+        if (node->con != nullptr) {
+        VStartedStmtString += ", " + std::any_cast<std::string>(visit(node->con));
+        }
+
+        VStartedStmtString += ")";
+        return VStartedStmtString;
     }
     std::any ToStringVisitor::visit(VRevertedStatement* node){
-        std::cout<<"Reverted stmt";
-        string empty = "";
-        return empty;
+        string VRevertedStmtString = "reverted(" + std::any_cast<std::string>(visit(node->fun));
+
+        if (node->con != nullptr) {
+        VRevertedStmtString += ", " + std::any_cast<std::string>(visit(node->con));
+        }
+
+        VRevertedStmtString += ")";
+
+        return VRevertedStmtString;
     }
     std::any ToStringVisitor::visit(VWillSucceedStatement* node){
-        std::cout<<"Will Succeed Stmt";
-        string empty = "";
-        return empty;
+        string VWillSucceedStmtString = "willSucceed(" + std::any_cast<std::string>(visit(node->fun));
+
+        if (node->con != nullptr) {
+        VWillSucceedStmtString += ", " + std::any_cast<std::string>(visit(node->con));;
+        }
+    
+        VWillSucceedStmtString += ")";
+    
+        return VWillSucceedStmtString;
+    }
+
+    std::any ToStringVisitor::visit(VImport* node){
+        return node->path;
+    }
+    std::any ToStringVisitor::visit(VImportList* node){
+        vector<string> importsString;
+        for (VImport *import : node->imports) {
+        importsString.push_back(std::any_cast<std::string>(visit(import)));
+        }
+
+        string importListString = boost::algorithm::join(importsString, ", ");
+
+        return importListString;
     }
 
     std::any ToStringVisitor::visit(VUnOp* node){
@@ -233,12 +327,11 @@ namespace vastvisitor{
 
     // Constraint expression types.
     std::any ToStringVisitor::visit(VUnExpr* node){
-        std::cout<<"VUnExpr";
-        string empty = "";
-        return empty;
+        string op = std::any_cast<std::string>(visit(node->op));
+        string expr = std::any_cast<std::string>(visit(node->expr));
+        return op + expr;
     }
     std::any ToStringVisitor::visit(VBinExpr* node){
-        std::cout<<"VBinExpr";
         string lhs = std::any_cast<std::string>(visit(node->lhs));
         string op = std::any_cast<std::string>(visit(node->op));
         string rhs = std::any_cast<std::string>(visit(node->rhs));
@@ -248,36 +341,37 @@ namespace vastvisitor{
         return std::any_cast<std::string>(visit(node->var));
     }
     std::any ToStringVisitor::visit(VConstExpr* node){
-        std::cout<<"VConstExpr";
-        string empty = "";
-        return empty;
+        return node->val;
     }
     std::any ToStringVisitor::visit(VFieldAccessExpr* node){
-        std::cout<<"VFieldAccessExpr";
         string expr= std::any_cast<std::string>(visit(node->expr));
         string field = std::any_cast<std::string>(visit(node->field));
         return expr + "." + field;
     }
     std::any ToStringVisitor::visit(VArrAccessExpr* node){
-        std::cout<<"VArrExpr";
         string arr = std::any_cast<std::string>(visit(node->arr));
         string idx = std::any_cast<std::string>(visit(node->idx));
 
         return arr + "[" + idx + "]";
     }
     std::any ToStringVisitor::visit(VFuncCallExpr* node){
-        std::cout<<"VFuncCallExpr";
-        string empty = "";
-        return empty;
+        string baseString;
+        if (node->base != nullptr) {
+        baseString = std::any_cast<std::string>(visit(node->base)) + ".";
+        }
+        string funcString = std::any_cast<std::string>(visit(node->fnName));
+        string argsString = std::any_cast<std::string>(visit(node->args));
+        string vFuncCallExprString = baseString + funcString + "(" + argsString + ")";
+
+        return vFuncCallExprString;
     }
     std::any ToStringVisitor::visit(VFSumExpr* node){
-        std::cout<<"VFSumExpr";
-        string empty = "";
-        return empty;
+        string funcString = std::any_cast<std::string>(visit(node->func));
+        string argString = std::any_cast<std::string>(visit(node->arg));
+        string conString = std::any_cast<std::string>(visit(node->con));
+        string vFSumExprString = "fsum(" + funcString + ", " + argString + ", " + conString + ")";
+
+        return vFSumExprString;
     }
 
 }
-
-// Only difference between Andreea's ToString and my Visitor was that I had to ensure downcast.
-// UnOp is astring. Shouldn't there be ideally inherited classes such as GOp, LToP ETC?
-// Also, took some time because of understanding VAST and V specs in general, which will be helpful in the future.

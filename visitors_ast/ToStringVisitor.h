@@ -30,8 +30,8 @@ namespace vastvisitor {
                 std::any visit(VID* node);
                 std::any visit(VType* node);
                 std::any visit(VVarDecl* node);
-                // std::any visit(VImport* node);
-                // std::any visit(VImportList* node);
+                std::any visit(VImport* node);
+                std::any visit(VImportList* node);
                 std::any visit(VVarDeclList* node);
                 std::any visit(VBinOp* node);
                 std::any visit(VUnOp* node);
