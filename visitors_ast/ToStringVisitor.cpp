@@ -3,13 +3,13 @@
  * 
  */
 
-#include "ToStringVisitor.h"
 #include<iostream>
 #include<any>
-#include <typeinfo>
-#include <boost/algorithm/string/join.hpp>
+#include<boost/algorithm/string/join.hpp>
 
 #include "../ast/VAST.h"
+#include "ToStringVisitor.h"
+
 using namespace vast;
 
 namespace vastvisitor{
@@ -26,10 +26,11 @@ namespace vastvisitor{
         else if(VSynthSpec* specNode = dynamic_cast<VSynthSpec*>(node))
             return std::any_cast<std::string>(visit(specNode));
         else{
-            //Give exception
+            // Add exception here.
+            std::cout<<"Error";
+            string empty = "";
+            return empty;
         }
-        string empty = "";
-        return empty;
     }
 
     std::any ToStringVisitor::visit(VBehavioralSpec* node){
@@ -45,7 +46,7 @@ namespace vastvisitor{
         total += "pre: " + std::any_cast<std::string>(visit(node->pre)) + "\n";
         }
         if (node->post != nullptr) {
-        total += "post: " + std::any_cast<std::string>(visit(node->post));
+        total += "post: " + std::any_cast<std::string>(visit(node->post)) + "\n";
         }
 
         return total;
@@ -64,7 +65,7 @@ namespace vastvisitor{
         total += "init: " + std::any_cast<std::string>(visit(node->init))+ "\n";
         }
         if (node->spec != nullptr) {
-        total += "spec: " + std::any_cast<std::string>(visit(node->spec));
+        total += "spec: " + std::any_cast<std::string>(visit(node->spec)) + "\n";
         }
 
         return total;
@@ -84,7 +85,7 @@ namespace vastvisitor{
         total += "LTLFairness: " + std::any_cast<std::string>(visit(node->fairness)) + "\n";
         }
         if (node->spec != nullptr) {
-        total += "LTLProperty: " + std::any_cast<std::string>(visit(node->spec));
+        total += "LTLProperty: " + std::any_cast<std::string>(visit(node->spec)) + "\n";
         }
 
     return total;
@@ -100,7 +101,7 @@ namespace vastvisitor{
         total += "vars: " + std::any_cast<std::string>(visit(node->var_decs)) + "\n";
         }
         if (node->inv != nullptr) {
-        total += "inv: " + std::any_cast<std::string>(visit(node->inv));
+        total += "inv: " + std::any_cast<std::string>(visit(node->inv)) + "\n";
         }
 
         return total;
@@ -119,7 +120,7 @@ namespace vastvisitor{
         total += "init: " + std::any_cast<std::string>(visit(node->init))+ "\n";
         }
         if (node->synth != nullptr) {
-        total += "spec: " + std::any_cast<std::string>(visit(node->synth));
+        total += "spec: " + std::any_cast<std::string>(visit(node->synth)) + "\n";
         }
 
         return total;
@@ -163,12 +164,12 @@ namespace vastvisitor{
             return std::any_cast<std::string>(visit(exprNode));
         else if (VWillSucceedStatement* exprNode = dynamic_cast<VWillSucceedStatement*>(node))
             return std::any_cast<std::string>(visit(exprNode));
-        else
-            {
-                std::cout<<"Exception";//Throw exception. Confirm once with Ben for exhaution of cases.
-            }
-        string empty = "";
-        return empty;
+        else{
+            // Add exception here.
+            std::cout<<"Error";
+            string empty = "";
+            return empty;
+        }
     }
 
     // VStatementExpr derived classes.
@@ -318,11 +319,12 @@ namespace vastvisitor{
             return std::any_cast<std::string>(visit(exprNode));
         else if (VFSumExpr* exprNode = dynamic_cast<VFSumExpr*>(node))
             return std::any_cast<std::string>(visit(exprNode));
-        else
-            {//Throw exception. Confirm once with Ben for exhaution of cases.
-            }
-        string empty = "";
-        return empty;
+        else{
+            // Add exception here.
+            std::cout<<"Error";
+            string empty = "";
+            return empty;
+        }
     }
 
     // Constraint expression types.

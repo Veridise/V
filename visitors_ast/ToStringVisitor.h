@@ -11,7 +11,7 @@
 using namespace vast;
 
 /**
- * This class defines an interface, AbstractVASTVisitor for the VAST structure
+ * This class defines the ToStringVisitor for the VAST that prints VAST in a string format.
  */
 namespace vastvisitor {
     // class ToStringVisitor : public AbstractVASTVisitor
@@ -19,14 +19,6 @@ namespace vastvisitor {
         {
             public:
                 std::any visit(VAST* node);
-                
-                //Specification Types
-                std::any visit(VBehavioralSpec* node);
-                std::any visit(VTestSpec* node);
-                std::any visit(VTempSpec* node);
-                std::any visit(VInvSpec* node);
-                std::any visit(VSynthSpec* node);
-                
                 std::any visit(VID* node);
                 std::any visit(VType* node);
                 std::any visit(VVarDecl* node);
@@ -37,6 +29,13 @@ namespace vastvisitor {
                 std::any visit(VUnOp* node);
                 std::any visit(VArgList* node);
                 std::any visit(VFunctionID* node);
+                
+                //Specification Types
+                std::any visit(VBehavioralSpec* node);
+                std::any visit(VTestSpec* node);
+                std::any visit(VTempSpec* node);
+                std::any visit(VInvSpec* node);
+                std::any visit(VSynthSpec* node);
                 
                 //V Statement Expression Types
                 std::any visit(VStatementExpr* node);
