@@ -1,6 +1,7 @@
 #include <string.h>
 #include "test/ParseTester/ParseTester.h"
 #include "visitors_ast/ToStringVisitor.h"
+#include "visitors_ast/ToPropVisitor.h"
 
 using namespace ParseTest;
 
@@ -34,9 +35,17 @@ int main(int argc, const char **argv) {
     VASTGenVisitor visitor;
     VAST* ast = visitor.visitSpec(tree);
 
+    //Using the string visitor.
     vastvisitor::ToStringVisitor tsvisitor;
     string vastString = std::any_cast<std::string>(tsvisitor.visit(ast));
     std::cout<<vastString;
+
+    //Using the prop visitor.
+    vastvisitor::ToPropVisitor tpvisitor;
+    string vastPropString = std::any_cast<std::string>(tpvisitor.visit(ast));
+    std::cout<<vastPropString;
+    std::map<string, VAST*> atomMap = tpvisitor.getMap();
+    tpvisitor.printMap();
 
     json ast_json = ast->toJson();
 
