@@ -2,6 +2,7 @@
 #include "test/ParseTester/ParseTester.h"
 #include "visitors_ast/ToStringVisitor.h"
 #include "visitors_ast/ToPropVisitor.h"
+#include "visitors_ast/ToJsonVisitor.h"
 
 using namespace ParseTest;
 
@@ -47,9 +48,14 @@ int main(int argc, const char **argv) {
     std::map<string, VAST*> atomMap = tpvisitor.getMap();
     tpvisitor.printMap();
 
-    json ast_json = ast->toJson();
+    // Using the JSON visitor.
+    vastvisitor::ToJsonVisitor tjvisitor;
+    json vastJsonString = std::any_cast<json>(tjvisitor.visit(ast));
+    std::cout<<vastJsonString;
 
-    std::cout << ast_json << "\n";
+    // json ast_json = ast->toJson();
+
+    // std::cout << ast_json << "\n";
   }
 
   return 0;

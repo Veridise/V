@@ -66,6 +66,7 @@ add_executable(parse main.cpp
                # visitors_ast/AbstractVASTVisitor.cpp
                visitors_ast/ToStringVisitor.cpp
                visitors_ast/ToPropVisitor.cpp
+               visitors_ast/ToJsonVisitor.cpp
                ${ANTLR_VGrammarParser_CXX_OUTPUTS})
 target_link_libraries(parse antlr4_static)
 target_include_directories(parse PUBLIC ${Boost_INCLUDE_DIRS}) 
