@@ -53,6 +53,8 @@ int main(int argc, const char **argv) {
     json vastJsonString = std::any_cast<json>(tjvisitor.visit(ast));
     std::cout<<vastJsonString;
 
+    // Using the inbuilt Json function.
+    
     // json ast_json = ast->toJson();
 
     // std::cout << ast_json << "\n";
