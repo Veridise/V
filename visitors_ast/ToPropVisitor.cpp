@@ -29,13 +29,17 @@ namespace vastvisitor{
     
     void ToPropVisitor::printMap(){
         vastvisitor::ToStringVisitor tsvisitor;
+        std::cout<<"Printing Atoms Map: \n \n";
+        std::cout<< "Variable -> Atom: \n";
         for(auto i : freshVarsToAtoms){
             string second = std::any_cast<std::string>(tsvisitor.visit(i.second));
-            std::cout<< i.first + "->" + second + " \n";
+            std::cout<< i.first + " -> " + second + " \n";
         }
+        std::cout<<"\n";
     }
     
     std::any ToPropVisitor::visit(VAST* node){
+        //Specification Types
         if(VBehavioralSpec* specNode = dynamic_cast<VBehavioralSpec*>(node))
             return std::any_cast<std::string>(visit(specNode));
         else if(VTestSpec* specNode = dynamic_cast<VTestSpec*>(node))
@@ -45,6 +49,34 @@ namespace vastvisitor{
         else if(VInvSpec* specNode = dynamic_cast<VInvSpec*>(node))
             return std::any_cast<std::string>(visit(specNode));
         else if(VSynthSpec* specNode = dynamic_cast<VSynthSpec*>(node))
+            return std::any_cast<std::string>(visit(specNode));
+
+        // VStatement and VConstraint Types
+        else if(VStatementExpr* specNode = dynamic_cast<VStatementExpr*>(node))
+            return std::any_cast<std::string>(visit(specNode));
+        else if(VConstraintExpr* specNode = dynamic_cast<VConstraintExpr*>(node))
+            return std::any_cast<std::string>(visit(specNode));
+
+        // Rest
+        else if(VID* specNode = dynamic_cast<VID*>(node))
+            return std::any_cast<std::string>(visit(specNode));
+        else if(VType* specNode = dynamic_cast<VType*>(node))
+            return std::any_cast<std::string>(visit(specNode));
+        else if(VVarDecl* specNode = dynamic_cast<VVarDecl*>(node))
+            return std::any_cast<std::string>(visit(specNode));
+        else if(VImport* specNode = dynamic_cast<VImport*>(node))
+            return std::any_cast<std::string>(visit(specNode));
+        else if(VImportList* specNode = dynamic_cast<VImportList*>(node))
+            return std::any_cast<std::string>(visit(specNode));
+        else if(VVarDeclList* specNode = dynamic_cast<VVarDeclList*>(node))
+            return std::any_cast<std::string>(visit(specNode));
+        else if(VBinOp* specNode = dynamic_cast<VBinOp*>(node))
+            return std::any_cast<std::string>(visit(specNode));
+        else if(VUnOp* specNode = dynamic_cast<VUnOp*>(node))
+            return std::any_cast<std::string>(visit(specNode));
+        else if(VArgList* specNode = dynamic_cast<VArgList*>(node))
+            return std::any_cast<std::string>(visit(specNode));
+        else if(VFunctionID* specNode = dynamic_cast<VFunctionID*>(node))
             return std::any_cast<std::string>(visit(specNode));
         else{
             // Add exception here.
@@ -208,65 +240,34 @@ namespace vastvisitor{
     }
 
     std::any ToPropVisitor::visit(VExecutedStatement* node){
-        string vExecutedStmtString = "executed(" + std::any_cast<std::string>(visit(node->fun));
+      string freshVar = generateFreshVariable();
+      freshVarsToAtoms[freshVar] = node;
 
-        if (node->pre != nullptr) {
-        vExecutedStmtString += ", " + std::any_cast<std::string>(visit(node->pre));
-        }
-
-        if (node->con != nullptr) {
-        vExecutedStmtString += ", " + std::any_cast<std::string>(visit(node->con));
-        }
-
-        vExecutedStmtString += ")";
-    
-        return vExecutedStmtString;
+      return freshVar;
     }
     std::any ToPropVisitor::visit(VFinishedStatement* node){
-        string VFinishedStmtString = "finished(" + std::any_cast<std::string>(visit(node->fun));
+      string freshVar = generateFreshVariable();
+      freshVarsToAtoms[freshVar] = node;
 
-        if (node->pre != nullptr) {
-        VFinishedStmtString += ", " + std::any_cast<std::string>(visit(node->pre));
-        }
-
-        if (node->con != nullptr) {
-        VFinishedStmtString += ", " + std::any_cast<std::string>(visit(node->con));
-        }
-
-        VFinishedStmtString += ")";
-        return VFinishedStmtString;
+      return freshVar;
     }
     std::any ToPropVisitor::visit(VStartedStatement* node){
-        string VStartedStmtString = "started(" + std::any_cast<std::string>(visit(node->fun));
+      string freshVar = generateFreshVariable();
+      freshVarsToAtoms[freshVar] = node;
 
-        if (node->con != nullptr) {
-        VStartedStmtString += ", " + std::any_cast<std::string>(visit(node->con));
-        }
-
-        VStartedStmtString += ")";
-        return VStartedStmtString;
+      return freshVar;
     }
     std::any ToPropVisitor::visit(VRevertedStatement* node){
-        string VRevertedStmtString = "reverted(" + std::any_cast<std::string>(visit(node->fun));
+      string freshVar = generateFreshVariable();
+      freshVarsToAtoms[freshVar] = node;
 
-        if (node->con != nullptr) {
-        VRevertedStmtString += ", " + std::any_cast<std::string>(visit(node->con));
-        }
-
-        VRevertedStmtString += ")";
-
-        return VRevertedStmtString;
+      return freshVar;
     }
     std::any ToPropVisitor::visit(VWillSucceedStatement* node){
-        string VWillSucceedStmtString = "willSucceed(" + std::any_cast<std::string>(visit(node->fun));
+      string freshVar = generateFreshVariable();
+      freshVarsToAtoms[freshVar] = node;
 
-        if (node->con != nullptr) {
-        VWillSucceedStmtString += ", " + std::any_cast<std::string>(visit(node->con));;
-        }
-    
-        VWillSucceedStmtString += ")";
-    
-        return VWillSucceedStmtString;
+      return freshVar;
     }
 
     std::any ToPropVisitor::visit(VImport* node){

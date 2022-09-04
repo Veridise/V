@@ -15,6 +15,7 @@ using namespace vast;
 namespace vastvisitor{
     
     std::any ToStringVisitor::visit(VAST* node){
+        //Specification Types
         if(VBehavioralSpec* specNode = dynamic_cast<VBehavioralSpec*>(node))
             return std::any_cast<std::string>(visit(specNode));
         else if(VTestSpec* specNode = dynamic_cast<VTestSpec*>(node))
@@ -24,6 +25,34 @@ namespace vastvisitor{
         else if(VInvSpec* specNode = dynamic_cast<VInvSpec*>(node))
             return std::any_cast<std::string>(visit(specNode));
         else if(VSynthSpec* specNode = dynamic_cast<VSynthSpec*>(node))
+            return std::any_cast<std::string>(visit(specNode));
+
+        // VStatement and VConstraint Types
+        else if(VStatementExpr* specNode = dynamic_cast<VStatementExpr*>(node))
+            return std::any_cast<std::string>(visit(specNode));
+        else if(VConstraintExpr* specNode = dynamic_cast<VConstraintExpr*>(node))
+            return std::any_cast<std::string>(visit(specNode));
+
+        // Rest
+        else if(VID* specNode = dynamic_cast<VID*>(node))
+            return std::any_cast<std::string>(visit(specNode));
+        else if(VType* specNode = dynamic_cast<VType*>(node))
+            return std::any_cast<std::string>(visit(specNode));
+        else if(VVarDecl* specNode = dynamic_cast<VVarDecl*>(node))
+            return std::any_cast<std::string>(visit(specNode));
+        else if(VImport* specNode = dynamic_cast<VImport*>(node))
+            return std::any_cast<std::string>(visit(specNode));
+        else if(VImportList* specNode = dynamic_cast<VImportList*>(node))
+            return std::any_cast<std::string>(visit(specNode));
+        else if(VVarDeclList* specNode = dynamic_cast<VVarDeclList*>(node))
+            return std::any_cast<std::string>(visit(specNode));
+        else if(VBinOp* specNode = dynamic_cast<VBinOp*>(node))
+            return std::any_cast<std::string>(visit(specNode));
+        else if(VUnOp* specNode = dynamic_cast<VUnOp*>(node))
+            return std::any_cast<std::string>(visit(specNode));
+        else if(VArgList* specNode = dynamic_cast<VArgList*>(node))
+            return std::any_cast<std::string>(visit(specNode));
+        else if(VFunctionID* specNode = dynamic_cast<VFunctionID*>(node))
             return std::any_cast<std::string>(visit(specNode));
         else{
             // Add exception here.

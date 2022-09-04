@@ -29,8 +29,10 @@ namespace vastvisitor {
                 std::map<string, VAST*> getMap();
                 void printMap();
 
-                //Visitor Specific
+                // Visitor specific
                 std::any visit(VAST* node);
+                
+                // VAST Types (17)
                 std::any visit(VID* node);
                 std::any visit(VType* node);
                 std::any visit(VVarDecl* node);
@@ -42,16 +44,16 @@ namespace vastvisitor {
                 std::any visit(VArgList* node);
                 std::any visit(VFunctionID* node);
                 
-                //Specification Types
                 std::any visit(VBehavioralSpec* node);
                 std::any visit(VTestSpec* node);
                 std::any visit(VTempSpec* node);
                 std::any visit(VInvSpec* node);
                 std::any visit(VSynthSpec* node);
                 
-                //V Statement Expression Types
                 std::any visit(VStatementExpr* node);
-                
+                std::any visit(VConstraintExpr* node);
+
+                //VStatement Expression Types (7)
                 std::any visit(VUnStatementExpr* node);
                 std::any visit(VBinStatementExpr* node);
                 std::any visit(VExecutedStatement* node);
@@ -60,9 +62,7 @@ namespace vastvisitor {
                 std::any visit(VRevertedStatement* node);
                 std::any visit(VWillSucceedStatement* node);
                 
-                //Constraint Expression Types
-                std::any visit(VConstraintExpr* node);
-
+                //VConstraint Expression Types (8)
                 std::any visit(VUnExpr* node);
                 std::any visit(VBinExpr* node);
                 std::any visit(VVarExpr* node);
