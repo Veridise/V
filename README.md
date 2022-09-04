@@ -87,4 +87,9 @@ This code is a part of the code present in ```main.cpp```. The comments explain 
     std::map<string, VAST*> atomMap = tpvisitor.getMap();
     //Print the map
     tpvisitor.printMap();
+
+    // Using the JSON visitor.
+    vastvisitor::ToJsonVisitor tjvisitor;
+    json vastJsonString = std::any_cast<json>(tjvisitor.visit(ast));
+    std::cout<<vastJsonString;
 ```
