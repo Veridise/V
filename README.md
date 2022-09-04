@@ -64,3 +64,27 @@ docker rm v_run
 ```
 
 Alternatively, the VSCode remote extension for Docker can also be used to develop directly within the container.
+
+### Using the VAST Visitors
+
+This code is a part of the code present in ```main.cpp```. The comments explain the usage.
+
+```cpp
+    // Generate the ast from VASTGenVisitor as earlier
+    VASTGenVisitor visitor;
+    VAST* ast = visitor.visitSpec(tree);
+
+    //Using the string visitor.
+    vastvisitor::ToStringVisitor tsvisitor;
+    string vastString = std::any_cast<std::string>(tsvisitor.visit(ast));
+    std::cout<<vastString;
+
+    //Using the prop visitor, that replaces every V Statement with a fresh variable
+    vastvisitor::ToPropVisitor tpvisitor;
+    string vastPropString = std::any_cast<std::string>(tpvisitor.visit(ast));
+    std::cout<<vastPropString;
+    //Extract the map
+    std::map<string, VAST*> atomMap = tpvisitor.getMap();
+    //Print the map
+    tpvisitor.printMap();
+```
