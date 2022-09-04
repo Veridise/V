@@ -149,7 +149,7 @@ namespace vastvisitor{
         total += "init: " + std::any_cast<std::string>(visit(node->init))+ "\n";
         }
         if (node->synth != nullptr) {
-        total += "spec: " + std::any_cast<std::string>(visit(node->synth)) + "\n";
+        total += "synth: " + std::any_cast<std::string>(visit(node->synth)) + "\n";
         }
 
         return total;
