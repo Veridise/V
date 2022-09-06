@@ -186,9 +186,6 @@ namespace vastgenvisitor {
       } else if (ctx->LBRACK()) {
         VUnOp *op = new VUnOp("[]");
         return new VUnStatementExpr(s1, op);
-      } else if (ctx->IMP()) {
-        VUnOp *op = new VUnOp("==>");
-        return new VUnStatementExpr(s1, op);
       } else if (ctx->smartltlAtom().size() == 2) {
         VStatementExpr* s2 = visitSmartltlAtom(ctx->smartltlAtom()[1]);
         string op_str;
@@ -198,7 +195,9 @@ namespace vastgenvisitor {
           op_str = ctx->L_BIN()->getText();
         } else if (ctx->SEQ()) {
           op_str = ctx->SEQ()->getText();
-        }
+        } else if (ctx->IMP()) {
+          op_str = ctx->IMP()->getText();
+        } 
         VBinOp *op = new VBinOp(op_str);
         return new VBinStatementExpr(s1, s2, op);
       }
