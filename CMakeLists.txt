@@ -63,7 +63,7 @@ add_executable(parse main.cpp
                test/ParseTester/ParseTester.cpp
                ast/VAST.cpp
                ast/VASTGenVisitor.cpp
-               # visitors_ast/AbstractVASTVisitor.cpp
+               visitors/AbstractVASTVisitor.cpp
                visitors/ToStringVisitor.cpp
                visitors/ToPropLTLVisitor.cpp
                visitors/ToJsonVisitor.cpp
