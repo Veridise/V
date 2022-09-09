@@ -40,67 +40,28 @@ namespace vastvisitor{
     
     std::any ToPropVisitor::visit(VAST* node){
         //Specification Types
-        if(VBehavioralSpec* specNode = dynamic_cast<VBehavioralSpec*>(node))
-            return std::any_cast<std::string>(visit(specNode));
-        else if(VTestSpec* specNode = dynamic_cast<VTestSpec*>(node))
-            return std::any_cast<std::string>(visit(specNode));
-        else if(VTempSpec* specNode = dynamic_cast<VTempSpec*>(node))
-            return std::any_cast<std::string>(visit(specNode));
-        else if(VInvSpec* specNode = dynamic_cast<VInvSpec*>(node))
-            return std::any_cast<std::string>(visit(specNode));
-        else if(VSynthSpec* specNode = dynamic_cast<VSynthSpec*>(node))
-            return std::any_cast<std::string>(visit(specNode));
-
-        // VStatement and VConstraint Types
-        else if(VStatementExpr* specNode = dynamic_cast<VStatementExpr*>(node))
-            return std::any_cast<std::string>(visit(specNode));
-        else if(VConstraintExpr* specNode = dynamic_cast<VConstraintExpr*>(node))
-            return std::any_cast<std::string>(visit(specNode));
-
-        // Rest
-        else if(VID* specNode = dynamic_cast<VID*>(node))
-            return std::any_cast<std::string>(visit(specNode));
-        else if(VType* specNode = dynamic_cast<VType*>(node))
-            return std::any_cast<std::string>(visit(specNode));
-        else if(VVarDecl* specNode = dynamic_cast<VVarDecl*>(node))
-            return std::any_cast<std::string>(visit(specNode));
-        else if(VImport* specNode = dynamic_cast<VImport*>(node))
-            return std::any_cast<std::string>(visit(specNode));
-        else if(VImportList* specNode = dynamic_cast<VImportList*>(node))
-            return std::any_cast<std::string>(visit(specNode));
-        else if(VVarDeclList* specNode = dynamic_cast<VVarDeclList*>(node))
-            return std::any_cast<std::string>(visit(specNode));
-        else if(VBinOp* specNode = dynamic_cast<VBinOp*>(node))
-            return std::any_cast<std::string>(visit(specNode));
-        else if(VUnOp* specNode = dynamic_cast<VUnOp*>(node))
-            return std::any_cast<std::string>(visit(specNode));
-        else if(VArgList* specNode = dynamic_cast<VArgList*>(node))
-            return std::any_cast<std::string>(visit(specNode));
-        else if(VFunctionID* specNode = dynamic_cast<VFunctionID*>(node))
+        if(VTempSpec* specNode = dynamic_cast<VTempSpec*>(node))
             return std::any_cast<std::string>(visit(specNode));
         else{
-            // Add exception here.
-            std::cout<<"Error";
-            string empty = "";
-            return empty;
+            throw "Not a Temporal Specification. ToPropLTLVisitor visits temporal specifications only. \n";
         }
     }
 
     std::any ToPropVisitor::visit(VBehavioralSpec* node){
         string total;
 
-        if (node->imports != nullptr) {
-        total += "import: " + std::any_cast<std::string>(visit(node->imports)) + "\n";
-        }
-        if (node->var_decs != nullptr) {
-        total += "vars: " + std::any_cast<std::string>(visit(node->var_decs)) + "\n";
-        }
-        if (node->pre != nullptr) {
-        total += "pre: " + std::any_cast<std::string>(visit(node->pre)) + "\n";
-        }
-        if (node->post != nullptr) {
-        total += "post: " + std::any_cast<std::string>(visit(node->post)) + "\n";
-        }
+        // if (node->imports != nullptr) {
+        // total += "import: " + std::any_cast<std::string>(visit(node->imports)) + "\n";
+        // }
+        // if (node->var_decs != nullptr) {
+        // total += "vars: " + std::any_cast<std::string>(visit(node->var_decs)) + "\n";
+        // }
+        // if (node->pre != nullptr) {
+        // total += "pre: " + std::any_cast<std::string>(visit(node->pre)) + "\n";
+        // }
+        // if (node->post != nullptr) {
+        // total += "post: " + std::any_cast<std::string>(visit(node->post)) + "\n";
+        // }
 
         return total;
     }
@@ -108,18 +69,18 @@ namespace vastvisitor{
     std::any ToPropVisitor::visit(VTestSpec* node){
         string total;
 
-        if (node->imports != nullptr) {
-        total += "import: " + std::any_cast<std::string>(visit(node->imports)) + "\n";
-        }
-        if (node->var_decs != nullptr) {
-        total += "vars: " + std::any_cast<std::string>(visit(node->var_decs)) + "\n";
-        }
-        if (node->init != nullptr) {
-        total += "init: " + std::any_cast<std::string>(visit(node->init))+ "\n";
-        }
-        if (node->spec != nullptr) {
-        total += "spec: " + std::any_cast<std::string>(visit(node->spec)) + "\n";
-        }
+        // if (node->imports != nullptr) {
+        // total += "import: " + std::any_cast<std::string>(visit(node->imports)) + "\n";
+        // }
+        // if (node->var_decs != nullptr) {
+        // total += "vars: " + std::any_cast<std::string>(visit(node->var_decs)) + "\n";
+        // }
+        // if (node->init != nullptr) {
+        // total += "init: " + std::any_cast<std::string>(visit(node->init))+ "\n";
+        // }
+        // if (node->spec != nullptr) {
+        // total += "spec: " + std::any_cast<std::string>(visit(node->spec)) + "\n";
+        // }
 
         return total;
     }
@@ -128,17 +89,17 @@ namespace vastvisitor{
 
         string total;
     
-        if (node->imports != nullptr) {
-        total += "import: " + std::any_cast<std::string>(visit(node->imports)) + "\n";
-        }
-        if (node->var_decs != nullptr) {
-        total += "vars: " + std::any_cast<std::string>(visit(node->var_decs)) + "\n";
-        }
+        // if (node->imports != nullptr) {
+        // total += "import: " + std::any_cast<std::string>(visit(node->imports)) + "\n";
+        // }
+        // if (node->var_decs != nullptr) {
+        // total += "vars: " + std::any_cast<std::string>(visit(node->var_decs)) + "\n";
+        // }
         if (node->fairness != nullptr) {
-        total += "LTLFairness: " + std::any_cast<std::string>(visit(node->fairness)) + "\n";
+        total += std::any_cast<std::string>(visit(node->fairness)) + " -> ";
         }
         if (node->spec != nullptr) {
-        total += "LTLProperty: " + std::any_cast<std::string>(visit(node->spec)) + "\n";
+        total += std::any_cast<std::string>(visit(node->spec)) + "\n";
         }
 
     return total;
@@ -147,15 +108,15 @@ namespace vastvisitor{
     std::any ToPropVisitor::visit(VInvSpec* node){
         string total;
         
-        if (node->imports != nullptr) {
-        total += "import: " + std::any_cast<std::string>(visit(node->imports)) + "\n";
-        }
-        if (node->var_decs != nullptr) {
-        total += "vars: " + std::any_cast<std::string>(visit(node->var_decs)) + "\n";
-        }
-        if (node->inv != nullptr) {
-        total += "inv: " + std::any_cast<std::string>(visit(node->inv)) + "\n";
-        }
+        // if (node->imports != nullptr) {
+        // total += "import: " + std::any_cast<std::string>(visit(node->imports)) + "\n";
+        // }
+        // if (node->var_decs != nullptr) {
+        // total += "vars: " + std::any_cast<std::string>(visit(node->var_decs)) + "\n";
+        // }
+        // if (node->inv != nullptr) {
+        // total += "inv: " + std::any_cast<std::string>(visit(node->inv)) + "\n";
+        // }
 
         return total;
     }
@@ -163,18 +124,18 @@ namespace vastvisitor{
     std::any ToPropVisitor::visit(VSynthSpec* node){
         string total;
 
-        if (node->imports != nullptr) {
-        total += "import: " + std::any_cast<std::string>(visit(node->imports)) + "\n";
-        }
-        if (node->var_decls != nullptr) {
-        total += "vars: " + std::any_cast<std::string>(visit(node->var_decls)) + "\n";
-        }
-        if (node->init != nullptr) {
-        total += "init: " + std::any_cast<std::string>(visit(node->init))+ "\n";
-        }
-        if (node->synth != nullptr) {
-        total += "synth: " + std::any_cast<std::string>(visit(node->synth)) + "\n";
-        }
+        // if (node->imports != nullptr) {
+        // total += "import: " + std::any_cast<std::string>(visit(node->imports)) + "\n";
+        // }
+        // if (node->var_decls != nullptr) {
+        // total += "vars: " + std::any_cast<std::string>(visit(node->var_decls)) + "\n";
+        // }
+        // if (node->init != nullptr) {
+        // total += "init: " + std::any_cast<std::string>(visit(node->init))+ "\n";
+        // }
+        // if (node->synth != nullptr) {
+        // total += "synth: " + std::any_cast<std::string>(visit(node->synth)) + "\n";
+        // }
 
         return total;
     }

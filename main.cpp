@@ -43,10 +43,15 @@ int main(int argc, const char **argv) {
 
     //Using the prop visitor.
     vastvisitor::ToPropVisitor tpvisitor;
-    string vastPropString = std::any_cast<std::string>(tpvisitor.visit(ast));
-    std::cout<<vastPropString;
-    std::map<string, VAST*> atomMap = tpvisitor.getMap();
-    tpvisitor.printMap();
+    try{
+      string vastPropString = std::any_cast<std::string>(tpvisitor.visit(ast));
+      std::cout<<vastPropString;
+      std::map<string, VAST*> atomMap = tpvisitor.getMap();
+      tpvisitor.printMap();
+    }
+    catch(const char* txtException){
+      std::cout<<"Exception: "<<txtException;
+    }
 
     // Using the JSON visitor.
     vastvisitor::ToJsonVisitor tjvisitor;
