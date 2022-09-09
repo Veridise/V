@@ -64,6 +64,7 @@ add_executable(parse main.cpp
                ast/VAST.cpp
                ast/VASTGenVisitor.cpp
                visitors/AbstractVASTVisitor.cpp
+               visitors/BaseVASTVisitor.cpp
                visitors/ToStringVisitor.cpp
                visitors/ToPropLTLVisitor.cpp
                visitors/ToJsonVisitor.cpp
