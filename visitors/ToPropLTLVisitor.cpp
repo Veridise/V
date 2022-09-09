@@ -250,6 +250,10 @@ namespace vastvisitor{
     }
 
     std::any ToPropLTLVisitor::visit(VBinOp* node){
+        if(node->op == "==>"){
+            string ltlImpl = "->";
+            return ltlImpl;
+        }
         return node->op;
     }
 
