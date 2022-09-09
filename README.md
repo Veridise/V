@@ -98,3 +98,21 @@ This code is a part of the code present in ```main.cpp```. The comments explain 
     json vastJsonString = std::any_cast<json>(tjvisitor.visit(ast));
     std::cout<<vastJsonString;
 ```
+
+### Code organization
+.
+├── ast                     # VAST Classes and an ANTLR4 visitor VASTGenVisitor to generate a VAST from V.g4
+├── build                   # Compiled files
+├── cmake                   # ANTLR cmake files
+├── docs    
+├── example_specs 
+├── libs               
+├── test                    # Automated tests
+├── tools                   # Tools and utilities
+├── visitors                # Visitors over the VAST.
+├── CMakeLists.txt          
+├── Dockerfile 
+├── LICENSE
+├── main.cpp                # Code showing the usage of the V language parser that generates VAST, and VAST visitors
+├── README.md
+└── V.g4                    # V Specification grammar
