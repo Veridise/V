@@ -74,21 +74,26 @@ This code is a part of the code present in ```main.cpp```. The comments explain 
     VASTGenVisitor visitor;
     VAST* ast = visitor.visitSpec(tree);
 
-    //Using the string visitor.
+    // Using the ToString visitor.
     vastvisitor::ToStringVisitor tsvisitor;
     string vastString = std::any_cast<std::string>(tsvisitor.visit(ast));
     std::cout<<vastString;
 
-    //Using the prop visitor, that replaces every V Statement with a fresh variable
-    vastvisitor::ToPropVisitor tpvisitor;
-    string vastPropString = std::any_cast<std::string>(tpvisitor.visit(ast));
-    std::cout<<vastPropString;
-    //Extract the map
-    std::map<string, VAST*> atomMap = tpvisitor.getMap();
-    //Print the map
-    tpvisitor.printMap();
+    // Using the ToPropLTL visitor. Throws a const char* exception.
+    vastvisitor::ToPropLTLVisitor tpvisitor;
+    try{
+      string vastPropString = std::any_cast<std::string>(tpvisitor.visit(ast));
+      std::cout<<vastPropString;
+      // Extract the map
+      std::map<string, VAST*> atomMap = tpvisitor.getMap();
+      // Print the map
+      tpvisitor.printMap();
+    }
+    catch(const char* txtException){
+      std::cout<<"Exception: "<<txtException;
+    }
 
-    // Using the JSON visitor.
+    // Using the ToJson visitor.
     vastvisitor::ToJsonVisitor tjvisitor;
     json vastJsonString = std::any_cast<json>(tjvisitor.visit(ast));
     std::cout<<vastJsonString;

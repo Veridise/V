@@ -8,14 +8,14 @@
 #include<boost/algorithm/string/join.hpp>
 
 #include "../ast/VAST.h"
-#include "ToPropVisitor.h"
+#include "ToPropLTLVisitor.h"
 #include "ToStringVisitor.h"
 
 using namespace vast;
 
 namespace vastvisitor{
 
-    string ToPropVisitor::generateFreshVariable() {
+    string ToPropLTLVisitor::generateFreshVariable() {
         string variableNameBase = "x";
         string freshVariable = variableNameBase + to_string(currentVarIdx);
         currentVarIdx = currentVarIdx + 1;
@@ -23,11 +23,11 @@ namespace vastvisitor{
         return freshVariable;
     };
 
-    std::map<string, VAST*> ToPropVisitor::getMap(){
+    std::map<string, VAST*> ToPropLTLVisitor::getMap(){
         return freshVarsToAtoms;
      }
     
-    void ToPropVisitor::printMap(){
+    void ToPropLTLVisitor::printMap(){
         vastvisitor::ToStringVisitor tsvisitor;
         std::cout<<"Printing Atoms Map: \n \n";
         std::cout<< "Variable -> Atom: \n";
@@ -38,7 +38,7 @@ namespace vastvisitor{
         std::cout<<"\n";
     }
     
-    std::any ToPropVisitor::visit(VAST* node){
+    std::any ToPropLTLVisitor::visit(VAST* node){
         //Specification Types
         if(VTempSpec* specNode = dynamic_cast<VTempSpec*>(node))
             return std::any_cast<std::string>(visit(specNode));
@@ -47,7 +47,7 @@ namespace vastvisitor{
         }
     }
 
-    std::any ToPropVisitor::visit(VBehavioralSpec* node){
+    std::any ToPropLTLVisitor::visit(VBehavioralSpec* node){
         string total;
 
         // if (node->imports != nullptr) {
@@ -66,7 +66,7 @@ namespace vastvisitor{
         return total;
     }
 
-    std::any ToPropVisitor::visit(VTestSpec* node){
+    std::any ToPropLTLVisitor::visit(VTestSpec* node){
         string total;
 
         // if (node->imports != nullptr) {
@@ -85,7 +85,7 @@ namespace vastvisitor{
         return total;
     }
 
-    std::any ToPropVisitor::visit(VTempSpec* node){
+    std::any ToPropLTLVisitor::visit(VTempSpec* node){
 
         string total;
     
@@ -105,7 +105,7 @@ namespace vastvisitor{
     return total;
     }
 
-    std::any ToPropVisitor::visit(VInvSpec* node){
+    std::any ToPropLTLVisitor::visit(VInvSpec* node){
         string total;
         
         // if (node->imports != nullptr) {
@@ -121,7 +121,7 @@ namespace vastvisitor{
         return total;
     }
 
-    std::any ToPropVisitor::visit(VSynthSpec* node){
+    std::any ToPropLTLVisitor::visit(VSynthSpec* node){
         string total;
 
         // if (node->imports != nullptr) {
@@ -140,20 +140,20 @@ namespace vastvisitor{
         return total;
     }
 
-    std::any ToPropVisitor::visit(VID* node){
+    std::any ToPropLTLVisitor::visit(VID* node){
         return node->name;
     }
-    std::any ToPropVisitor::visit(VType* node){
+    std::any ToPropLTLVisitor::visit(VType* node){
         return node->name;
     }
 
-    std::any ToPropVisitor::visit(VVarDecl* node){
+    std::any ToPropLTLVisitor::visit(VVarDecl* node){
         string type = std::any_cast<std::string>(visit(node->typ));
         string var = std::any_cast<std::string>(visit(node->var));
         return type + " " + var;
     }
 
-    std::any ToPropVisitor::visit(VVarDeclList* node){
+    std::any ToPropLTLVisitor::visit(VVarDeclList* node){
         vector<string> varDecsString;
         for (VVarDecl* varDec : node->var_decs) {
             string varDecStr = std::any_cast<std::string>(visit(varDec));
@@ -163,7 +163,7 @@ namespace vastvisitor{
         return decls;
     }
 
-    std::any ToPropVisitor::visit(vast::VStatementExpr* node){
+    std::any ToPropLTLVisitor::visit(vast::VStatementExpr* node){
         if(VUnStatementExpr* exprNode = dynamic_cast<VUnStatementExpr*>(node))
             return std::any_cast<std::string>(visit(exprNode));
         else if (VBinStatementExpr* exprNode = dynamic_cast<VBinStatementExpr*>(node))
@@ -187,54 +187,54 @@ namespace vastvisitor{
     }
 
     // VStatementExpr derived classes.
-    std::any ToPropVisitor::visit(VUnStatementExpr* node){
+    std::any ToPropLTLVisitor::visit(VUnStatementExpr* node){
         string op = std::any_cast<std::string>(visit(node->op));
         string con = std::any_cast<std::string>(visit(node->con));
         return op + con;
     }
 
-    std::any ToPropVisitor::visit(VBinStatementExpr* node){
+    std::any ToPropLTLVisitor::visit(VBinStatementExpr* node){
         string lhs = std::any_cast<std::string>(visit(node->lhs));
         string op = std::any_cast<std::string>(visit(node->op));
         string rhs = std::any_cast<std::string>(visit(node->rhs));
         return "(" + lhs + " " + op + " " + rhs + ")";
     }
 
-    std::any ToPropVisitor::visit(VExecutedStatement* node){
+    std::any ToPropLTLVisitor::visit(VExecutedStatement* node){
       string freshVar = generateFreshVariable();
       freshVarsToAtoms[freshVar] = node;
 
       return freshVar;
     }
-    std::any ToPropVisitor::visit(VFinishedStatement* node){
+    std::any ToPropLTLVisitor::visit(VFinishedStatement* node){
       string freshVar = generateFreshVariable();
       freshVarsToAtoms[freshVar] = node;
 
       return freshVar;
     }
-    std::any ToPropVisitor::visit(VStartedStatement* node){
+    std::any ToPropLTLVisitor::visit(VStartedStatement* node){
       string freshVar = generateFreshVariable();
       freshVarsToAtoms[freshVar] = node;
 
       return freshVar;
     }
-    std::any ToPropVisitor::visit(VRevertedStatement* node){
+    std::any ToPropLTLVisitor::visit(VRevertedStatement* node){
       string freshVar = generateFreshVariable();
       freshVarsToAtoms[freshVar] = node;
 
       return freshVar;
     }
-    std::any ToPropVisitor::visit(VWillSucceedStatement* node){
+    std::any ToPropLTLVisitor::visit(VWillSucceedStatement* node){
       string freshVar = generateFreshVariable();
       freshVarsToAtoms[freshVar] = node;
 
       return freshVar;
     }
 
-    std::any ToPropVisitor::visit(VImport* node){
+    std::any ToPropLTLVisitor::visit(VImport* node){
         return node->path;
     }
-    std::any ToPropVisitor::visit(VImportList* node){
+    std::any ToPropLTLVisitor::visit(VImportList* node){
         vector<string> importsString;
         for (VImport *import : node->imports) {
         importsString.push_back(std::any_cast<std::string>(visit(import)));
@@ -245,15 +245,15 @@ namespace vastvisitor{
         return importListString;
     }
 
-    std::any ToPropVisitor::visit(VUnOp* node){
+    std::any ToPropLTLVisitor::visit(VUnOp* node){
         return node->op;
     }
 
-    std::any ToPropVisitor::visit(VBinOp* node){
+    std::any ToPropLTLVisitor::visit(VBinOp* node){
         return node->op;
     }
 
-    std::any ToPropVisitor::visit(VFunctionID* node){
+    std::any ToPropLTLVisitor::visit(VFunctionID* node){
         string baseString;
         string funcString = std::any_cast<std::string>(visit(node->fnName));
         string argsString;
@@ -274,7 +274,7 @@ namespace vastvisitor{
         }
     }
 
-    std::any ToPropVisitor::visit(VArgList* node){
+    std::any ToPropLTLVisitor::visit(VArgList* node){
         vector<string> argsString;
         for (VConstraintExpr* arg : node->args) {
         argsString.push_back(std::any_cast<std::string>(visit(arg)));
@@ -285,7 +285,7 @@ namespace vastvisitor{
         return argsListString;
     }
 
-    std::any ToPropVisitor::visit(VConstraintExpr* node){
+    std::any ToPropLTLVisitor::visit(VConstraintExpr* node){
         if(VUnExpr* exprNode = dynamic_cast<VUnExpr*>(node))
             return std::any_cast<std::string>(visit(exprNode));
         else if (VBinExpr* exprNode = dynamic_cast<VBinExpr*>(node))
@@ -311,35 +311,35 @@ namespace vastvisitor{
     }
 
     // Constraint expression types.
-    std::any ToPropVisitor::visit(VUnExpr* node){
+    std::any ToPropLTLVisitor::visit(VUnExpr* node){
         string op = std::any_cast<std::string>(visit(node->op));
         string expr = std::any_cast<std::string>(visit(node->expr));
         return op + expr;
     }
-    std::any ToPropVisitor::visit(VBinExpr* node){
+    std::any ToPropLTLVisitor::visit(VBinExpr* node){
         string lhs = std::any_cast<std::string>(visit(node->lhs));
         string op = std::any_cast<std::string>(visit(node->op));
         string rhs = std::any_cast<std::string>(visit(node->rhs));
         return "(" + lhs + " " + op + " " + rhs + ")";
     }
-    std::any ToPropVisitor::visit(VVarExpr* node){
+    std::any ToPropLTLVisitor::visit(VVarExpr* node){
         return std::any_cast<std::string>(visit(node->var));
     }
-    std::any ToPropVisitor::visit(VConstExpr* node){
+    std::any ToPropLTLVisitor::visit(VConstExpr* node){
         return node->val;
     }
-    std::any ToPropVisitor::visit(VFieldAccessExpr* node){
+    std::any ToPropLTLVisitor::visit(VFieldAccessExpr* node){
         string expr= std::any_cast<std::string>(visit(node->expr));
         string field = std::any_cast<std::string>(visit(node->field));
         return expr + "." + field;
     }
-    std::any ToPropVisitor::visit(VArrAccessExpr* node){
+    std::any ToPropLTLVisitor::visit(VArrAccessExpr* node){
         string arr = std::any_cast<std::string>(visit(node->arr));
         string idx = std::any_cast<std::string>(visit(node->idx));
 
         return arr + "[" + idx + "]";
     }
-    std::any ToPropVisitor::visit(VFuncCallExpr* node){
+    std::any ToPropLTLVisitor::visit(VFuncCallExpr* node){
         string baseString;
         if (node->base != nullptr) {
         baseString = std::any_cast<std::string>(visit(node->base)) + ".";
@@ -350,7 +350,7 @@ namespace vastvisitor{
 
         return vFuncCallExprString;
     }
-    std::any ToPropVisitor::visit(VFSumExpr* node){
+    std::any ToPropLTLVisitor::visit(VFSumExpr* node){
         string funcString = std::any_cast<std::string>(visit(node->func));
         string argString = std::any_cast<std::string>(visit(node->arg));
         string conString = std::any_cast<std::string>(visit(node->con));

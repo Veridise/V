@@ -3,8 +3,8 @@
  * 
  */
 
-#ifndef TOPROP_VISITOR_H
-#define TOPROP_VISITOR_H
+#ifndef TOPROPLTL_VISITOR_H
+#define TOPROPLTL_VISITOR_H
 
 
 #include "../ast/VAST.h"
@@ -12,15 +12,16 @@ using namespace vast;
 
 
 /**
- * This class provides an implementation of the ToProp visitor that converts
- * a V specification into a readable format and replaces every atom with a proposition.
+ * This class provides an implementation of the ToPropLTL visitor that converts
+ * a V temporal specification into a propositional LTL format by replacing every atom in the V spec with a
+ * propositional variable. An atom is one of the 5 V statements (Started, Finished, Executed, Revereted, and WillSucceed)
  */
 namespace vastvisitor {
-    // class ToPropVisitor : public AbstractVASTVisitor
-    class ToPropVisitor 
+    // class ToPropLTLVisitor : public AbstractVASTVisitor
+    class ToPropLTLVisitor 
         {
             private:
-                //ToPropVisitor Specific
+                //ToPropLTLVisitor Specific
                 int currentVarIdx = 0;
                 std::map<string, VAST*> freshVarsToAtoms;
                 string generateFreshVariable();
@@ -73,4 +74,4 @@ namespace vastvisitor {
                 std::any visit(VFSumExpr* node);
         };
 }
-#endif //TOPROP_VISITOR_H
+#endif //TOPROPLTL_VISITOR_H
