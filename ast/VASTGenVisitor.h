@@ -4,7 +4,7 @@
 #include <string>
 #include "antlr4-runtime.h"
 #include "../libs/VParser.h"
-#include "../ast/VAST.h"
+#include "VAST.h"
 
 using namespace std;
 using namespace vast;

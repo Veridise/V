@@ -62,7 +62,7 @@ include_directories(${BOOST_ROOT})
 add_executable(parse main.cpp
                test/ParseTester/ParseTester.cpp
                ast/VAST.cpp
-               visitors_parsetree/VASTGenVisitor.cpp
+               ast/VASTGenVisitor.cpp
                # visitors_ast/AbstractVASTVisitor.cpp
                visitors_ast/ToStringVisitor.cpp
                visitors_ast/ToPropLTLVisitor.cpp
