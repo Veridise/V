@@ -1,8 +1,8 @@
 #include <string.h>
 #include "test/ParseTester/ParseTester.h"
-#include "visitors_ast/ToStringVisitor.h"
-#include "visitors_ast/ToPropLTLVisitor.h"
-#include "visitors_ast/ToJsonVisitor.h"
+#include "visitors/ToStringVisitor.h"
+#include "visitors/ToPropLTLVisitor.h"
+#include "visitors/ToJsonVisitor.h"
 
 using namespace ParseTest;
 
