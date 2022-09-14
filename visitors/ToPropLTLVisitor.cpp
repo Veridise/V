@@ -85,24 +85,18 @@ namespace vastvisitor{
         return total;
     }
 
-    std::any ToPropLTLVisitor::visit(VTempSpec* node){
-
+    std::any ToPropLTLVisitor::visit(VTempSpec* node) {
         string total;
-    
-        // if (node->imports != nullptr) {
-        // total += "import: " + std::any_cast<std::string>(visit(node->imports)) + "\n";
-        // }
-        // if (node->var_decs != nullptr) {
-        // total += "vars: " + std::any_cast<std::string>(visit(node->var_decs)) + "\n";
-        // }
-        if (node->fairness != nullptr) {
-        total += std::any_cast<std::string>(visit(node->fairness)) + " -> ";
-        }
-        if (node->spec != nullptr) {
-        total += std::any_cast<std::string>(visit(node->spec)) + "\n";
+
+        if (node->fairness != nullptr && node->spec != nullptr) {
+            return "(" + std::any_cast<std::string>(visit(node->fairness)) + "->" + std::any_cast<std::string>(visit(node->spec)) + ")";
+        } else if (node->fairness != nullptr) {
+            return std::any_cast<std::string>(visit(node->fairness));
+        } else if (node->spec != nullptr) {
+            return std::any_cast<std::string>(visit(node->spec));
         }
 
-    return total;
+        return total;
     }
 
     std::any ToPropLTLVisitor::visit(VInvSpec* node){
@@ -190,7 +184,7 @@ namespace vastvisitor{
     std::any ToPropLTLVisitor::visit(VUnStatementExpr* node){
         string op = std::any_cast<std::string>(visit(node->op));
         string con = std::any_cast<std::string>(visit(node->con));
-        return op + con;
+        return op + "(" + con + ")";
     }
 
     std::any ToPropLTLVisitor::visit(VBinStatementExpr* node){
