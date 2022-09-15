@@ -45,8 +45,7 @@ include_directories(${PROJECT_SOURCE_DIR}/test/
                     ${PROJECT_SOURCE_DIR}/ast/
                     ${PROJECT_SOURCE_DIR}/visitors_parsetree/
                     ${PROJECT_SOURCE_DIR}/visitors_ast/
-                    ${PROJECT_SOURCE_DIR}/libs/
-   )
+                    ${PROJECT_SOURCE_DIR}/libs/)
 
 set(BOOST_ROOT ${BOOST_ROOT}) # either set it here or from the command line  
 set(Boost_USE_STATIC_LIBS OFF) 
@@ -59,17 +58,21 @@ find_package(Boost REQUIRED COMPONENTS filesystem)
 include_directories(${BOOST_ROOT})
 
 # add generated grammar to parse the input specification
-add_executable(parse main.cpp
-               test/ParseTester/ParseTester.cpp
-               ast/VAST.cpp
-               ast/VASTGenVisitor.cpp
-               visitors/AbstractVASTVisitor.cpp
-               visitors/BaseVASTVisitor.cpp
-               visitors/ToStringVisitor.cpp
-               visitors/ToPropLTLVisitor.cpp
-               visitors/ToJsonVisitor.cpp
-               ${ANTLR_VGrammarParser_CXX_OUTPUTS})
-target_link_libraries(parse antlr4_static)
-target_include_directories(parse PUBLIC ${Boost_INCLUDE_DIRS}) 
-target_link_libraries(parse ${Boost_LIBRARIES})
-target_link_libraries(parse Boost::filesystem)
+set(parse main.cpp
+    test/ParseTester/ParseTester.cpp
+    ast/VAST.cpp
+    ast/VASTGenVisitor.cpp
+    visitors/AbstractVASTVisitor.cpp
+    visitors/BaseVASTVisitor.cpp
+    visitors/ToStringVisitor.cpp
+    visitors/ToPropLTLVisitor.cpp
+    visitors/ToJsonVisitor.cpp
+    ${ANTLR_VGrammarParser_CXX_OUTPUTS})
+
+add_library(parse_lib ${parse})
+
+target_link_libraries(parse_lib antlr4_static)
+target_include_directories(parse_lib PUBLIC ${Boost_INCLUDE_DIRS})
+target_include_directories(parse_lib PUBLIC ${Boost_INCLUDE_DIRS})
+target_link_libraries(parse_lib ${Boost_LIBRARIES})
+target_link_libraries(parse_lib Boost::filesystem)
