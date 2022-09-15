@@ -9,10 +9,10 @@
 #include "../../libs/VLexer.h"
 #include "../../libs/VParser.h"
 #include "../Tester.h"
-#include "../ast/VASTGenVisitor.h"
-#include "../ast/VAST.h"
+#include "../../ast/VASTGenVisitor.h"
+#include "../../ast/VAST.h"
 #include "boost/filesystem.hpp"
-#include "../libs/json.hpp"
+#include "../../libs/json.hpp"
 
 using namespace Test;
 
