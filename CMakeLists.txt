@@ -73,6 +73,6 @@ add_library(parse_lib ${parse})
 
 target_link_libraries(parse_lib antlr4_static)
 target_include_directories(parse_lib PUBLIC ${Boost_INCLUDE_DIRS})
-target_include_directories(parse_lib PUBLIC ${Boost_INCLUDE_DIRS})
+target_include_directories(parse_lib PUBLIC ${ANTLR4_INCLUDE_DIRS})
 target_link_libraries(parse_lib ${Boost_LIBRARIES})
 target_link_libraries(parse_lib Boost::filesystem)
