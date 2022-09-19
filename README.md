@@ -116,3 +116,31 @@ This code is a part of the code present in ```main.cpp```. The comments explain 
     ├── main.cpp                # Code showing the usage of the V language parser that generates VAST, and VAST visitors
     ├── README.md
     └── V.g4                    # V Specification grammar
+    
+### Use V as a submodule
+
+Add `V` as a submodule of a project using:
+```
+git submodule add https://github.com/Veridise/V
+```
+Set up the project by including the following statements in the `CMakeLists.txt` file:
+```
+link_directories(V)
+add_subdirectory(V)
+target_link_libraries(project_executable PRIVATE parse_lib)
+```
+Commit and push the changes using:
+```
+git commit -am "Add V as a submodule"
+git push
+```
+Clone a project that contains submodules using:
+```
+git clone --recurse-submodules https://github.com/project
+```
+OR
+```
+git clone https://github.com/project
+git submodule init
+git submodule update
+```
