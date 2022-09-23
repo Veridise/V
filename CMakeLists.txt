@@ -57,7 +57,7 @@ find_package(Boost REQUIRED COMPONENTS filesystem)
 # include boost
 include_directories(${BOOST_ROOT})
 
-# add generated grammar to parse the input specification
+# Create library parse_lib
 set(parse main.cpp
     test/ParseTester/ParseTester.cpp
     ast/VAST.cpp
@@ -76,3 +76,7 @@ target_include_directories(parse_lib PUBLIC ${Boost_INCLUDE_DIRS})
 target_include_directories(parse_lib PUBLIC ${ANTLR4_INCLUDE_DIRS})
 target_link_libraries(parse_lib ${Boost_LIBRARIES})
 target_link_libraries(parse_lib Boost::filesystem)
+
+
+add_executable(parse main.cpp)
+target_link_libraries(parse parse_lib)
