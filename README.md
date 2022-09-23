@@ -160,3 +160,7 @@ git clone https://github.com/Veridise/V
 git submodule init
 git submodule update
 ```
+
+To update/sync V (or any sub-module), from within an external repo, use:
+
+```git submodule update --init --recursive --remote```
