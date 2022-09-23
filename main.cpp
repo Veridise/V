@@ -26,6 +26,8 @@ int main(int argc, const char **argv) {
     std::ifstream specfile (argv[1]);
     std::string spec((std::istreambuf_iterator<char>(specfile)),
                      (std::istreambuf_iterator<char>()));
+    
+    std::cout<<"Parsing the specfile with ANTLR \n";
     ANTLRInputStream input(spec.c_str());
     VLexer lexer(&input);
     CommonTokenStream tokens(&lexer);
@@ -33,36 +35,39 @@ int main(int argc, const char **argv) {
     VParser parser(&tokens);
     VParser::SpecContext* tree = parser.spec();
 
+    std::cout<<"Creating the VAST using (parse tree) VASTGenVisitor \n";
     VASTGenVisitor visitor;
     VAST* ast = visitor.visitSpec(tree);
 
     //Using the ToString visitor.
+    std::cout<<"Converting VAST to String using the VAST ToStringVisitor \n";
     vastvisitor::ToStringVisitor tsvisitor;
     string vastString = std::any_cast<std::string>(tsvisitor.visit(ast));
-    std::cout<<vastString;
+    std::cout<<vastString <<"\n";
 
     //Using the ToPropLTL visitor.
+    std::cout<<"Converting VAST to propostional LTL using the VAST ToPropLTLVisitor \n";
     vastvisitor::ToPropLTLVisitor tpvisitor;
     try{
       string vastPropString = std::any_cast<std::string>(tpvisitor.visit(ast));
-      std::cout<<vastPropString;
+      std::cout<<vastPropString<< "\n";
       std::map<string, VAST*> atomMap = tpvisitor.getMap();
       tpvisitor.printMap();
     }
     catch(const char* txtException){
-      std::cout<<"Exception: "<<txtException;
+      std::cout<<"Exception: "<<txtException<<"\n";
     }
 
     // Using the ToJson visitor.
+    std::cout<<"Converting VAST to JSON using the VAST ToJsonVisitor \n";
     vastvisitor::ToJsonVisitor tjvisitor;
     json vastJsonString = std::any_cast<json>(tjvisitor.visit(ast));
-    std::cout<<vastJsonString;
+    std::cout<<vastJsonString<<"\n \n";
 
     // Using the inbuilt Json function.
-    
-    // json ast_json = ast->toJson();
-
-    // std::cout << ast_json << "\n";
+    std::cout<<"Converting VAST to JSON without using any visitor \n";
+    json ast_json = ast->toJson();
+    std::cout << ast_json << "\n \n";
   }
 
   return 0;

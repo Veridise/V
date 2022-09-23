@@ -5,21 +5,23 @@ This repository contains the grammar for the V specification language (in V.g4) 
 ### Building
 
 ```bash
-mkdir build
-cd build
-cmake ../
-make
+./build.sh
 ```
+This step generates a library `libparse_lib.a` and an executable `parse` that links this library.
+A user can [run the exectuable](#usage) (compiled from `main.cpp`) to get an idea of how to use the V library.
+A user can also [include V as a submodule](#use-v-as-a-submodule) and include the libraries directly in their repostory.
 
-### Running 
+### Usage
+
+The `build/parse` executable compiled from `main.cpp ` invoke the V parser and visitors.
 
 ```bash
 ./parse <path-to-spec>
 ```
 
-This returns the intermediate VAST in JSON format.
+This executable takes as input a specification file, parses it using ANTLR4, converts the resulting parse tree into a VAST using VASTGenVisitor and performs various operations over it. For example, you can traverse the VAST using the ToString VAST visitor, to convert it into a string. 
 
-For example, running 
+To illustrate, running 
 
 ```bash
 ./parse ../example_specs/invariant1.spec
@@ -32,7 +34,21 @@ inv: finished(erc20.*, address(this).balance = sum(balances))
 
 returns the following:
 
-```json
+```bash
+Parsing the specfile with ANTLR 
+Creating the VAST using (parse tree) VASTGenVisitor 
+Converting VAST to String using the VAST ToStringVisitor 
+import: 
+vars: ERC20 erc20
+inv: finished(erc20.*, (address(this).balance = sum(balances)))
+
+Converting VAST to propostional LTL using the VAST ToPropLTLVisitor 
+Exception: Not a Temporal Specification. ToPropLTLVisitor visits temporal specifications only. 
+
+Converting VAST to JSON using the VAST ToJsonVisitor 
+{"imports":{"imports":[],"ntype":"VImportList"},"inv":{"con":{"lhs":{"expr":{"args":{"args":[{"ntype":"VVarExpr","var":{"name":"this","ntype":"VID"}}],"ntype":"VArgList"},"base":null,"func":{"name":"address","ntype":"VID"},"ntype":"VFuncCallExpr"},"field":{"name":"balance","ntype":"VID"},"ntype":"VFieldAccessExpr"},"ntype":"VBinExpr","op":{"ntype":"VBinOp","op":"="},"rhs":{"args":{"args":[{"ntype":"VVarExpr","var":{"name":"balances","ntype":"VID"}}],"ntype":"VArgList"},"base":null,"func":{"name":"sum","ntype":"VID"},"ntype":"VFuncCallExpr"}},"fun":{"args":{"ntype":"VVarExpr","var":{"name":"erc20","ntype":"VID"}},"base":null,"func":{"name":"*","ntype":"VID"},"ntype":"VFunctionID"},"ntype":"VFinishedStatementExpr","pre":null},"ntype":"VInvSpec","var_decls":{"ntype":"VVarDeclList","var_decls":[{"ntype":"VVarDecl","type":{"name":"ERC20","ntype":"VType"},"var":{"name":"erc20","ntype":"VID"}}]}}
+ 
+Converting VAST to JSON without using any visitor 
 {"imports":{"imports":[],"ntype":"VImportList"},"inv":{"con":{"lhs":{"expr":{"args":{"args":[{"ntype":"VVarExpr","var":{"name":"this","ntype":"VID"}}],"ntype":"VArgList"},"base":null,"func":{"name":"address","ntype":"VID"},"ntype":"VFuncCallExpr"},"field":{"name":"balance","ntype":"VID"},"ntype":"VFieldAccessExpr"},"ntype":"VBinExpr","op":"=","rhs":{"args":{"args":[{"ntype":"VVarExpr","var":{"name":"balances","ntype":"VID"}}],"ntype":"VArgList"},"base":null,"func":{"name":"sum","ntype":"VID"},"ntype":"VFuncCallExpr"}},"fun":{"args":null,"base":{"ntype":"VVarExpr","var":{"name":"erc20","ntype":"VID"}},"func":{"name":"*","ntype":"VID"},"ntype":"VFunctionID"},"ntype":"VFinishedStatementExpr","pre":null},"ntype":"VInvSpec","var_decls":{"ntype":"VVarDeclList","var_decls":[{"ntype":"VVarDecl","type":{"name":"ERC20","ntype":"VType"},"var":{"name":"erc20","ntype":"VID"}}]}}
 ```
 
@@ -136,11 +152,11 @@ git push
 ```
 Clone a project that contains submodules using:
 ```
-git clone --recurse-submodules https://github.com/project
+git clone --recurse-submodules https://github.com/Veridise/V
 ```
 OR
 ```
-git clone https://github.com/project
+git clone https://github.com/Veridise/V
 git submodule init
 git submodule update
 ```
