@@ -8,8 +8,8 @@ This repository contains the grammar for the V specification language (in V.g4) 
 ./build.sh
 ```
 This step generates a library `libparse_lib.a` and an executable `parse` that links this library.
-A user can [run the exectuable](#usage) (compiled from `main.cpp`) to get an idea of how to use the V library.
-A user can also [include V as a submodule](#use-v-as-a-submodule) and include the libraries directly in their repostory.
+- A user can [run the exectuable](#usage) (compiled from `main.cpp`) to get an idea of how to use the V library.
+- A user can also [include V as a submodule](#use-v-as-a-submodule) and include the libraries directly in their repostory.
 
 ### Usage
 
