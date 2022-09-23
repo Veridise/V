@@ -275,7 +275,7 @@ namespace vastgenvisitor {
 
       if(ctx->ATOM_PRE_LOC()) {
         stmt_typ = ctx->ATOM_PRE_LOC()->getText();
-        if (ctx->constraint()[0]) {
+        if (ctx->constraint().size() > 0) {
           con = visitConstraint(ctx->constraint()[0]);
         }
       }
