@@ -1,0 +1,17 @@
+site_name: '[V] Documentation'
+
+nav:
+  - Home: index.md
+  - Specifications:
+    - Temporal Specifications: temporal_specs.md
+    - Behavioral Specifications: behavioral_specs.md
+  - Building Blocks:
+    - Temporal Properties: temporal_property.md
+    - Sequential Properties: sequential_property.md
+    - Specification Variables and Macros: vars_and_macros.md
+    - Statements: statements.md
+    - Expressions: expressions.md
+    - Execution Model: execution_model.md
+
+plugins:
+  - mike:
