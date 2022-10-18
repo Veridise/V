@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Expressions - [V] Documentation</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+        <link href="../css/version-select.css" rel="stylesheet">
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">[V] Documentation</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Specifications <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../temporal_specs/" class="dropdown-item">Temporal Specifications</a>
+</li>
+                                    
+<li>
+    <a href="../behavioral_specs/" class="dropdown-item">Behavioral Specifications</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Building Blocks <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../temporal_property/" class="dropdown-item">Temporal Properties</a>
+</li>
+                                    
+<li>
+    <a href="../sequential_property/" class="dropdown-item">Sequential Properties</a>
+</li>
+                                    
+<li>
+    <a href="../vars_and_macros/" class="dropdown-item">Specification Variables and Macros</a>
+</li>
+                                    
+<li>
+    <a href="../statements/" class="dropdown-item">Statements</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active">Expressions</a>
+</li>
+                                    
+<li>
+    <a href="../execution_model/" class="dropdown-item">Execution Model</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a rel="prev" href="../statements/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../execution_model/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#expressions" class="nav-link">Expressions</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#blockchain-variables" class="nav-link">Blockchain Variables</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#utility-variables-and-functions" class="nav-link">Utility Variables and Functions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#arithmetic-operators" class="nav-link">Arithmetic Operators</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#relational-operators" class="nav-link">Relational Operators</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#logical-operators" class="nav-link">Logical Operators</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#access-operators" class="nav-link">Access Operators</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="expressions">Expressions</h1>
+<p>[V] expressions are operations composed of blockchain variables, contract variables, pure/view functions, specification variables, macros, argument aliases and [V] utility variables/functions. More information is provided below about the supported operators, variables and functions.</p>
+<h2 id="blockchain-variables">Blockchain Variables</h2>
+<p>To allow the specification of properties across different blockchains and languages, [V] provides language-agnostic access to information commonly provided by blockchains. Specifically, the following information is provided:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Utility</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>null</code></td>
+<td align="left">Evaluates to the null account</td>
+</tr>
+<tr>
+<td align="left"><code>sender</code></td>
+<td align="left">Specifies the account that invoked the transaction</td>
+</tr>
+<tr>
+<td align="left"><code>value</code></td>
+<td align="left">Specifies the amount of native tokens attached by the sender to the transaction’s message</td>
+</tr>
+<tr>
+<td align="left"><code>timestamp</code></td>
+<td align="left">Provides the current timestamp</td>
+</tr>
+<tr>
+<td align="left"><code>selector</code></td>
+<td align="left">The selector for this transaction</td>
+</tr>
+</tbody>
+</table>
+<h2 id="utility-variables-and-functions">Utility Variables and Functions</h2>
+<p>The [V] utility variables and functions are defined below:</p>
+<table>
+<thead>
+<tr>
+<th align="left"><div style="width:220px">Utility</div></th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>this</code></td>
+<td align="left">Evaluates to the recipient contract of the statement’s transaction</td>
+</tr>
+<tr>
+<td align="left"><code>ret</code></td>
+<td align="left">The return value of the given transaction</td>
+</tr>
+<tr>
+<td align="left"><code>balance(account)</code></td>
+<td align="left">Returns <code>account</code>’s balance in native tokens</td>
+</tr>
+<tr>
+<td align="left"><code>id(contract)</code></td>
+<td align="left">Returns the account identifier for the contract</td>
+</tr>
+<tr>
+<td align="left"><code>old(expr)</code></td>
+<td align="left">Evaluates <code>expr</code> just before the transaction executes</td>
+</tr>
+<tr>
+<td align="left"><code>fsum(target, cond, expr)</code></td>
+<td align="left">Accumulates the sum of <code>expr</code> across all transactions to <code>target</code> that successfully execute where <code>cond</code> holds. Note that this creates a nested scope where the blockchain variables, utility variables and utility functions refer to the specified target transaction</td>
+</tr>
+<tr>
+<td align="left"><code>last(target, cond, expr)</code></td>
+<td align="left">Returns the evaluation of <code>expr</code> from the last transaction to <code>target</code> that successfully executed where <code>cond</code> held. Note that this creates a nested scope where the blockchain variables, utility variables and utility functions refer to the specified target transaction</td>
+</tr>
+<tr>
+<td align="left"><code>sum(collection)</code></td>
+<td align="left">Accumulates the sum of all the values contained in <code>collection</code></td>
+</tr>
+<tr>
+<td align="left"><code>type(val)</code></td>
+<td align="left">Casts <code>val</code> to <code>type</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="arithmetic-operators">Arithmetic Operators</h2>
+<p>[V] allows the use of typical arithmetic operators to perform mathematical operations. Specifically it supports the operators below:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Operator</th>
+<th align="center">Use</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Addition</td>
+<td align="center"><code>a + b</code></td>
+<td align="left">Adds the values of <code>a</code> and <code>b</code></td>
+</tr>
+<tr>
+<td align="left">Subtraction</td>
+<td align="center"><code>a - b</code></td>
+<td align="left">Subtracts the value of <code>b</code> from <code>a</code></td>
+</tr>
+<tr>
+<td align="left">Multiplication</td>
+<td align="center"><code>a * b</code></td>
+<td align="left">Multiplies the values of <code>a</code> and <code>b</code></td>
+</tr>
+<tr>
+<td align="left">Division</td>
+<td align="center"><code>a / b</code></td>
+<td align="left">Divides <code>a</code> by <code>b</code></td>
+</tr>
+<tr>
+<td align="left">Modulus</td>
+<td align="center"><code>a % b</code></td>
+<td align="left">Provides the remainder of <code>a</code>’s division by <code>b</code></td>
+</tr>
+<tr>
+<td align="left">Unary Minus</td>
+<td align="center"><code>-a</code></td>
+<td align="left">Changes the sign of <code>a</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="relational-operators">Relational Operators</h2>
+<p>[V] provides various relational operators to perform comparisons between values. In addition to common relational operators, [V] provides a few specialty operators for common use cases. It should be noted that since [V] is a declarative language and does not allow assignment (usually), that equality comparison is <code>=</code> rather than assignment.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Operator</th>
+<th align="center">Use</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Equal</td>
+<td align="center"><code>a = b</code></td>
+<td align="left">Checks if the value of <code>a</code> is equal to the value of <code>b</code></td>
+</tr>
+<tr>
+<td align="left">Not Equal</td>
+<td align="center"><code>a != b</code></td>
+<td align="left">Checks if the value of <code>a</code> is not equal to the value of <code>b</code></td>
+</tr>
+<tr>
+<td align="left">Greater Than</td>
+<td align="center"><code>a &gt; b</code></td>
+<td align="left">Checks if the value of <code>a</code> is greater than the value of <code>b</code></td>
+</tr>
+<tr>
+<td align="left">Greater or Equal</td>
+<td align="center"><code>a &gt;= b</code></td>
+<td align="left">Checks if the value of <code>a</code> is greater than or equal to the value of <code>b</code></td>
+</tr>
+<tr>
+<td align="left">Less Than</td>
+<td align="center"><code>a &lt; b</code></td>
+<td align="left">Checks if the value of <code>a</code> is less than the value of <code>b</code></td>
+</tr>
+<tr>
+<td align="left">Less or Equal</td>
+<td align="center"><code>a &lt;= b</code></td>
+<td align="left">Checks if the value of a is less than or equal to the value of b</td>
+</tr>
+<tr>
+<td align="left">Equal Except</td>
+<td align="center"><code>a = b except c</code></td>
+<td align="left">Checks if two collections, structures or contracts <code>a</code> and <code>b</code> are equal except at the locations specified by <code>c</code> (separated by commas)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="logical-operators">Logical Operators</h2>
+<p>[V] supports the following logical operators:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Operator</th>
+<th align="center">Use</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Logical AND</td>
+<td align="center"><code>a &amp;&amp; b</code></td>
+<td align="left">Checks if both <code>a</code> and <code>b</code> hold</td>
+</tr>
+<tr>
+<td align="left">Logical OR</td>
+<td align="center"><code>a || b</code></td>
+<td align="left">Checks if either <code>a</code>, <code>b</code> or both hold</td>
+</tr>
+<tr>
+<td align="left">Logical NOT</td>
+<td align="center"><code>!a</code></td>
+<td align="left">Checks if <code>a</code> does not hold</td>
+</tr>
+<tr>
+<td align="left">Implication</td>
+<td align="center"><code>a ==&gt; b</code></td>
+<td align="left">Checks that <code>b</code> holds if <code>a</code> holds</td>
+</tr>
+</tbody>
+</table>
+<h2 id="access-operators">Access Operators</h2>
+<p>[V] provides operators for accessing collections and members of contracts and structs. With respect to contracts, both contract variables and pure or view functions are accessible regardless of visibility. To make an access into a contract, though, [V] must know which contract is being accessed. The following operators are provided to access collections, member variables and member functions:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Operator</th>
+<th align="center">Use</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Index</td>
+<td align="center"><code>c[i]</code></td>
+<td align="left">Accesses collection <code>c</code> at index <code>i</code></td>
+</tr>
+<tr>
+<td align="left">Member Variable</td>
+<td align="center"><code>c.v</code></td>
+<td align="left">Accesses the member variable <code>v</code> contained in <code>c</code></td>
+</tr>
+<tr>
+<td align="left">Member Function</td>
+<td align="center"><code>c.fn(args)</code></td>
+<td align="left">Calls function <code>fn</code> with the arguments <code>args</code> provided by <code>c</code></td>
+</tr>
+</tbody>
+</table></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../js/version-select.js" defer></script>
+
+        <div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

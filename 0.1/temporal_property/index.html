@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Temporal Properties - [V] Documentation</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+        <link href="../css/version-select.css" rel="stylesheet">
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">[V] Documentation</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Specifications <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../temporal_specs/" class="dropdown-item">Temporal Specifications</a>
+</li>
+                                    
+<li>
+    <a href="../behavioral_specs/" class="dropdown-item">Behavioral Specifications</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Building Blocks <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="./" class="dropdown-item active">Temporal Properties</a>
+</li>
+                                    
+<li>
+    <a href="../sequential_property/" class="dropdown-item">Sequential Properties</a>
+</li>
+                                    
+<li>
+    <a href="../vars_and_macros/" class="dropdown-item">Specification Variables and Macros</a>
+</li>
+                                    
+<li>
+    <a href="../statements/" class="dropdown-item">Statements</a>
+</li>
+                                    
+<li>
+    <a href="../expressions/" class="dropdown-item">Expressions</a>
+</li>
+                                    
+<li>
+    <a href="../execution_model/" class="dropdown-item">Execution Model</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a rel="prev" href="../behavioral_specs/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../sequential_property/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#temporal-properties" class="nav-link">Temporal Properties</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#temporal-operators" class="nav-link">Temporal Operators</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#logical-operators" class="nav-link">Logical Operators</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#common-mistakes" class="nav-link">Common Mistakes</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#example" class="nav-link">Example</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="temporal-properties">Temporal Properties</h1>
+<p>Temporal properties allow users to specify a property over arbitrary amounts of time. They are extremely useful for checking protocol behaviors amid unknown user interaction. These properties are specified by composing one or more <a href="../statements/">[V] Statements</a> using the logical and temporal operators described below.</p>
+<h2 id="temporal-operators">Temporal Operators</h2>
+<p>Unlike logical operators, temporal operators specifically specify properties over time. All but the sequence operator are inherited from <a href="https://en.wikipedia.org/wiki/Linear_temporal_logic">Linear Temporal Logic (LTL)</a> and have the same semantics. In addition, the sequence operator has the same semantics that it does in <a href="../sequential_property/">Sequential Properties</a>.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Operator</th>
+<th align="center">Use</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Always</td>
+<td align="center"><code>[] a</code></td>
+<td align="left"><code>a</code> holds from now on</td>
+</tr>
+<tr>
+<td align="left">Eventually</td>
+<td align="center"><code>&lt;&gt; a</code></td>
+<td align="left"><code>a</code> either holds now or at some point in the future</td>
+</tr>
+<tr>
+<td align="left">Next</td>
+<td align="center"><code>X a</code></td>
+<td align="left"><code>a</code> holds in the next state</td>
+</tr>
+<tr>
+<td align="left">Until</td>
+<td align="center"><code>a U b</code></td>
+<td align="left"><code>a</code> holds at least until <code>b</code> holds and <code>b</code> eventually holds</td>
+</tr>
+<tr>
+<td align="left">Sequence</td>
+<td align="center"><code>a ; b</code></td>
+<td align="left"><code>a</code> holds followed by <code>b</code> in the appropriate slot of the next transaction</td>
+</tr>
+</tbody>
+</table>
+<h2 id="logical-operators">Logical Operators</h2>
+<p>In addition to temporal operators, statements can be composed with the following logical operators.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Operator</th>
+<th align="center">Use</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Logical AND</td>
+<td align="center"><code>a &amp;&amp; b</code></td>
+<td align="left">Checks if both <code>a</code> and <code>b</code> hold</td>
+</tr>
+<tr>
+<td align="left">Logical OR</td>
+<td align="center"><code>a || b</code></td>
+<td align="left">Checks if either <code>a</code>, <code>b</code> or both hold</td>
+</tr>
+<tr>
+<td align="left">Logical NOT</td>
+<td align="center"><code>!a</code></td>
+<td align="left">Checks if <code>a</code> does not hold</td>
+</tr>
+<tr>
+<td align="left">Implication</td>
+<td align="center"><code>a ==&gt; b</code></td>
+<td align="left">Checks that <code>b</code> holds if <code>a</code> holds</td>
+</tr>
+</tbody>
+</table>
+<h2 id="common-mistakes">Common Mistakes</h2>
+<p>As it can be difficult to reason about the implications of temporal operators at time, here we discuss a few common mistakes we’ve seen. </p>
+<h3 id="v-statements-refer-to-specific-moments-in-time">[V] Statements Refer to Specific Moments in Time</h3>
+<p>While conventional LTL operates over program states, [V] operates over specific moments in the lifecycle of a contract as described by the <a href="../execution_model/">execution model</a>. As such, there are certain temporal expressions that are useful in LTL but have trivial counterexamples in [V] since they require a violation of the execution model to hold. Such temporal expressions typically imply that time has either stopped or that it is not linear. </p>
+<p>As an example, consider the temporal expression <code>[] action(txn, ...)</code>. This statement has a trivial counterexample since it is impossible to stay in a state consistent with <code>action</code> and <code>txn</code>. More specifically, consider <code>[] started(token.transfer)</code> . For this to hold, a <code>transfer</code> transaction must always be starting its execution on <code>token</code>. Note that this implies that time halts since the transaction never completes.</p>
+<p>As another example, consider the temporal expression <code>action1(t1, ...) &amp;&amp; action2(t2, ...)</code>.  This statement also has a trivial counterexample since it is impossible to be in a state consistent with <code>action1</code> and <code>t1</code> at the same time as <code>action2</code> and <code>t2</code> unless <code>action1 = action2</code> and <code>t1 = t2</code>. If this were to occur time could not be linear as it would have to be in two states at once. More specifically, consider <code>started(c.foo) &amp;&amp; started(c.bar)</code>. For this to hold two transactions must have been started on contract <code>c</code> at the same time.</p>
+<h2 id="example">Example</h2>
+<h3 id="example-1">Example 1</h3>
+<p>Whenever <code>usr</code> deposits <code>X</code> funds in the wallet, they can eventually withdraw them.</p>
+<pre><code class="language-solidity">[](finished(wallet.deposit, sender = usr &amp;&amp; value = X) ==&gt; 
+  &lt;&gt;finished(wallet.withdraw(amt), sender = usr &amp;&amp; amt = X))
+</code></pre>
+<h3 id="example-2">Example 2</h3>
+<p><code>usr</code> cannot <code>withdraw</code> their funds until <code>close</code>  has been called in a state where <code>failed</code> holds.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../js/version-select.js" defer></script>
+
+        <div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
