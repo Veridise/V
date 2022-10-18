@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Specification Variables and Macros - [V] Documentation</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+        <link href="../css/version-select.css" rel="stylesheet">
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">[V] Documentation</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Specifications <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../temporal_specs/" class="dropdown-item">Temporal Specifications</a>
+</li>
+                                    
+<li>
+    <a href="../behavioral_specs/" class="dropdown-item">Behavioral Specifications</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Building Blocks <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../temporal_property/" class="dropdown-item">Temporal Properties</a>
+</li>
+                                    
+<li>
+    <a href="../sequential_property/" class="dropdown-item">Sequential Properties</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active">Specification Variables and Macros</a>
+</li>
+                                    
+<li>
+    <a href="../statements/" class="dropdown-item">Statements</a>
+</li>
+                                    
+<li>
+    <a href="../expressions/" class="dropdown-item">Expressions</a>
+</li>
+                                    
+<li>
+    <a href="../execution_model/" class="dropdown-item">Execution Model</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a rel="prev" href="../sequential_property/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../statements/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#specification-variables-and-macros" class="nav-link">Specification Variables and Macros</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#specification-variables" class="nav-link">Specification Variables</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#let-statements" class="nav-link">Let Statements</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="specification-variables-and-macros">Specification Variables and Macros</h1>
+<p>Specification variables and macros are an essential part of the [V] specification language. They can be used to reduce redundancy of a specification and to correlate values across time.</p>
+<h2 id="specification-variables">Specification Variables</h2>
+<p>In [V], specification variables allow relationships across transactions to be expressed. Similar to free variables in SMT solvers, such variables range over the domain corresponding to their type, allowing them to take on any possible value. As such, they can be used to reason about many possible values at once as they are allowed to take on any values that meets the constraints placed on the variables.</p>
+<p>Variables are declared in a special section and are scoped for the entire specification. Similar to declaring a variable in other programming languages, a variable simply needs a type and a name. As an example, <code>uint256 a</code> declares a variable called <code>a</code> with a type of <code>uint256</code>. All variables are declared similarly in a variables section as a comma separated list, like so:</p>
+<pre><code class="language-solidity">vars: uint256 a, boolean b, mathInt c
+</code></pre>
+<h3 id="types">Types</h3>
+<p>Currently, most types in [V] are inherited from the smart contract language right now. That is, the types that are available are defined by the language the specification is checking. For example, in Solidity types such as <code>u256</code>, <code>string</code>, <code>address</code> and <code>mapping(address =&gt; uint256)</code> may be used while in a rust-like language, such as Near, <code>u64</code>, <code>AccountId</code> and <code>String</code> may be used. While we might eventually try to unify the available types across languages, at the moment we believe this reduces the specification effort on users as they don’t have to determine how to map a type in the language they’re using to [V]. </p>
+<p>In addition to the types inherited from the programming language, [V] does provide additional types that do not exist in most other programming languages. Currently, the following types are provided:</p>
+<h3 id="variable-use">Variable Use</h3>
+<p>Unlike variables in a conventional programming language, variables in [V] are unbound or free by default. This means that the variable may have any possible value, allowing specifications to reason about more than a single concrete input. Uses of the variable then place constraints upon value of the given variable. The specification then holds if at least one value can be found such that all of the constraints placed upon the variable are satisfied.</p>
+<p>As an example, consider a variable <code>uint256 a</code> and say the specification places the following constraints upon <code>a</code>: <code>a &gt; 0</code> and <code>a &lt; 10</code>. Since a satisfying assignment exists for <code>a</code> (such as <code>a=5</code>) the specification will hold as long as the rest of it holds. Now consider a new specification that places the following constraints upon <code>a</code>: <code>a &gt; 0</code> and <code>a = 0</code>. In such a case, the specification does not hold since no satisfying assignment exists for <code>a</code>.</p>
+<h2 id="let-statements">Let Statements</h2>
+<p>Let statements allow users to define specification variables and create macros. They are used to reduce the amount of duplication in a specification. As such, while they may appear to be similar to assignments, they cannot overwrite anything other than specification variables.</p>
+<h3 id="defining-variables">Defining Variables</h3>
+<p>Specification variables may be used as free variables, as discussed above or they can be assigned to a particular value using let statements. This is a statement of the form <code>let a := b</code> where <code>a</code> is a specification variable and <code>b</code> is an arbitrary <a href="../expressions/">expression</a> that evaluates to the same type as <code>a</code>. The statement will evaluate <code>b</code> and assign the result to <code>a</code>. Further uses of <code>a</code> will not result in the reevaluation of <code>b</code> unlike macros but instead will have a constant value that is determined at the point of assignment. In addition, even though <code>a</code> is assigned to a concrete <em>expression</em>, it may not have a concrete <em>value</em>. That is, since <code>b</code> may contain other specification variables, it may not evaluate to a single concrete value and therefore <code>a</code> won’t either.</p>
+<p>As an example, let’s say we want to assign a specification variable to some value stored in contract <code>c</code>'s variable <code>mapping(address ⇒ uint256) bal</code>. To do so we will create two specification variables: <code>uint256 a, address b</code>. We can then use the following let statement to set <code>a</code> to an arbitrary value in the mapping:</p>
+<pre><code class="language-solidity">let a := c.bal[b]
+</code></pre>
+<h3 id="macros">Macros</h3>
+<p>Macros look similar to variable definitions but their behavior is quite different. Where a variable definition will only evaluate an expression at the time of definition, a macro will evaluate the expression every time it is invoked. This occurs because [V] performs a macro expansion step in which invocations of a macro are replaced with its body.</p>
+<p>A macro is also declared with a let statement of the form <code>let name(params) := body</code> where <code>name</code> is the name of the macro, <code>params</code> is a comma separated list of parameters and <code>body</code> is an arbitrary <a href="../expressions/">expression</a> to be evaluated when the macro is invoked. The only restriction that is placed on a macro is that it must not be recursive (or mutually recursive). A macro is then invoked by simply calling the macro by name with the appropriate arguments.</p>
+<p>As an example, let’s say that we want to define a macro <code>inc</code> to ensures a variable increases by some value. We would therefore create the following macro:</p>
+<pre><code class="language-solidity">let inc(a, b) := a = old(a) + b
+</code></pre>
+<p>In the specification, we can then invoke this macro to ensure the contract <code>c</code>'s variable <code>total</code> increases by <code>amt</code>: <code>inc(c.total, amt)</code>. Before evaluating the specification, this will be expanded to <code>c.total = old(c.total) + amt</code>.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../js/version-select.js" defer></script>
+
+        <div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

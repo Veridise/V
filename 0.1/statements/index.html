@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Statements - [V] Documentation</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+        <link href="../css/version-select.css" rel="stylesheet">
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">[V] Documentation</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Specifications <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../temporal_specs/" class="dropdown-item">Temporal Specifications</a>
+</li>
+                                    
+<li>
+    <a href="../behavioral_specs/" class="dropdown-item">Behavioral Specifications</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Building Blocks <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../temporal_property/" class="dropdown-item">Temporal Properties</a>
+</li>
+                                    
+<li>
+    <a href="../sequential_property/" class="dropdown-item">Sequential Properties</a>
+</li>
+                                    
+<li>
+    <a href="../vars_and_macros/" class="dropdown-item">Specification Variables and Macros</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active">Statements</a>
+</li>
+                                    
+<li>
+    <a href="../expressions/" class="dropdown-item">Expressions</a>
+</li>
+                                    
+<li>
+    <a href="../execution_model/" class="dropdown-item">Execution Model</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a rel="prev" href="../vars_and_macros/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../expressions/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#v-statements" class="nav-link">[V] Statements</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#action" class="nav-link">Action</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#target" class="nav-link">Target</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#property" class="nav-link">Property</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#examples" class="nav-link">Examples</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="v-statements">[V] Statements</h1>
+<p>[V] statements make up the core of the specification language as they efficiently represent interactions with the blockchain. In general, they have the following structure:</p>
+<blockquote>
+<p>action ( target, property )</p>
+</blockquote>
+<p>Where an action refers to the state of a transaction, a target refers to the recipient of the transaction and a property refers to an assertion over the state of contract and blockchain. More details on each can be found below.</p>
+<h2 id="action">Action</h2>
+<p>An action describes the state of a transaction's execution on the blockchain which establishes when a property is checked. Below we describe each type of action and how it impacts the checking of a property.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Action</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">started</td>
+<td align="left">Refers to the invocation of the target transaction. Properties query the blockchain state immediately before the execution of the transaction</td>
+</tr>
+<tr>
+<td align="left">finished</td>
+<td align="left">Refers to a revert-free execution of the target transaction. Properties query the blockchain state immediately after the modifications are committed to the ledger</td>
+</tr>
+<tr>
+<td align="left">reverted</td>
+<td align="left">Refers to an execution of the target transaction that is reverted. Properties query the blockchain state immediately after the revert occurs</td>
+</tr>
+<tr>
+<td align="left">executed</td>
+<td align="left">Refers to a completed execution of the target transaction regardless of whether it reverts or not. Properties query the blockchain state after the execution of the transaction completes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="target">Target</h2>
+<p>A target refers to the recipient entity as well as the transaction to execute. A target has the following form:</p>
+<blockquote>
+<p>entity . transaction</p>
+</blockquote>
+<p>More information on each component can be found below.</p>
+<h3 id="entity">entity</h3>
+<p>The recipient entity can either be a specific contract instance or, in cases where the specific entity does not matter such as when defining invariants, the name of a smart contract. Note that if the name of a smart contract is provided, it is assumed that the transaction could be executed on any contract of the appropriate type.</p>
+<h3 id="transaction">transaction</h3>
+<p>This is the transaction to execute on the given entity. A transaction consists of the name of a transaction that can be executed on the desired entity along with the arguments required to execute that transaction. In the event that the arguments are unnecessary for the intention of the statement and the transaction name is not overloaded, they can be excluded entirely and just a transaction name can be provided. If arguments are provided, all arguments must be defined in one of the following ways: (1) as an expression over global blockchain variables, contract variables, pure/view functions and any variables declared in the specification, or (2) as an argument alias, which is fresh variable that can be used in the property by giving the variable a unique name.</p>
+<p><em>Example</em></p>
+<p>Instruct erc20 to transfer 10 tokens from erc20's owner to the null address.</p>
+<pre><code class="language-solidity">erc20.transfer(erc20.owner, address(0), 10)
+</code></pre>
+<p><em>Example</em></p>
+<p>Instruct any wallet contract to deposit funds into some address addr's account.</p>
+<pre><code class="language-solidity">Wallet.deposit(addr)
+</code></pre>
+<p><em>Example</em></p>
+<p>Instruct erc20 to perform a transfer.</p>
+<pre><code class="language-solidity">erc20.transfer
+</code></pre>
+<h2 id="property">Property</h2>
+<p>At a high level, a property is simply a boolean <a href="../expressions/">expression</a>. However, a property has access to a few specialty operators that are useful for specifying relationships over a transaction as described below.</p>
+<h3 id="specialty-operators">Specialty Operators</h3>
+<p>In addition to more conventional operators, [V] provides a few specialty operators that are useful when writing specifications. We will provide a more in-depth description of them here.</p>
+<p><strong>Pre/Post Condition Operator</strong></p>
+<p>It is often useful when writing a specification over a transaction to provide assumptions about the invocation of the transaction (pre-condition) as well as queries about the state after its execution (post-condition). [V] allows users to write such specification succinctly using a custom pre/post condition operator <code>|=&gt;</code> as defined below.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Operator</th>
+<th align="center">Use</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Pre/Post Condition</td>
+<td align="center"><code>a |=&gt; b</code></td>
+<td align="left">Assuming the pre-condition <code>a</code> holds before a transaction, ensure that the post-condition <code>b</code> holds after the transaction</td>
+</tr>
+</tbody>
+</table>
+<p>There are a few additional things to note about this operator. First is that it cannot be combined with any of the operators above. That is, <code>a</code> and <code>b</code> are arbitrary predicates that use all of the resources discussed in the property section (except another Pre/Post condition operator), but the <code>|=&gt;</code> operation itself must be the top-most operation and can only occur once. As an example, the following is not allowed: <code>!(a |=&gt; b)</code>. Second, we currently only allow this operator to be used in finished, reverted and executed statements. This is because the pre/post condition operator is intended to query information across a transaction. As such it is not appropriate to use this operator in started statements because the transaction indicated by this statement has not executed yet. </p>
+<p><em>Example</em></p>
+<p>An ERC20 transfer transaction will succeed if a user has sufficient balance and does not transfer to the null address. In that case the user’s balance will be reduced by the specified amount and the other user’s balance should increase by the specified amount.</p>
+<pre><code class="language-solidity">finished(ERC20.transfer(from, to, amt), 
+  this.balanceOf(from) &gt;= amt &amp;&amp; to != null 
+ |=&gt;
+  this.balanceOf(from) = old(this.balanceOf(from) - amt &amp;&amp;
+  this.balanceOf(to) = old(this.balanceOf(to) + amt)
+)
+</code></pre>
+<h2 id="examples">Examples</h2>
+<h3 id="example-1">Example 1</h3>
+<p>The total supply should be the equal to the sum of all user balances (assuming the balances are stored in a map called balances) and the state of the contract should be unchanged.</p>
+<pre><code>finished(ERC20.totalSupply(), ret = sum(this.balances) &amp;&amp; this = old(this))
+</code></pre>
+<h3 id="example-2">Example 2</h3>
+<p>A transfer should revert if a user does not have sufficient balance.</p>
+<pre><code>reverted(ERC20.transfer(to, amt), this.balanceOf(sender) &lt; amt)
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../js/version-select.js" defer></script>
+
+        <div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
