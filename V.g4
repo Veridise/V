@@ -92,7 +92,7 @@ smartltlAtom : atom
              | L_UN smartltlAtom
              | LBRACK RBRACK smartltlAtom
              | smartltlAtom T_BIN smartltlAtom
-             | smartltlAtom IMP smartltlAtom
+             | <assoc=right> smartltlAtom IMP smartltlAtom
              | smartltlAtom SEQ smartltlAtom
              | smartltlAtom L_BIN smartltlAtom
              ;
@@ -133,7 +133,7 @@ params      : ident
 constraint  : boolExpr
             | LPAREN constraint RPAREN
             | constraint L_BIN constraint
-            | constraint IMP constraint
+            | <assoc=right> constraint IMP constraint
             ;
 
 boolExpr    : varOrNum
