@@ -125,7 +125,7 @@ atomFnName  : varAccess DOT ident
                
 params      : ident
             | ident COMMA params
-            | NUM
+            | NUM //Decide at some point if negative integers are needed here
             | NUM COMMA params
             | /*epsilon*/
             ; 
@@ -174,7 +174,7 @@ varOrNum    : varAccess
             | num
             ;
             
-num         : NUM
+num         : NUM | NEG_NUM
             ;
             
 varAccess   : ident
@@ -233,6 +233,7 @@ L_BIN      : ('&&' | '||') ;
 L_UN       : '!' ;
 
 NUM        : ([0-9]+ | [0-9]+ 'e' [0-9]+) ;
+NEG_NUM    : '-' NUM;
 
 NEWLINE    : ('\r'? '\n' | '\r')+ -> skip ;
 

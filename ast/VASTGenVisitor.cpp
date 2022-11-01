@@ -442,7 +442,10 @@ namespace vastgenvisitor {
 
   VConstraintExpr* VASTGenVisitor::visitVarOrNum(VParser::VarOrNumContext *ctx) {
     if (ctx->num()) {
-      return new VConstExpr("int", ctx->num()->NUM()->getText());
+      if(ctx->num()->NUM())
+        return new VConstExpr("int", ctx->num()->NUM()->getText());
+      if(ctx->num()->NEG_NUM())
+        return new VConstExpr("int", ctx->num()->NEG_NUM()->getText());
     }
 
     if (ctx->varAccess()) {
