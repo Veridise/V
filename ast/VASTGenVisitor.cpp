@@ -194,7 +194,37 @@ namespace vastgenvisitor {
         } else if (ctx->L_BIN()) {
           op_str = ctx->L_BIN()->getText();
         } else if (ctx->SEQ()) {
-          op_str = ctx->SEQ()->getText();
+          // Semantics of seq operator
+          // If we encounter the sequencing operator, we ensure that we return a statement that contains the appropriate number of next operators
+          //For now only consider 4 cases of a;b
+
+          // VBinOp *impOp = new VBinOp("==>");
+          VBinOp *andOp = new VBinOp("&&");
+          VUnOp *nextOp = new VUnOp("X");
+
+          VStartedStatement *s1_pre = dynamic_cast<VStartedStatement *>(s1);
+          VStartedStatement *s2_pre = dynamic_cast<VStartedStatement *>(s2);
+
+          VUnStatementExpr *singleNextExpr = new VUnStatementExpr(s2, nextOp);  
+          VUnStatementExpr *doubleNextExpr = new VUnStatementExpr(singleNextExpr, nextOp); 
+          VUnStatementExpr *tripleNextExpr = new VUnStatementExpr(doubleNextExpr, nextOp); 
+
+          if (s1_pre && s2_pre) {
+            std::cout<< "Entered PRE; PRE"<<std::endl;
+            return new VBinStatementExpr(s1, doubleNextExpr, andOp);
+          }
+          else if (s1_pre && !s2_pre) {
+            std::cout<< "Entered PRE; POST"<<std::endl;
+            return new VBinStatementExpr(s1, tripleNextExpr, andOp);
+          }
+          else if (!s1_pre && s2_pre) {
+            std::cout<< "Entered POST; PRE"<<std::endl;
+            return new VBinStatementExpr(s1, singleNextExpr, andOp);
+          }
+          else {
+            std::cout<< "Entered POST; POST"<<std::endl;
+            return new VBinStatementExpr(s1, doubleNextExpr, andOp);
+          }
         } else if (ctx->IMP()) {
           op_str = ctx->IMP()->getText();
         } 
