@@ -194,37 +194,68 @@ namespace vastgenvisitor {
         } else if (ctx->L_BIN()) {
           op_str = ctx->L_BIN()->getText();
         } else if (ctx->SEQ()) {
-          // Semantics of seq operator
-          // If we encounter the sequencing operator, we ensure that we return a statement that contains the appropriate number of next operators
-          //For now only consider 4 cases of a;b
+            // Currently supports sequences of VStatements. Eg: started(...) ; finished(...) ; executed(...) ; ...
 
-          // VBinOp *impOp = new VBinOp("==>");
-          VBinOp *andOp = new VBinOp("&&");
-          VUnOp *nextOp = new VUnOp("X");
+            // VBinOp *impOp = new VBinOp("==>");
+            VBinOp *andOp = new VBinOp("&&");
+            VUnOp *nextOp = new VUnOp("X");
+            
+            bool isS2VAtom = dynamic_cast<VStartedStatement *>(s2) || dynamic_cast<VFinishedStatement *>(s2) || dynamic_cast<VExecutedStatement *>(s2) || dynamic_cast<VRevertedStatement *>(s2);
+            
+            bool isS1PreAtom = dynamic_cast<VStartedStatement *>(s1);
+            bool isS1PostAtom = dynamic_cast<VFinishedStatement *>(s1) || dynamic_cast<VExecutedStatement *>(s1) || dynamic_cast<VRevertedStatement *>(s1);
+            
+            bool isS2PreAtom = dynamic_cast<VStartedStatement *>(s2);
+            bool isS2PostAtom = dynamic_cast<VFinishedStatement *>(s2) || dynamic_cast<VExecutedStatement *>(s2) || dynamic_cast<VRevertedStatement *>(s2);
 
-          VStartedStatement *s1_pre = dynamic_cast<VStartedStatement *>(s1);
-          VStartedStatement *s2_pre = dynamic_cast<VStartedStatement *>(s2);
+            VUnStatementExpr *singleNextExpr = new VUnStatementExpr(s2, nextOp);  
+            VUnStatementExpr *doubleNextExpr = new VUnStatementExpr(singleNextExpr, nextOp); 
+            VUnStatementExpr *tripleNextExpr = new VUnStatementExpr(doubleNextExpr, nextOp); 
 
-          VUnStatementExpr *singleNextExpr = new VUnStatementExpr(s2, nextOp);  
-          VUnStatementExpr *doubleNextExpr = new VUnStatementExpr(singleNextExpr, nextOp); 
-          VUnStatementExpr *tripleNextExpr = new VUnStatementExpr(doubleNextExpr, nextOp); 
+            // Construct evaluated seq expression with next operators
+            VStatementExpr *result;
+            if(isS2VAtom) {
+              // Leaf VBinStatement
+              // Return a statement that contains the appropriate number of next operators
+              if (isS1PreAtom && isS2PreAtom) {
+                // std::cout<< "Entered PRE; PRE"<<std::endl;
+                result = new VBinStatementExpr(s1, doubleNextExpr, andOp);
+              }
+              else if (isS1PreAtom && isS2PostAtom) {
+                // std::cout<< "Entered PRE; POST"<<std::endl;
+                result = new VBinStatementExpr(s1, tripleNextExpr, andOp);
+              }
+              else if (isS1PostAtom && isS2PreAtom) {
+                // std::cout<< "Entered POST; PRE"<<std::endl;
+                result = new VBinStatementExpr(s1, singleNextExpr, andOp);
+              }
+              else if (isS1PostAtom && isS2PostAtom) {
+                // std::cout<< "Entered POST; POST"<<std::endl;
+                result = new VBinStatementExpr(s1, doubleNextExpr, andOp);
+              }
+              else {
+                throw "[ERROR]: Expression not supported at this point for sequence operator";
+              }
+            }
+            else {
+              // S2 is an partially evaluated seq expression with next operators
+              // Here, we add remaining X operators between s1 and s2 depending on if s1 is a pre atom or not
+              if (isS1PreAtom) {
+                result = new VBinStatementExpr(s1, doubleNextExpr, andOp);
+              }
+              else if(isS1PostAtom) {
+                result = new VBinStatementExpr(s1, singleNextExpr, andOp);
+              }
+              else {
+                throw "[ERROR]: Expression not supported at this point for sequence operator";
+              }
+            }
 
-          if (s1_pre && s2_pre) {
-            std::cout<< "Entered PRE; PRE"<<std::endl;
-            return new VBinStatementExpr(s1, doubleNextExpr, andOp);
-          }
-          else if (s1_pre && !s2_pre) {
-            std::cout<< "Entered PRE; POST"<<std::endl;
-            return new VBinStatementExpr(s1, tripleNextExpr, andOp);
-          }
-          else if (!s1_pre && s2_pre) {
-            std::cout<< "Entered POST; PRE"<<std::endl;
-            return new VBinStatementExpr(s1, singleNextExpr, andOp);
-          }
-          else {
-            std::cout<< "Entered POST; POST"<<std::endl;
-            return new VBinStatementExpr(s1, doubleNextExpr, andOp);
-          }
+            // If s1 is a post atom, then we must add an extra X operator.
+            if (isS1PostAtom) {
+              result = new VUnStatementExpr(result, nextOp);  
+            }
+            return result;
         } else if (ctx->IMP()) {
           op_str = ctx->IMP()->getText();
         } 
