@@ -510,6 +510,10 @@ namespace vastgenvisitor {
     }
 
     if (ctx->varAccess()) {
+      if(ctx->varAccess()->getText() == "true")
+        return new VConstExpr("bool", "true");
+      if(ctx->varAccess()->getText() == "false")
+        return new VConstExpr("bool", "false");
       return visitVarAccess(ctx->varAccess());
     }
 
