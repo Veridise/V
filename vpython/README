@@ -1,0 +1,1 @@
+java -Xmx500M -cp ~/Downloads/antlr-4.11.1-complete.jar org.antlr.v4.Tool -Dlanguage=Python3 ../V.g4 -visitor -o /dist
