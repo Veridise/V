@@ -22,8 +22,10 @@ def run_specs(test_suite):
                 spec_path = os.path.join(root, file)
                 cmd = ["python3", "parse.py ", spec_path]
                 # subprocess.run(cmd)
+                # Run python version
                 os.system("python3 parse.py " + spec_path)
-                os.system("./../build/parse " + spec_path)
+                # Run cpp version
+                # os.system("./../build/parse " + spec_path)
 
                 # specs_count += 1
     # print(specs_count)
