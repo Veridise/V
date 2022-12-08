@@ -1,0 +1,32 @@
+{
+    "timeout": 2,
+    "cex": {
+        "transactions": [
+            {
+                "contract": "AddressPayable",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "AddressPayable",
+                "function": "simpleFunc",
+                "args": []
+            }
+        ]
+    },
+    "non_cex": {
+        "transactions": [
+            {
+                "contract": "AddressPayable",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "AddressPayable",
+                "function": "foo",
+                "args": []
+            }
+        ]
+    },
+    "init_blockchain_states": 1
+}

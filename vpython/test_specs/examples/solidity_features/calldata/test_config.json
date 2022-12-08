@@ -1,0 +1,34 @@
+{
+    "timeout": 2,
+    "cex": {
+        "transactions": [
+            {
+                "contract": "Calldata",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "Calldata",
+                "function": "f",
+                "args": [
+                    {"type": "uint[]", "value": []}
+                ]
+            }
+        ]
+    },
+    "non_cex": {
+        "transactions": [
+            {
+                "contract": "Calldata",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "Calldata",
+                "function": "foo",
+                "args": []
+            }
+        ]
+    },
+    "init_blockchain_states": 1
+}

@@ -1,0 +1,57 @@
+{
+    "timeout": 2,
+    "cex": {
+        "transactions": [
+            {
+                "contract": "Baz",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "Bar",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "Foo",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "Foo",
+                "function": "call_foo",
+                "args": []
+            }
+        ]
+    },
+    "non_cex": {
+        "transactions": [
+            {
+                "contract": "Baz",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "Bar",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "Foo",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "Bar",
+                "function": "call_bar",
+                "args": []
+            },
+            {
+                "contract": "Baz",
+                "function": "call_baz",
+                "args": []
+            }
+        ]
+    },
+    "init_blockchain_states": 1
+}

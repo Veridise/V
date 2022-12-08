@@ -1,0 +1,34 @@
+{
+    "timeout": 2,
+    "cex": {
+        "transactions": [
+            {
+                "contract": "MemoryArray",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "MemoryArray",
+                "function": "f",
+                "args": [
+                    {"type": "uint", "value": 10}
+                ]
+            }
+        ]
+    },
+    "non_cex": {
+        "transactions": [
+            {
+                "contract": "MemoryArray",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "MemoryArray",
+                "function": "dummy",
+                "args": []
+            }
+        ]
+    },
+    "init_blockchain_states": 1
+}

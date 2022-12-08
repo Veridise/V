@@ -1,0 +1,42 @@
+{
+    "timeout": 2,
+    "cex": {
+        "transactions": [
+            {
+                "contract": "SafeMath",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "Test",
+                "function": "constructor",
+                "args": []
+            },
+            {
+               "contract": "Test",
+               "function": "foo",
+               "args": []
+            }
+        ]
+    },
+    "non_cex": {
+        "transactions": [
+            {
+                "contract": "SafeMath",
+                "function": "constructor",
+                "args": []
+            },
+            {
+               "contract": "Test",
+               "function": "constructor",
+               "args": []
+            },
+            {
+               "contract": "Test",
+               "function": "x",
+               "args": []
+            }
+        ]
+    },
+    "init_blockchain_states": 1
+}

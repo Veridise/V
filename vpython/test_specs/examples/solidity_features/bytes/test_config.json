@@ -1,0 +1,32 @@
+{
+    "timeout": 2,
+    "cex": {
+        "transactions": [
+            {
+                "contract": "Bytes",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "Bytes",
+                "function": "bytesConcat",
+                "args": []
+            }
+        ]
+    },
+    "non_cex": {
+        "transactions": [
+            {
+                "contract": "Bytes",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "Bytes",
+                "function": "d",
+                "args": []
+            }
+        ]
+    },
+    "init_blockchain_states": 1
+}

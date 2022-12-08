@@ -1,0 +1,36 @@
+{
+    "timeout": 2,
+    "cex": {
+        "transactions": [
+            {
+                "contract": "BytesString",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "BytesString",
+                "function": "f",
+                "args": [
+                    {"type": "bytes", "value": "cfcfcfcf"},
+                    {"type": "string", "value": "hello"},
+                    {"type": "bytes", "value": "cfcfcfcf"}
+                ]
+            }
+        ]
+    },
+    "non_cex": {
+        "transactions": [
+            {
+                "contract": "BytesString",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "BytesString",
+                "function": "s",
+                "args": []
+            }
+        ]
+    },
+    "init_blockchain_states": 1
+}

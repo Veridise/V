@@ -1,0 +1,67 @@
+{
+    "timeout": 10,
+    "cex": {
+        "transactions": [
+            {
+                "contract": "Example",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "Example",
+                "function": "set_y",
+                "args": [
+                    {"type": "int", "value": 10}
+                ]
+            },
+            {
+                "contract": "Example",
+                "function": "set_y",
+                "args": [
+                    {"type": "int", "value": 11}
+                ]
+            },
+            {
+                "contract": "Example",
+                "function": "set_x_one",
+                "args": []
+            }
+        ]
+    },
+    "non_cex": {
+        "transactions": [
+            {
+                "contract": "Example",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "Example",
+                "function": "set_y",
+                "args": [
+                    {"type": "int", "value": 2}
+                ]
+            },
+            {
+                "contract": "Example",
+                "function": "set_y",
+                "args": [
+                    {"type": "int", "value": 1}
+                ]
+            },
+            {
+                "contract": "Example",
+                "function": "set_y",
+                "args": [
+                    {"type": "int", "value": 1}
+                ]
+            },
+            {
+                "contract": "Example",
+                "function": "set_x_one",
+                "args": []
+            }
+        ]
+    },
+    "init_blockchain_states": 2
+}

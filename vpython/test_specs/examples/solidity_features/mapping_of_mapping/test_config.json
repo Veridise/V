@@ -1,0 +1,84 @@
+{
+    "timeout": 6000,
+    "cex": {
+        "free_vars": [
+            {"type": "address", "name": "o"},
+            {"type": "address", "name": "x"},
+            {"type": "address", "name": "y"}
+        ],
+        "transactions": [
+            {
+                "contract": "MappingOfMapping",
+                "function": "constructor",
+                "args": [
+                    {"type": "address", "value": "o"}
+                ]
+            },
+            {
+                "contract": "MappingOfMapping",
+                "function": "mint",
+                "args": [
+                    {"type": "address", "value": "x"},
+                    {"type": "uint256", "value": 100}
+                ],
+                "sender": "o"
+            },
+            {
+                "contract": "MappingOfMapping",
+                "function": "approve",
+                "args": [
+                    {"type": "address", "value": "y"},
+                    {"type": "uint256", "value": 75}
+                ],
+                "sender": "x"
+            },
+            {
+                "contract": "MappingOfMapping",
+                "function": "transferFrom",
+                "args": [
+                    {"type": "address", "value": "x"},
+                    {"type": "address", "value": "y"},
+                    {"type": "uint256", "value": 50}
+                ],
+                "sender": "y"
+            }
+        ]
+    },
+    "non_cex": {
+        "free_vars": [
+            {"type": "address", "name": "o"},
+            {"type": "address", "name": "x"},
+            {"type": "address", "name": "y"}
+        ],
+        "transactions": [
+            {
+                "contract": "MappingOfMapping",
+                "function": "constructor",
+                "args": [
+                    {"type": "address", "value": "o"}
+                ]
+            },
+            {
+                "contract": "MappingOfMapping",
+                "function": "mint",
+                "args": [
+                    {"type": "address", "value": "x"},
+                    {"type": "uint256", "value": 100}
+                ],
+                "sender": "o"
+            },
+            {
+                "contract": "MappingOfMapping",
+                "function": "transferFrom",
+                "args": [
+                    {"type": "address", "value": "x"},
+                    {"type": "address", "value": "y"},
+                    {"type": "uint256", "value": 50}
+                ],
+                "sender": "y"
+            }
+        ]
+    },
+    "init_blockchain_states": 1,
+    "num_users": 1
+}

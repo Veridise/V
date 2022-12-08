@@ -1,0 +1,103 @@
+{
+    "timeout": 150,
+    "cex": {
+        "free_vars": [
+            {"type": "address", "name": "x"},
+            {"type": "address", "name": "y"}
+        ],
+        "transactions": [
+            {
+                "contract": "MessageRecipient",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "Replica",
+                "function": "constructor",
+                "args": [
+                    {"type": "uint32", "value": 0}
+                ],
+                "sender": "x"
+            },
+            {
+                "contract": "Replica",
+                "function": "initialize",
+                "args": [
+                    {"type": "uint32", "value": 0},
+                    {"type": "address", "value": "0x0000000000000000000000000000000000000000"},
+                    {"type": "bytes32", "value": 0},
+                    {"type": "uint256", "value": 0}
+                ],
+                "sender": "x"
+            },
+            {
+                "contract": "Replica",
+                "function": "process",
+                "args": [
+                    {"type": "bytes", "value": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"}
+                ],
+                "sender": "y"
+            }
+        ]
+    },
+    "non_cex": {
+        "free_vars": [
+            {"type": "address", "name": "x"},
+            {"type": "address", "name": "y"}
+        ],
+        "transactions": [
+            {
+                "contract": "MessageRecipient",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "Replica",
+                "function": "constructor",
+                "args": [
+                    {"type": "uint32", "value": 0}
+                ],
+                "sender": "x"
+            },
+            {
+                "contract": "Replica",
+                "function": "initialize",
+                "args": [
+                    {"type": "uint32", "value": 0},
+                    {"type": "address", "value": "0x0000000000000000000000000000000000000000"},
+                    {"type": "bytes32", "value": 1},
+                    {"type": "uint256", "value": 0}
+                ],
+                "sender": "x"
+            },
+            {
+                "contract": "Replica",
+                "function": "process",
+                "args": [
+                    {"type": "bytes", "value": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"}
+                ],
+                "sender": "y"
+            }
+        ]
+    },
+    "init_blockchain_states": 1,
+    "hints": [
+        {
+            "hint_type": "bytes_format",
+            "contract": "Replica",
+            "function": "process",
+            "arg_idx": 0,
+            "arg_type": "bytes",
+            "format": [
+                {"type": "uint32"},
+                {"type": "padding96"},
+                {"type": "address"},
+                {"type": "uint32"},
+                {"type": "uint32"},
+                {"type": "padding96"},
+                {"type": "contract address"},
+                {"type": "bytes"}
+            ]
+        }
+    ]
+}

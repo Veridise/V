@@ -1,0 +1,52 @@
+{
+    "timeout": 2,
+    "deployment": {
+        "transactions": [
+            {
+                "contract": "Test",
+                "function": "constructor",
+                "args": [
+                    {"type": "uint256", "value": 1}
+                ]
+            },
+            {
+                "contract": "Test",
+                "function": "foo",
+                "args": [
+                    {"type": "uint256", "value": 2}
+                ]
+            },
+            {
+                "contract": "Test",
+                "function": "bar",
+                "args": [
+                    {"type": "uint256", "value": 3}
+                ]
+            }
+        ]
+    },
+    "cex": {
+        "transactions": [
+            {
+                "contract": "Test",
+                "function": "baz",
+            "args": [
+                {"type": "uint256", "value": 0}
+            ]
+            }
+        ]
+    },
+    "non_cex": {
+        "transactions": [
+            {
+                "contract": "Test",
+                "function": "foo",
+                "args": [
+                    {"type": "uint256", "value": 0}
+                ]
+            }
+        ]
+    },
+    "init_blockchain_states": 1,
+    "num_users": 1
+}

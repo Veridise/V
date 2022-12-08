@@ -1,0 +1,415 @@
+{
+    "free_vars":[
+        {"type": "contract address", "name": "am"},
+        {"type": "contract address", "name": "wm"},
+        {"type": "contract address", "name": "lp"},
+        {"type": "contract address", "name": "sp"},
+        {"type": "contract address", "name": "mv"},
+        {"type": "contract address", "name": "wp"},
+        {"type": "contract address", "name": "cs"},
+        {"type": "contract address", "name": "cr"},
+        {"type": "contract address", "name": "ct"},
+        {"type": "contract address", "name": "cv"},
+        {"type": "contract address", "name": "cet"},
+        {"type": "contract address", "name": "pg"},
+        {"type": "contract address", "name": "vt"},
+        {"type": "contract address", "name": "sk"},
+        {"type": "contract address", "name": "sj"},
+        {"type": "contract address", "name": "dog"},
+        {"type": "contract address", "name": "spotter"},
+        {"type": "contract address", "name": "rewards"},
+        {"type": "contract address", "name": "jug"},
+        {"type": "contract address", "name": "smatic"},
+        {"type": "contract address", "name": "interaction"},
+        {"type": "address", "name": "s"},
+        {"type": "address", "name": "s2"}
+    ],
+    "transactions":[
+        {
+            "contract": "aMATICc",
+            "function": "constructor",
+            "args": [],
+            "contract_instance": "am"
+        },
+        {
+            "contract": "wMATIC",
+            "function": "constructor",
+            "args": [],
+            "contract_instance": "wm"
+        },
+        {
+            "contract": "LP",
+            "function": "constructor",
+            "args": [],
+            "contract_instance": "lp"
+        },
+        {
+            "contract": "MasterVault",
+            "function": "constructor",
+            "args": [],
+            "contract_instance": "mv"
+        },
+        {
+            "contract": "SwapPool",
+            "function": "constructor",
+            "args": [],
+            "contract_instance": "sp"
+        },
+        {
+            "contract": "WaitingPool",
+            "function": "constructor",
+            "args": [],
+            "contract_instance": "wp"
+        },
+        {
+            "contract": "CerosYieldConverterStrategy",
+            "function": "constructor",
+            "args": [],
+            "contract_instance": "cs"
+        },
+        {
+            "contract": "CeToken",
+            "function": "constructor",
+            "args": [],
+            "contract_instance": "ct"
+        },
+        {
+            "contract": "CerosToken",
+            "function": "constructor",
+            "args": [],
+            "contract_instance": "cet"
+        },
+        {
+            "contract": "CeVault",
+            "function": "constructor",
+            "args": [],
+            "contract_instance": "cv"
+        },
+        {
+            "contract": "CerosRouter",
+            "function": "constructor",
+            "args": [],
+            "contract_instance": "cr"
+        },
+        {
+            "contract": "Vat",
+            "function": "constructor",
+            "args": [],
+            "contract_instance": "vt"
+        },
+        {
+            "contract": "Sikka",
+            "function": "constructor",
+            "args": [],
+            "contract_instance": "sk"
+        },
+        {
+            "contract": "SikkaJoin",
+            "function": "constructor",
+            "args": [],
+            "contract_instance": "sj"
+        },
+        {
+            "contract": "Dog",
+            "function": "constructor",
+            "args": [],
+            "contract_instance": "dog"
+        },
+        {
+            "contract": "Spotter",
+            "function": "constructor",
+            "args": [],
+            "contract_instance": "spotter"
+        },
+        {
+            "contract": "IkkaRewards",
+            "function": "constructor",
+            "args": [],
+            "contract_instance": "rewards"
+        },
+        {
+            "contract": "Jug",
+            "function": "constructor",
+            "args": [],
+            "contract_instance": "jug"
+        },
+        {
+            "contract": "sMATIC",
+            "function": "constructor",
+            "args": [],
+            "contract_instance": "smatic"
+        },
+        {
+            "contract": "Interaction",
+            "function": "constructor",
+            "args": [],
+            "contract_instance": "interaction"
+        },
+        {
+            "contract": "PriceGetter",
+            "function": "constructor",
+            "args": [
+                {"type": "address", "value": "s2"}
+            ],
+            "contract_instance": "pg"
+        },
+        {
+            "contract": "wMATIC",
+            "function": "initialize",
+            "args": [],
+            "contract_instance": "wm"
+        },
+        {
+            "contract": "LP",
+            "function": "initialize",
+            "args": [
+                {"type": "string", "value": "aMATICcLP"},
+                {"type": "string", "value": "aMATICcLP"}
+            ],
+            "contract_instance": "lp"
+        },
+        {
+            "contract": "SwapPool",
+            "function": "initialize",
+            "args": [
+                {"type": "address", "value": "wm"},
+                {"type": "address", "value": "cet"},
+                {"type": "address", "value": "lp"},
+                {"type": "bool", "value": false},
+                {"type": "bool", "value": false}
+            ],
+            "contract_instance": "sp"
+        },
+        {
+            "contract": "CeToken",
+            "function": "initialize",
+            "args": [
+                {"type": "string", "value": "CEROS aMATICc Vault Token"},
+                {"type": "string", "value": "ceaMATICc"}
+            ],
+            "contract_instance": "ct"
+        },
+        {
+            "contract": "CeVault",
+            "function": "initialize",
+            "args": [
+                {"type": "string", "value": "CEROS aMATICc Vault Token"},
+                {"type": "address", "value": "cet"},
+                {"type": "address", "value": "am"}
+            ],
+            "contract_instance": "cv"
+        },
+        {
+            "contract": "CerosRouter",
+            "function": "initialize",
+            "args": [
+                {"type": "address", "value": "cet"},
+                {"type": "address", "value": "wm"},
+                {"type": "address", "value": "ct"},
+                {"type": "address", "value": "cv"},
+                {"type": "address", "value": "0xE592427A0AEce92De3Edee1F18E0157C05861564"},
+                {"type": "uint24", "value": 3000},
+                {"type": "address", "value": "sp"},
+                {"type": "address", "value": "0x0000000000000000000000000000000000000000"}
+            ],
+            "contract_instance": "cr"
+        },
+        {
+            "contract": "sMATIC",
+            "function": "initialize",
+            "args": [],
+            "contract_instance": "smatic"
+        },
+        {
+            "contract": "MasterVault",
+            "function": "initialize",
+            "args": [
+                {"type": "string", "value": "CEROS MATIC Vault Token"},
+                {"type": "string", "value": "ceMATIC"},
+                {"type": "uint256", "value": 500000},
+                {"type": "uint256", "value": 500000},
+                {"type": "address", "value": "wm"},
+                {"type": "uint8", "value": 10},
+                {"type": "address", "value": "sp"}
+            ],
+            "contract_instance": "mv"
+        },
+        {
+            "contract": "CerosYieldConverterStrategy",
+            "function": "initialize",
+            "args": [
+                {"type": "address", "value": "cr"},
+                {"type": "address", "value": "s"},
+                {"type": "address", "value": "wm"},
+                {"type": "address", "value": "cet"},
+                {"type": "address", "value": "mv"},
+                {"type": "address", "value": "sp"}
+            ],
+            "contract_instance": "cs"
+        },
+        {
+            "contract": "WaitingPool",
+            "function": "initialize",
+            "args": [
+                {"type": "address", "value": "mv"},
+                {"type": "uint256", "value": 10}
+            ],
+            "contract_instance": "wp"
+        },
+        {
+            "contract": "LinearDecrease",
+            "function": "initialize",
+            "args": []
+        },
+        {
+            "contract": "MaticOracle",
+            "function": "initialize",
+            "args": [
+                {"type": "address", "value": "0xd0D5e3DB44DE05E9F294BB0a3bEEaF030DE24Ada"}
+            ]
+        },
+        {
+            "contract": "Vat",
+            "function": "initialize",
+            "args": [],
+            "contract_instance": "vt"
+        },
+        {
+            "contract": "Spotter",
+            "function": "initialize",
+            "args": [
+                {"type": "address", "value": "vt"}
+            ],
+            "contract_instance": "spotter"
+        },
+        {
+            "contract": "Sikka",
+            "function": "initialize",
+            "args": [
+                {"type": "uint256", "value": 80001},
+                {"type": "string", "value": "SIKKA"},
+                {"type": "uint256", "value": 5000000000000000000000000}
+            ],
+            "contract_instance": "sk"
+        },
+        {
+            "contract": "SikkaJoin",
+            "function": "initialize",
+            "args": [
+                {"type": "address", "value": "vt"},
+                {"type": "address", "value": "sk"}
+            ],
+            "contract_instance": "sj"
+        },
+        {
+            "contract": "GemJoin",
+            "function": "initialize",
+            "args": [
+                {"type": "address", "value": "vt"},
+                {"type": "bytes32", "value": "0x63654d41544943"},
+                {"type": "address", "value": "mv"}
+            ]
+        },
+        {
+            "contract": "Jug",
+            "function": "initialize",
+            "args": [
+                {"type": "address", "value": "vt"}
+            ],
+            "contract_instance": "jug"
+        },
+        {
+            "contract": "Vow",
+            "function": "initialize",
+            "args": [
+                {"type": "address", "value": "vt"},
+                {"type": "address", "value": "sj"},
+                {"type": "address", "value": "s"}
+            ]
+        },
+        {
+            "contract": "Dog",
+            "function": "initialize",
+            "args": [
+                {"type": "address", "value": "vt"}
+            ],
+            "contract_instance": "dog"
+        },
+        {
+            "contract": "Clipper",
+            "function": "initialize",
+            "args": [
+                {"type": "address", "value": "vt"},
+                {"type": "address", "value": "spotter"},
+                {"type": "address", "value": "dog"},
+                {"type": "bytes32", "value": "0x63654d41544943"}
+            ]
+        },
+        {
+            "contract": "IkkaRewards",
+            "function": "initialize",
+            "args": [
+                {"type": "address", "value": "vt"},
+                {"type": "uint256", "value": 100000000}
+            ],
+            "contract_instance": "rewards"
+        },
+        {
+            "contract": "Interaction",
+            "function": "initialize",
+            "args": [
+                {"type": "address", "value": "vt"},
+                {"type": "address", "value": "spotter"},
+                {"type": "address", "value": "sk"},
+                {"type": "address", "value": "sj"},
+                {"type": "address", "value": "jug"},
+                {"type": "address", "value": "dog"},
+                {"type": "address", "value": "rewards"}
+            ],
+            "contract_instance": "interaction"
+        },
+        {
+            "contract": "SikkaProvider",
+            "function": "initialize",
+            "args": [
+                {"type": "address", "value": "smatic"},
+                {"type": "address", "value": "mv"},
+                {"type": "address", "value": "interaction"}
+            ]
+        },
+        {
+            "contract": "MasterVault",
+            "function": "setWaitingPool",
+            "args": [
+                {"type": "address", "value": "wp"}
+            ],
+            "contract_instance": "mv"
+        },
+        {
+            "contract": "MasterVault",
+            "function": "changeProvider",
+            "args": [
+                {"type": "address", "value": "s"}
+            ],
+            "contract_instance": "mv"
+        },
+        {
+            "contract": "MasterVault",
+            "function": "addManager",
+            "args": [
+                {"type": "address", "value": "s"}
+            ],
+            "sender": "s",
+            "contract_instance": "mv"
+        },
+        {
+            "contract": "CeVault",
+            "function": "changeRouter",
+            "args": [
+                {"type": "address", "value": "cr"}
+            ],
+            "sender": "s",
+            "contract_instance": "cv"
+        }
+    ]
+}

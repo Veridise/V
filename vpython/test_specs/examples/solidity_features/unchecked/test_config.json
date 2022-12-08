@@ -1,0 +1,38 @@
+{
+    "timeout": 2,
+    "cex": {
+        "transactions": [
+            {
+                "contract": "Unchecked",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "Unchecked",
+                "function": "f",
+                "args": [
+                    {"type": "uint", "value": 1},
+                    {"type": "uint", "value": 10}
+                ]
+            }
+        ]
+    },
+    "non_cex": {
+        "transactions": [
+            {
+                "contract": "Unchecked",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "Unchecked",
+                "function": "g",
+                "args": [
+                    {"type": "uint", "value": 1},
+                    {"type": "uint", "value": 10}
+                ]
+            }
+        ]
+    },
+    "init_blockchain_states": 1
+}
