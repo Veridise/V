@@ -17,13 +17,14 @@ inputStream = antlr4.InputStream(spec)
 lexer = VLexer(inputStream)
 tokenStream = antlr4.CommonTokenStream(lexer)
 parser = VParser(tokenStream)
+print("Parsing the input to get parse tree")
 tree = parser.spec()
 # print(Trees.toStringTree(tree, None, parser))
 
 # Visit tree to get VAST
-# print("Converting to VAST using VASTGenVisitor")
-# visitor = VastGenVisitor()
-# vast = visitor.visit(tree)
+print("Converting to VAST using VASTGenVisitor")
+visitor = VastGenVisitor()
+vast = visitor.visit(tree)
 
 # Visit VAST and print string
 # print("Converting VAST to String using ToStringVisitor")

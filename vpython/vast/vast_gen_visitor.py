@@ -3,7 +3,7 @@ from antlr4 import *
 from dist.VParser import VParser
 from dist.VVisitor import VVisitor
 
-from vast import *
+from vast.vast import *
 
 class VastGenVisitor(VVisitor):
     """Visitor for generating VAST from antlr parse tree."""
@@ -137,8 +137,8 @@ class VastGenVisitor(VVisitor):
                 op_str = None
                 if ctx.T_BIN():
                     op_str = ctx.T_BIN().getText()
-                elif ctx.op != None:
-                    op_str = ctx.op.text
+                elif ctx.L_BIN():
+                    op_str = ctx.L_BIN().getText()
                 elif ctx.SEQ():
                     op_str = ctx.SEQ().getText()
                 elif ctx.IMP():
@@ -263,9 +263,12 @@ class VastGenVisitor(VVisitor):
             c1 = self.visitConstraint(ctx.constraint()[0])
             if len(ctx.constraint()) == 2:
                 c2 = self.visitConstraint(ctx.constraint()[1])
-                op_str = "==>"
-                if ctx.op != None:
-                    op_str = ctx.op.text
+                if(ctx.L_BIN()):
+                    op_str = ctx.L_BIN().getText()
+                elif(ctx.IMP()):
+                    op_str = ctx.IMP().getText()
+                else:
+                    raise Exception("[ERROR]: Unrecognized context: {}".format(ctx))
                 op = VBinOp(op_str)
                 return VBinExpr(c1, c2, op)
 
@@ -284,9 +287,6 @@ class VastGenVisitor(VVisitor):
                 return VUnExpr(expr, op)
             return expr
 
-        # if ctx.fnCall():
-        #     return self.visitFnCall(ctx.fnCall())
-
         if ctx.varOrNum():
             return self.visitVarOrNum(ctx.varOrNum())
 
@@ -302,23 +302,21 @@ class VastGenVisitor(VVisitor):
         if ctx.varOrNum():
             return self.visitVarOrNum(ctx.varOrNum())
 
-        # if ctx.fnCall():
-        #     return self.visitFnCall(ctx.fnCall())
-
         if len(ctx.arithExpr()) > 0:
             a1 = self.visitArithExpr(ctx.arithExpr()[0])
             if len(ctx.arithExpr()) == 2:
                 a2 = self.visitArithExpr(ctx.arithExpr()[1])
                 if ctx.A1_BIN():
                     op = VBinOp(ctx.A1_BIN())
-                if ctx.A2_BIN():
+                elif ctx.A2_BIN():
                     op = VBinOp(ctx.A2_BIN())
+                elif ctx.WILDCARD():
+                    op = VBinOp(ctx.WILDCARD())
                 else:
                     raise Exception("[ERROR]: Unrecognized context: {}".format(ctx))
                 
                 return VBinExpr(a1, a2, op)
             return a1
-        print(ctx.A2_BIN())
 
         raise Exception("[ERROR]: Unrecognized context: {}".format(ctx))
 
