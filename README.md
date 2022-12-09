@@ -164,3 +164,37 @@ git submodule update
 To update/sync V (or any sub-module), from within an external repo, use:
 
 ```git submodule update --init --recursive --remote```
+
+# V Python
+
+The folder `vpython/` contains the parser and visitors for the V language in Python. The grammar used is the same `V.g4` file and the VAST generating visitor currently only supports temporal specifications. Tested on antlr4 versions 4.9, 4.10, 4.11.
+
+### Building 
+
+```
+java -Xmx500M -cp ~/Downloads/antlr-4.11.1-complete.jar org.antlr.v4.Tool -Dlanguage=Python3 -o ./vpython/dist/ -visitor V.g4
+```
+
+This generates the lexer and parser python code in the folder `/vpython/dist`.
+
+### Code Organisation
+
+- The file `/vpython/parse.py` contains information on how to parse a given V spec to generate the VAST and then call VAST visitors on them. 
+- The folder `vpython/test_specs/orca-examples` contains orca V LTL  specification examples which is the current benchmark suite for testing V specs.
+- The script `vpython/run_specs.py` runs both the cpp and python version of V across all tests in the folder mentioned above. Please build the cpp version using `./build.sh` and generate the python visitors in the `/vpython/dist` folder before running this script
+
+### Running
+
+```bash
+cd vpython/
+python3 run_specs.py
+```
+to run all specs in the `vpython/test_specs/` using both cpp and python versions of V.
+
+or 
+
+```bash
+cd vpython/
+python3 parse.py path/to/spec/
+```
+to run a specific spec.

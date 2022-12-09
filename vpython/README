@@ -1,1 +1,3 @@
-java -Xmx500M -cp ~/Downloads/antlr-4.11.1-complete.jar org.antlr.v4.Tool -Dlanguage=Python3 ../V.g4 -visitor -o /dist
+# V
+
+This folder contains the python version of V lang. Please see the instructions in the main README file under the heading ***V Python***
