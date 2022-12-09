@@ -1,0 +1,32 @@
+{
+    "timeout": 2,
+    "cex": {
+        "transactions": [
+            {
+                "contract": "DestructAssignment",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "DestructAssignment",
+                "function": "g",
+                "args": []
+            }
+        ]
+    },
+    "non_cex": {
+        "transactions": [
+            {
+                "contract": "DestructAssignment",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "DestructAssignment",
+                "function": "f",
+                "args": []
+            }
+        ]
+    },
+    "init_blockchain_states": 1
+}

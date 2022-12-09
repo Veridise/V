@@ -1,0 +1,1 @@
+{"version":3,"file":"prettifier.d.ts","sourceRoot":"","sources":["../src/prettifier.ts"],"names":[],"mappings":"AAEA,OAAO,EAAE,GAAG,EAAE,MAAM,SAAS,CAAC;AAE9B,qBAAa,QAAQ;IACZ,KAAK,EAAE,GAAG,EAAE,CAAC;gBAER,IAAI,EAAE,GAAG,EAAE;IAIhB,GAAG,IAAI,GAAG,EAAE;IAIZ,QAAQ;CAsChB"}

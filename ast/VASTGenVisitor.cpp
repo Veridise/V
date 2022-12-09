@@ -482,7 +482,7 @@ namespace vastgenvisitor {
   VConstraintExpr* VASTGenVisitor::visitFnCall(VParser::FnCallContext *ctx) {
     if (ctx->FSUM()) {
       VFunctionID *func = visitAtomFn(ctx->atomFn());
-      VConstraintExpr* arg = visitVarOrNum(ctx->varOrNum());
+      VConstraintExpr* arg = visitArithExpr(ctx->arithExpr());
       VConstraintExpr* con = visitConstraint(ctx->constraint());
 
       return new VFSumExpr(func, arg, con);
@@ -579,6 +579,9 @@ namespace vastgenvisitor {
           op_str = ctx->A1_BIN()->getText();
         } else if (ctx->A2_BIN()) {
           op_str = ctx->A2_BIN()->getText();
+        }
+        else if (ctx->WILDCARD()) {
+          op_str = ctx->WILDCARD()->getText();
         }
         VBinOp *op = new VBinOp(op_str);
         return new VBinExpr(a1, a2, op);

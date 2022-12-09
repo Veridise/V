@@ -1,0 +1,37 @@
+{
+    "timeout": 2,
+    "cex": {
+        "transactions": [
+            {
+                "contract": "FunctionOverloading",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "FunctionOverloading",
+                "function": "f",
+                "args": [
+                    {"type": "uint", "value": 0}
+                ]
+            }
+        ]
+    },
+    "non_cex": {
+        "transactions": [
+            {
+                "contract": "FunctionOverloading",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "FunctionOverloading",
+                "function": "f",
+                "args": [
+                    {"type": "uint", "value": 0},
+                    {"type": "bool", "value": true}
+                ]
+            }
+        ]
+    },
+    "init_blockchain_states": 1
+}

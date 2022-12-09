@@ -1,0 +1,69 @@
+{
+    "timeout": 1500,
+    "cex": {
+        "free_vars": [
+            {"type": "address", "name": "x"}
+        ],
+        "transactions": [
+            {
+                "contract": "SFRToken",
+                "function": "constructor",
+                "args": [],
+                "sender": "x"
+            },
+            {
+                "contract": "SFRToken",
+                "function": "approve",
+                "args": [
+                    {"type": "address", "value": "x"},
+                    {"type": "uint256", "value": 100}
+                ],
+                "sender": "x"
+            },
+            {
+                "contract": "SFRToken",
+                "function": "transferFrom",
+                "args": [
+                    {"type": "address", "value": "x"},
+                    {"type": "address", "value": "0x0000000000000000000000000000000000000000"},
+                    {"type": "uint256", "value": 99}
+                ],
+                "sender": "x"
+            }
+        ]
+    },
+    "non_cex": {
+        "free_vars": [
+            {"type": "address", "name": "x"}
+        ],
+        "transactions": [
+            {
+                "contract": "SFRToken",
+                "function": "constructor",
+                "args": [],
+                "sender": "x"
+            },
+            {
+                "contract": "SFRToken",
+                "function": "approve",
+                "args": [
+                    {"type": "address", "value": "x"},
+                    {"type": "uint256", "value": 1000}
+                ],
+                "sender": "x"
+            },
+            {
+                "contract": "SFRToken",
+                "function": "transferFrom",
+                "args": [
+                    {"type": "address", "value": "x"},
+                    {"type": "address", "value": "x"},
+                    {"type": "uint256", "value": 99}
+                ],
+                "sender": "x"
+            }
+        ]
+    },
+    "init_blockchain_states": 10,
+    "num_users": 1
+}

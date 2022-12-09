@@ -1,0 +1,32 @@
+{
+    "timeout": 2,
+    "cex": {
+        "transactions": [
+            {
+                "contract": "StructEnum",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "StructEnum",
+                "function": "setVoterAndState",
+                "args": []
+            }
+        ]
+    },
+    "non_cex": {
+        "transactions": [
+            {
+                "contract": "StructEnum",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "StructEnum",
+                "function": "state",
+                "args": []
+            }
+        ]
+    },
+    "init_blockchain_states": 1
+}

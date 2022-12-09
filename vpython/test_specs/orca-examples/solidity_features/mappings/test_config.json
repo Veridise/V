@@ -1,0 +1,39 @@
+{
+    "timeout": 2,
+    "cex": {
+        "transactions": [
+            {
+                "contract": "Mappings",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "Mappings",
+                "function": "f",
+                "args": []
+            }
+        ]
+    },
+    "non_cex": {
+        "transactions": [
+            {
+                "contract": "MappingExample",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "Mappings",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "MappingExample",
+                "function": "update",
+                "args": [
+                    {"type": "uint", "value": 10}
+                ]
+            }
+        ]
+    },
+    "init_blockchain_states": 1
+}

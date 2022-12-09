@@ -1,0 +1,32 @@
+{
+    "timeout": 2,
+    "cex": {
+        "transactions": [
+            {
+                "contract": "AddressMembers",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "AddressMembers",
+                "function": "f",
+                "args": []
+            }
+        ]
+    },
+    "non_cex": {
+        "transactions": [
+            {
+                "contract": "AddressMembers",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "AddressMembers",
+                "function": "foo",
+                "args": []
+            }
+        ]
+    },
+    "init_blockchain_states": 1
+}

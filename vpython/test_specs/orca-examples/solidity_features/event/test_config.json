@@ -1,0 +1,34 @@
+{
+    "timeout": 2,
+    "cex": {
+        "transactions": [
+            {
+                "contract": "Event",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "Event",
+                "function": "deposit",
+                "args": [
+                    {"type": "bytes32", "value": "cfcfcfcfcfcfcfcfcfcfcfcfcfcfcfcf"}
+                ]
+            }
+        ]
+    },
+    "non_cex": {
+        "transactions": [
+            {
+                "contract": "Event",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "Event",
+                "function": "foo",
+                "args": []
+            }
+        ]
+    },
+    "init_blockchain_states": 1
+}

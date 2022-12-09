@@ -1,0 +1,36 @@
+{
+    "timeout": 10,
+    "cex": {
+        "transactions": [
+            {
+                "contract": "Example",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "Example",
+                "function": "set_y",
+                "args": [
+                    {"type": "int", "value": 10}
+                ]
+            }
+        ]
+    },
+    "non_cex": {
+        "transactions": [
+            {
+                "contract": "Example",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "Example",
+                "function": "set_y",
+                "args": [
+                    {"type": "int", "value": -10}
+                ]
+            }
+        ]
+    },
+    "init_blockchain_states": 1
+}

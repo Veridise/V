@@ -1,0 +1,49 @@
+{
+    "timeout": 2,
+    "cex": {
+        "free_vars": [
+            {"type": "address", "name": "x"},
+            {"type": "address", "name": "y"},
+            {"type": "contract address", "name": "c"}
+        ],
+        "transactions": [
+            {
+            "contract": "Boolean",
+            "function": "constructor",
+            "args": [],
+            "sender": "x",
+            "contract_instance": "c"
+            },
+            {
+            "contract": "Boolean",
+            "function": "methods",
+            "args": [],
+            "sender": "y",
+            "contract_instance": "c"
+            }
+        ]
+    },
+    "non_cex": {
+        "free_vars": [
+            {"type": "address", "name": "x"},
+            {"type": "contract address", "name": "c"}
+        ],
+        "transactions": [
+            {
+            "contract": "Boolean",
+            "function": "constructor",
+            "args": [],
+            "sender": "x",
+            "contract_instance": "c"
+            },
+            {
+            "contract": "Boolean",
+            "function": "a",
+            "args": [],
+            "sender": "x",
+            "contract_instance": "c"
+            }
+        ]
+    },
+    "init_blockchain_states": 1
+}

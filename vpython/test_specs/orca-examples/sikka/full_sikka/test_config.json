@@ -1,0 +1,38 @@
+{
+    "timeout": 90,
+    "deployment": "deployment.json",
+    "include_path": "node_modules",
+    "init_blockchain_states": 1,
+    "fuzz_targets": [
+        "WaitingPool",
+        "MasterVault"
+    ],
+    "fuzzing_blacklist": [
+        {"contract": "MasterVault", "function": "setWaitingPool"},
+        {"contract": "MasterVault", "function": "changeProvider"}
+    ],
+    "num_users": 1,
+    "compiler_optimize": true,
+    "cex": {
+        "transactions": [
+            {
+                "contract": "MasterVault",
+                "function": "depositETH",
+                "args": [],
+                "value": 10
+            }
+        ]
+    },
+    "non_cex": {
+        "transactions": [
+            {
+                "contract": "MasterVault",
+                "function": "withdrawETH",
+                "args": [
+                    {"type": "address", "value": "0x0000000000000000000000000000000000000000"},
+                    {"type": "uint256", "value": 10}
+                ]
+            }
+        ]
+    }
+}

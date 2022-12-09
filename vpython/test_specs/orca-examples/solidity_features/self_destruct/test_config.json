@@ -1,0 +1,32 @@
+{
+    "timeout": 2,
+    "cex": {
+        "transactions": [
+            {
+                "contract": "SelfDestruct",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "SelfDestruct",
+                "function": "close",
+                "args": []
+            }
+        ]
+    },
+    "non_cex": {
+        "transactions": [
+            {
+                "contract": "SelfDestruct",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "SelfDestruct",
+                "function": "retrieve",
+                "args": []
+            }
+        ]
+    },
+    "init_blockchain_states": 1
+}

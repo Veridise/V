@@ -1,0 +1,72 @@
+{
+    "timeout": 5,
+    "deployment": {
+        "free_vars": [
+            {"type": "contract address", "name": "a"},
+            {"type": "contract address", "name": "b"},
+            {"type": "contract address", "name": "c"},
+            {"type": "contract address", "name": "d"}
+        ],
+        "transactions": [
+            {
+                "contract": "D",
+                "function": "constructor",
+                "args": [],
+                "contract_instance": "d"
+            },
+            {
+                "contract": "C",
+                "function": "constructor",
+                "args": [
+                    {"type": "address", "value": "d"}
+                ],
+                "contract_instance": "c"
+            },
+            {
+                "contract": "B",
+                "function": "constructor",
+                "args": [
+                    {"type": "address", "value": "c"}
+                ],
+                "contract_instance": "b"
+            },
+            {
+                "contract": "A",
+                "function": "constructor",
+                "args": [],
+                "contract_instance": "a"
+            },
+            {
+                "contract": "A",
+                "function": "set_b",
+                "args": [
+                    {"type": "address", "value": "b"}
+                ],
+                "contract_instance": "a"
+            }
+        ]
+    },
+    "cex": {
+        "transactions": [
+            {
+                "contract": "A",
+                "function": "trigger_alert",
+                "args": [],
+                "contract_instance": "a"
+            }
+        ]
+    },
+    "non_cex": {
+        "transactions": [
+            {
+                "contract": "A",
+                "function": "set_b",
+                "args": [
+                    {"type": "address", "value": "0x0000000000000000000000000000000000000000"}
+                ]
+            }
+        ]
+    },
+    "init_blockchain_states": 1,
+    "num_users": 1
+}

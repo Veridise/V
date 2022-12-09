@@ -1,0 +1,75 @@
+{
+    "timeout": 45,
+    "cex": {
+        "free_vars": [
+            {"type": "contract address", "name": "c1"},
+            {"type": "contract address", "name": "c2"}
+        ],
+        "transactions": [
+            {
+                "contract": "InfoFeed",
+                "function": "constructor",
+                "args": [],
+                "contract_instance": "c1"
+            },
+            {
+                "contract": "ExternalFuncCall",
+                "function": "constructor",
+                "args": [],
+                "contract_instance": "c2"
+            },
+            {
+                "contract": "ExternalFuncCall",
+                "function": "setFeed",
+                "args": [
+                    {"type": "address", "value": "c1"}
+                ],
+                "contract_instance": "c2"
+            },
+            {
+                "contract": "ExternalFuncCall",
+                "function": "callFeed",
+                "args": [],
+                "value": 20,
+                "contract_instance": "c2"
+            }
+        ]
+    },
+    "non_cex": {
+        "free_vars": [
+            {"type": "contract address", "name": "c1"},
+            {"type": "contract address", "name": "c2"}
+        ],
+        "transactions": [
+            {
+                "contract": "InfoFeed",
+                "function": "constructor",
+                "args": [],
+                "contract_instance": "c1"
+            },
+            {
+                "contract": "ExternalFuncCall",
+                "function": "constructor",
+                "args": [],
+                "contract_instance": "c2"
+            },
+            {
+                "contract": "ExternalFuncCall",
+                "function": "setFeed",
+                "args": [
+                    {"type": "address", "value": "0x0000000000000000000000000000000000000000"}
+                ],
+                "contract_instance": "c2"
+            },
+            {
+                "contract": "ExternalFuncCall",
+                "function": "callFeed",
+                "args": [],
+                "value": 20,
+                "contract_instance": "c2"
+            }
+        ]
+    },
+    "init_blockchain_states": 10,
+    "num_users": 1
+}

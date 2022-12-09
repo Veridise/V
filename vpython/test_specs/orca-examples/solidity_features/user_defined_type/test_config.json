@@ -1,0 +1,34 @@
+{
+    "timeout": 2,
+    "cex": {
+        "transactions": [
+            {
+                "contract": "UserDefinedType",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "UserDefinedType",
+                "function": "toUFixed256x18",
+                "args": [
+                    {"type": "uint256", "value": 10}
+                ]
+            }
+        ]
+    },
+    "non_cex": {
+        "transactions": [
+            {
+                "contract": "UserDefinedType",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "UserDefinedType",
+                "function": "dummy",
+                "args": []
+            }
+        ]
+    },
+    "init_blockchain_states": 1
+}

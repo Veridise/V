@@ -27,7 +27,7 @@ int main(int argc, const char **argv) {
     std::string spec((std::istreambuf_iterator<char>(specfile)),
                      (std::istreambuf_iterator<char>()));
     
-    std::cout<<"Parsing the specfile with ANTLR \n";
+    std::cout<<"V-Cpp: Parsing the specfile with ANTLR \n";
     ANTLRInputStream input(spec.c_str());
     VLexer lexer(&input);
     CommonTokenStream tokens(&lexer);
@@ -35,18 +35,18 @@ int main(int argc, const char **argv) {
     VParser parser(&tokens);
     VParser::SpecContext* tree = parser.spec();
 
-    std::cout<<"Creating the VAST using (parse tree) VASTGenVisitor \n";
+    std::cout<<"V-Cpp: Creating the VAST using (parse tree) VASTGenVisitor \n";
     VASTGenVisitor visitor;
     VAST* ast = visitor.visitSpec(tree);
 
     //Using the ToString visitor.
-    std::cout<<"Converting VAST to String using the VAST ToStringVisitor \n";
+    std::cout<<"V-Cpp: Converting VAST to String using the VAST ToStringVisitor \n";
     vastvisitor::ToStringVisitor tsvisitor;
     string vastString = std::any_cast<std::string>(tsvisitor.visit(ast));
     std::cout<<vastString <<"\n";
 
     //Using the ToPropLTL visitor.
-    std::cout<<"Converting VAST to propostional LTL using the VAST ToPropLTLVisitor \n";
+    std::cout<<"V-Cpp: Converting VAST to propostional LTL using the VAST ToPropLTLVisitor \n";
     vastvisitor::ToPropLTLVisitor tpvisitor;
     try{
       string vastPropString = std::any_cast<std::string>(tpvisitor.visit(ast));
@@ -59,13 +59,13 @@ int main(int argc, const char **argv) {
     }
 
     // Using the ToJson visitor.
-    std::cout<<"Converting VAST to JSON using the VAST ToJsonVisitor \n";
+    std::cout<<"V-Cpp: Converting VAST to JSON using the VAST ToJsonVisitor \n";
     vastvisitor::ToJsonVisitor tjvisitor;
     json vastJsonString = std::any_cast<json>(tjvisitor.visit(ast));
     std::cout<<vastJsonString<<"\n \n";
 
     // Using the inbuilt Json function.
-    std::cout<<"Converting VAST to JSON without using any visitor \n";
+    std::cout<<"V-Cpp: Converting VAST to JSON without using any visitor \n";
     json ast_json = ast->toJson();
     std::cout << ast_json << "\n \n";
   }

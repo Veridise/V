@@ -1,0 +1,71 @@
+{
+    "timeout": 600,
+    "cex": {
+        "free_vars": [
+            {"type": "address", "name": "x"},
+            {"type": "address", "name": "y"}
+        ],
+        "transactions": [
+            {
+                "contract": "SFRToken",
+                "function": "constructor",
+                "args": [],
+                "sender": "x"
+            },
+            {
+                "contract": "SFRToken",
+                "function": "approve",
+                "args": [
+                    {"type": "address", "value": "x"},
+                    {"type": "uint256", "value": 1000}
+                ],
+                "sender": "x"
+            },
+            {
+                "contract": "SFRToken",
+                "function": "transferFrom",
+                "args": [
+                    {"type": "address", "value": "x"},
+                    {"type": "address", "value": "y"},
+                    {"type": "uint256", "value": 1000}
+                ],
+                "sender": "x"
+            }
+        ]
+    },
+    "non_cex": {
+        "free_vars": [
+            {"type": "address", "name": "x"},
+            {"type": "address", "name": "y"}
+        ],
+        "transactions": [
+            {
+                "contract": "SFRToken",
+                "function": "constructor",
+                "args": [],
+                "sender": "x"
+            },
+            {
+                "contract": "SFRToken",
+                "function": "approve",
+                "args": [
+                    {"type": "address", "value": "x"},
+                    {"type": "uint256", "value": 1000}
+                ],
+                "sender": "x"
+            },
+            {
+                "contract": "SFRToken",
+                "function": "transferFrom",
+                "args": [
+                    {"type": "address", "value": "x"},
+                    {"type": "address", "value": "y"},
+                    {"type": "uint256", "value": 99}
+                ],
+                "sender": "x"
+            }
+        ]
+    },
+    "init_blockchain_states": 1,
+    "num_users": 2
+}

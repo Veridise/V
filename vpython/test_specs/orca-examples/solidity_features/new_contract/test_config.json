@@ -1,0 +1,38 @@
+{
+    "timeout": 2,
+    "cex": {
+        "transactions": [
+            {
+                "contract": "NewContract",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "NewContract",
+                "function": "createAndEndowD",
+                "args": [
+                    {"type": "uint", "value": 10},
+                    {"type": "uint", "value": 10}
+                ],
+                "value": 100
+            }
+        ]
+    },
+    "non_cex": {
+        "transactions": [
+            {
+                "contract": "NewContract",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "NewContract",
+                "function": "createD",
+                "args": [
+                    {"type": "uint", "value": 10}
+                ]
+            }
+        ]
+    },
+    "init_blockchain_states": 1
+}

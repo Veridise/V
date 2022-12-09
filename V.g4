@@ -144,11 +144,11 @@ boolExpr    : varOrNum
 
 arithExpr   : varOrNum
             | LPAREN arithExpr RPAREN
-            | arithExpr A1_BIN arithExpr
+            | arithExpr (WILDCARD | A1_BIN) arithExpr
             | arithExpr A2_BIN arithExpr
             ;
 
-fnCall      : FSUM LPAREN atomFn COMMA varOrNum COMMA constraint RPAREN
+fnCall      : FSUM LPAREN atomFn COMMA arithExpr COMMA constraint RPAREN
             | fnName LPAREN argList RPAREN
             ;
             
@@ -225,7 +225,7 @@ T_UN       : ('<>' | 'X') ; // also includes '[]' but necessary in types also so
 PATH       : '"'[@./][a-zA-Z0-9/._\-]+'"' ;
 IDENTIFIER : [a-zA-Z_][a-zA-Z_0-9]* ;
 
-A1_BIN     : ('*' | '/') ;
+A1_BIN     : ('/' | '%') ;
 A2_BIN     : ('+' | '-') ;
 A_UN       : '-';
 C_BIN      : ('=' | '!=' | '<' | '>' | '<=' | '>=') ;

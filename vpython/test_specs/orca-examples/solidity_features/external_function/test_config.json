@@ -1,0 +1,63 @@
+{
+    "timeout": 45,
+    "cex": {
+        "free_vars": [
+            {"type": "contract address", "name": "c1"},
+            {"type": "contract address", "name": "c2"}
+        ],
+        "transactions": [
+            {
+            "contract": "Oracle",
+            "function": "constructor",
+            "args": [],
+            "contract_instance": "c1"
+        },
+            {
+            "contract": "ExternalFunction",
+            "function": "constructor",
+            "args": [
+                {"type": "address", "value": "c1"}
+            ],
+            "contract_instance": "c2"
+        },
+            {
+            "contract": "ExternalFunction",
+            "function": "buySomething",
+            "args": [],
+            "contract_instance": "c2"
+        }
+        ]
+    },
+    "non_cex": {
+        "free_vars": [
+            {"type": "contract address", "name": "c1"},
+            {"type": "contract address", "name": "c2"}
+        ],
+        "transactions": [
+            {
+            "contract": "Oracle",
+            "function": "constructor",
+            "args": [],
+            "contract_instance": "c1"
+        },
+            {
+            "contract": "ExternalFunction",
+            "function": "constructor",
+            "args": [
+                {"type": "address", "value": "c1"}
+            ],
+            "contract_instance": "c2"
+        },
+            {
+            "contract": "ExternalFunction",
+            "function": "oracleResponse",
+            "args": [
+                {"type": "uint", "value": 0}
+            ],
+            "contract_instance": "c2"
+        }
+        ]
+    },
+    "init_blockchain_states": 30,
+    "num_users": 1
+}

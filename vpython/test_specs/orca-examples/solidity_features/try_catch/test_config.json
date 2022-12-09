@@ -1,0 +1,55 @@
+{
+    "timeout": 5,
+    "cex": {
+        "free_vars": [
+            {"type": "address", "name": "x"},
+            {"type": "contract address", "name": "c"}
+        ],
+        "transactions": [
+            {
+                "contract": "MyDataFeed",
+                "function": "constructor",
+                "args": [],
+                "contract_instance": "c"
+            },
+            {
+                "contract": "TryCatch",
+                "function": "constructor",
+                "args": [
+                    {"type": "address", "value": "c"}
+                ]
+            },
+            {
+                "contract": "TryCatch",
+                "function": "rate",
+                "args": [
+                    {"type": "address", "value": "x"}
+                ]
+            }
+        ]
+    },
+    "non_cex": {
+        "free_vars": [
+            {"type": "address", "name": "x"},
+            {"type": "address", "name": "c"}
+        ],
+        "transactions": [
+            {
+                "contract": "TryCatch",
+                "function": "constructor",
+                "args": [
+                    {"type": "address", "value": "c"}
+                ]
+            },
+            {
+                "contract": "TryCatch",
+                "function": "rate",
+                "args": [
+                    {"type": "address", "value": "x"}
+                ]
+            }
+        ]
+    },
+    "init_blockchain_states": 10,
+    "num_users": 1
+}

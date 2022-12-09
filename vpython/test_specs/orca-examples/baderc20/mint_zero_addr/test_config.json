@@ -1,0 +1,49 @@
+{
+    "timeout": 5,
+    "cex": {
+        "free_vars": [
+            {"type": "address", "name": "x"}
+        ],
+        "transactions": [
+            {
+                "contract": "SFRToken",
+                "function": "constructor",
+                "args": [],
+                "sender": "x"
+            },
+            {
+                "contract": "SFRToken",
+                "function": "_mint",
+                "args": [
+                    {"type": "address", "value": "0x0000000000000000000000000000000000000000"},
+                    {"type": "uint256", "value": 1000}
+                ],
+                "sender": "x"
+            }
+        ]
+    },
+    "non_cex": {
+        "free_vars": [
+            {"type": "address", "name": "x"}
+        ],
+        "transactions": [
+            {
+                "contract": "SFRToken",
+                "function": "constructor",
+                "args": [],
+                "sender": "x"
+            },
+            {
+                "contract": "SFRToken",
+                "function": "_mint",
+                "args": [
+                    {"type": "address", "value": "x"},
+                    {"type": "uint256", "value": 9}
+                ],
+                "sender": "x"
+            }
+        ]
+    },
+    "init_blockchain_states": 1,
+    "num_users": 1
+}

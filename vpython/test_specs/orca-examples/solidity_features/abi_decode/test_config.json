@@ -1,0 +1,38 @@
+{
+    "timeout": 10,
+    "cex": {
+        "transactions": [
+            {
+               "contract": "AbiDecode",
+               "function": "constructor",
+               "args": [
+                   {"type": "address", "value": "0x0000000000000000000000000000000000000000"}
+               ]
+            },
+            {
+               "contract": "AbiDecode",
+               "function": "forward",
+               "args": [
+                   {"type": "bytes", "value": "cfcfcfcfcfcfcfcfcfcfcfcfcfcfcfcfcfcfcfcfcfcf"}
+               ]
+            }
+        ]
+    },
+    "non_cex": {
+        "transactions": [
+            {
+               "contract": "AbiDecode",
+               "function": "constructor",
+               "args": [
+                   {"type": "address", "value": "0x0000000000000000000000000000000000000000"}
+               ]
+            },
+            {
+               "contract": "AbiDecode",
+               "function": "foo",
+               "args": []
+            }
+        ],
+        "init_blockchain_states": 1
+    }
+}

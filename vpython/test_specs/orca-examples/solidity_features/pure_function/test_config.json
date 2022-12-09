@@ -1,0 +1,33 @@
+{
+    "timeout": 2,
+    "cex": {
+        "transactions": [
+            {
+                "contract": "PureFunction",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "PureFunction",
+                "function": "f",
+                "args": []
+            }
+        ]
+    },
+    "non_cex": {
+        "transactions": [
+            {
+                "contract": "PureFunction",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "PureFunction",
+                "function": "foo",
+                "args": []
+            }
+        ]
+    },
+    "init_blockchain_states": 1,
+    "fuzz_pure": true
+}

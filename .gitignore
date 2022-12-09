@@ -5,3 +5,5 @@ libs/*.cpp
 libs/*.h
 libs/*.tokens
 .vscode/
+.pyc
+vpython/dist/*

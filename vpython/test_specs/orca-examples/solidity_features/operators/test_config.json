@@ -1,0 +1,32 @@
+{
+    "timeout": 2,
+    "cex": {
+        "transactions": [
+            {
+                "contract": "Operators",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "Operators",
+                "function": "f",
+                "args": []
+            }
+        ]
+    },
+    "non_cex": {
+        "transactions": [
+            {
+                "contract": "Operators",
+                "function": "constructor",
+                "args": []
+            },
+            {
+                "contract": "Operators",
+                "function": "foo",
+                "args": []
+            }
+        ]
+    },
+    "init_blockchain_states": 1
+}
